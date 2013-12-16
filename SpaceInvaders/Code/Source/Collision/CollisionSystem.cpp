@@ -30,6 +30,8 @@ void CollisionSystem::TogglePause(bool active)
 void CollisionSystem::Reset()
 {
 	m_CollisionEntityList.clear();
+	m_PlayerCollisionEntityList.clear();
+	m_EnemyCollisionEntityList.clear();
 }
 
 /// <summary>

@@ -2,12 +2,14 @@
 #include <System\StdLibraries.h>
 #include <System\Resource.h>
 #include <GameView\ImageResource.h>
+#include <GameView\RenderSystem.h>
 #include <3rdParty\System.h>
 #include <SDL_image.h>
 
+
 using namespace GameSystem;
 using namespace Graphics;
-
+extern RenderSystem * g_pRenderSystem;
 /// <summary>
 /// Creates the handle to a ImageResource. Handles are the one that really consume memory
 /// </summary>
@@ -44,7 +46,7 @@ void ImageResHandle::Load()
 
 	ASSERT_DESCRIPTION(result == 0, "SDL_SetColorKey failed: " << SDL_GetError());
 
-	m_Texture = SDL_CreateTextureFromSurface(SDL_System::GetRenderer(), loadedSurface);
+	m_Texture = SDL_CreateTextureFromSurface(g_pRenderSystem->GetRenderer(), loadedSurface);
 	ASSERT_DESCRIPTION(m_Texture == nullptr, "Create Texture from surface failed: " << IMG_GetError());
 
 	ASSERT_RESULT_DECL(const int error, SDL_QueryTexture(m_Texture, &m_Format, &m_Access, &m_Width, &m_Height));

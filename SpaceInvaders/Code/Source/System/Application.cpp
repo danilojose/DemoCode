@@ -5,7 +5,7 @@
 #include <3rdParty\System.h>
 #include <System\Assert.h>
 #include <time.h>
-#include <vld.h>
+
 using namespace GameSystem;
 
 const uint8_t MAX_LOADSTRING=100;
@@ -59,8 +59,10 @@ bool GameCodeApp::update(uint32_t deltaTime)
 /// </summary>
 void GameCodeApp::render() const
 {
+	m_pRenderSystem->OnPreRender();
 	m_pUISystem->OnRender();
 	m_pRenderSystem->OnRender();
+	m_pRenderSystem->OnPostRender();
 }
 
 /// <summary>
@@ -95,7 +97,7 @@ bool GameCodeApp::InitInstance(int screenWidth, int screenHeight)
 	if (!m_pGame)
 		return false;
 
-	m_pRenderSystem = std::shared_ptr<RenderSystem>(GCC_NEW RenderSystem());
+	m_pRenderSystem = std::shared_ptr<RenderSystem>(GCC_NEW RenderSystem(SDL_System::GetWindow()));
 	if (!m_pRenderSystem)
 		return false;
 
@@ -150,9 +152,7 @@ bool GameCodeApp::MainLoop()
 		continueUpdating = update(deltaTime);
 		if (!continueUpdating)
 			break;
-		SDL_System::Clear();
 		render();
-		SDL_System::Render();
 		Input::setMouseMotion(0, 0);
 		Input::setMouseDown(false);
 		while (SDL_PollEvent(&event))

@@ -10,12 +10,12 @@ public:
 	~SDL_System();
 
 	static void Init(unsigned int screenWidth,unsigned int screenHeight);
-	static void Clear();
-	static void Render();
-	static SDL_Renderer* GetRenderer();
+
+	static SDL_Window* GetWindow() {
+		return s_window;
+	}
 
 private:
-	static SDL_Renderer* s_renderer;
 	static SDL_Window* s_window;
 
 	

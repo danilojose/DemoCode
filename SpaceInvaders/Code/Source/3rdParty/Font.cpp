@@ -2,6 +2,10 @@
 #include <3rdParty\System.h>
 #include <System\Assert.h>
 #include <iostream>
+#include <GameView\RenderSystem.h>
+
+using namespace Graphics;
+extern RenderSystem * g_pRenderSystem;
 
 Font::Font() :
 	m_font(0)
@@ -36,11 +40,11 @@ Font::render(const std::string& text, int x, int y, float r, float g, float b) c
 
 	//Render the message to an SDL_Surface, as that's what TTF_RenderText_X returns
 	SDL_Surface *textSurface = TTF_RenderText_Blended(m_font, text.c_str(), forgroundColor);
-	SDL_Texture *texture = SDL_CreateTextureFromSurface(SDL_System::GetRenderer(), textSurface);
+	SDL_Texture *texture = SDL_CreateTextureFromSurface(g_pRenderSystem->GetRenderer(), textSurface);
 
 	SDL_Rect rect = {static_cast<Sint16>(x), static_cast<Sint16>(y), 40, 20};
 
-	ASSERT_RESULT_DECL(const int result, SDL_RenderCopy(SDL_System::GetRenderer(), texture, NULL, &rect));
+	ASSERT_RESULT_DECL(const int result, SDL_RenderCopy(g_pRenderSystem->GetRenderer(), texture, NULL, &rect));
 	ASSERT_DESCRIPTION(result==0, "SDL_RenderCopy for text failed: " << SDL_GetError());
 
 	SDL_FreeSurface(textSurface);

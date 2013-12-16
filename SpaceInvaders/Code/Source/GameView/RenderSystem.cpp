@@ -5,13 +5,14 @@
 #include <3rdParty\System.h>
 
 extern GameCodeApp * g_pApp;
-
+SDL_Renderer* RenderSystem::m_Renderer = nullptr;
 RenderSystem * g_pRenderSystem;
 using namespace Graphics;
 /// <summary>
-/// Initializes a new instance of the <see cref="RenderSystem"/> class.
+/// Initializes a new instance of the <see cref="RenderSystem" /> class.
 /// </summary>
-RenderSystem::RenderSystem()
+/// <param name="window">The window.</param>
+RenderSystem::RenderSystem(SDL_Window* window)
 {
 	m_pGraphicsComponentListener = EventListenerPtr(GCC_NEW RenderEntityListener(this));
 	IEventManager::Get()->VAddListener(m_pGraphicsComponentListener, EvtData_UpdatePosition::sk_EventType);
@@ -20,8 +21,17 @@ RenderSystem::RenderSystem()
 	m_RenderEntityList.clear();
 	g_pRenderSystem = this;
 
-}
+	ASSERT_DESCRIPTION((window == nullptr), "SDL_Window cannot be null: " << SDL_GetError());
+	m_Renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
+	ASSERT_DESCRIPTION((ren == nullptr), "SDL_Init renderer failed: " << SDL_GetError());
+
+}
+RenderSystem::~RenderSystem()
+{
+	SDL_DestroyRenderer(m_Renderer);
+	m_Renderer = nullptr;
+}
 // Pausing
 /// <summary>
 /// Toggles the pause.
@@ -81,6 +91,14 @@ void RenderSystem::RemoveRenderEntity(uint32_t id)
 }
 
 /// <summary>
+/// OnPreRender function
+/// </summary>
+void RenderSystem::OnPreRender()
+{
+	ASSERT_RESULT_DECL(const int result, SDL_RenderClear(m_Renderer));
+	ASSERT_DESCRIPTION(!result, "Clear Rendering failed: " << SDL_GetError());
+}
+/// <summary>
 /// Called when Render function happens... It iterates through the Graphics components and Renders them
 /// </summary>
 void RenderSystem::OnRender()
@@ -89,6 +107,14 @@ void RenderSystem::OnRender()
 	{
 		renderEntity.second->Render();
 	}
+}
+/// <summary>
+/// OnPostRender function
+/// </summary>
+void RenderSystem::OnPostRender()
+{
+	ASSERT_RESULT_DECL(const int result, SDL_RenderPresent(m_Renderer));
+	ASSERT_DESCRIPTION(!result, "Rendering did not properly update the system");
 }
 
 /// <summary>
@@ -107,7 +133,7 @@ void RenderSystem::RenderImage(std::shared_ptr<ImageResource> &ImageResource, co
 	destinationRect.w = static_cast<Sint16>(imageResHandle->GetWidth());
 	destinationRect.h = static_cast<Sint16>(imageResHandle->GetHeight());
 
-	ASSERT_RESULT_DECL(const int error, SDL_RenderCopy(SDL_System::GetRenderer(), imageResHandle->GetTexture(), NULL, &destinationRect));
+	ASSERT_RESULT_DECL(const int error, SDL_RenderCopy(m_Renderer, imageResHandle->GetTexture(), NULL, &destinationRect));
 	ASSERT_DESCRIPTION(error == 0, "SDL_RenderCopy failed: " << SDL_GetError());
 
 }

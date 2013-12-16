@@ -31,7 +31,7 @@ namespace GameSystem
 		/// </summary>
 		/// <param name="key">The key.</param>
 		/// <returns></returns>
-		const IniValuesMap & GetValuesForAGivenKey(const std::string &key);
+		IniValuesMap GetValuesForAGivenKey(const std::string &key);
 
 	private:
 

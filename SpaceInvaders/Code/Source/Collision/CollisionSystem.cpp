@@ -166,6 +166,7 @@ bool CollisionSystem::OnUpdate(uint32_t deltaMilliseconds)
 
 					{
 						auto it = m_CollisionEntityList.find(playerEntity->GetOwner());
+						ASSERT_DESCRIPTION(it != m_CollisionEntityList.end(), "There is an error and the collision Entity List has got desynched with the player and enemy collision entity lists");
 						if (it->second == AT_PlayerFire)
 						{
 							IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_EnemyCollisionDetected(playerEntity->GetOwner(), enemyEntity->GetOwner())));
@@ -174,7 +175,6 @@ bool CollisionSystem::OnUpdate(uint32_t deltaMilliseconds)
 						{
 							IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_PlayerCollisionDetected(playerEntity->GetOwner(), enemyEntity->GetOwner())));
 						}
-
 					}
 			}
 

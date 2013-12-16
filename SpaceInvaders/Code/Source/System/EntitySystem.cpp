@@ -131,8 +131,8 @@ void EntitySystem::InitGame()
 	// Reset the entities available
 	m_EntityMap.clear();
 	m_pCollisionSystem->Reset();
-	m_pGame->Reset();
 	m_pRenderSystem->Reset();
+	m_pGame->Reset();
 
 	CreatePlayer();
 	CreateSpawn();
@@ -189,7 +189,7 @@ void EntitySystem::CreatePlayer()
 	}
 
 
-	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX, initialPositionY,sprites, idleSprite));
+	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX, initialPositionY,m_pRenderSystem.get(),sprites, idleSprite));
 
 	m_pRenderSystem->AddRenderEntity(renderEntity);
 
@@ -307,7 +307,7 @@ void EntitySystem::CreateSpawn()
 			std::shared_ptr<IBehaviourComponent> behaviour = std::shared_ptr<IBehaviourComponent>(GCC_NEW EnemyBehaviour(actorId, initialPositionX + 100 * (j), initialPositionY + 100 * i,speedX, speedY,fireSound,points));
 			m_pGame->AddBehaviour(behaviour);
 
-			std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX + 100 * (j), initialPositionY + 100 * i,  sprites, idleSprite));
+			std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX + 100 * (j), initialPositionY + 100 * i, m_pRenderSystem.get(), sprites, idleSprite));
 			m_pRenderSystem->AddRenderEntity(renderEntity);
 
 			std::shared_ptr<ICollisionComponent> collisionEntity = std::shared_ptr<ICollisionComponent>(GCC_NEW ICollisionComponent(actorId, initialPositionX + +collisionRadius+100 * (j), initialPositionY +collisionRadius+ 100 * i, collisionRadius));
@@ -362,7 +362,7 @@ void EntitySystem::CreatePlayerFire(uint32_t initialPositionX, unsigned initialP
 	}
 
 
-	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX, initialPositionY, sprites, idleSprite));
+	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX, initialPositionY, m_pRenderSystem.get(),sprites, idleSprite));
 
 	m_pRenderSystem->AddRenderEntity(renderEntity);
 
@@ -413,7 +413,7 @@ void EntitySystem::CreateEnemyFire(uint32_t initialPositionX, uint32_t initialPo
 	}
 
 
-	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX, initialPositionY, sprites, idleSprite));
+	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX, initialPositionY,m_pRenderSystem.get(), sprites, idleSprite));
 
 	m_pRenderSystem->AddRenderEntity(renderEntity);
 
@@ -453,7 +453,7 @@ void EntitySystem::CreateExplosion(uint32_t initialPositionX, uint32_t initialPo
 	}
 
 
-	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW StaticAnimatedSpritesComponent(actorId, initialPositionX, initialPositionY, sprites, idleSprite));
+	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW StaticAnimatedSpritesComponent(actorId, initialPositionX, initialPositionY, m_pRenderSystem.get(),sprites, idleSprite));
 
 	m_pRenderSystem->AddRenderEntity(renderEntity);
 

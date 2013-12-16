@@ -23,6 +23,7 @@ GameOptions::GameOptions(const char * path)
 /// </summary>
 GameOptions::~GameOptions()
 {
+
 }
 
 /// <summary>
@@ -66,7 +67,7 @@ void GameOptions::Init()
 /// </summary>
 /// <param name="key">The key.</param>
 /// <returns></returns>
-const IniValuesMap & GameOptions::GetValuesForAGivenKey(const std::string &key)
+IniValuesMap GameOptions::GetValuesForAGivenKey(const std::string &key)
 {
 	auto result=m_KeyValues.find(key);
 	//TODO Fix ASSERTS are not found

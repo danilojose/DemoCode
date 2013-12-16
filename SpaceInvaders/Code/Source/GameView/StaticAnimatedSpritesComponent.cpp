@@ -16,7 +16,7 @@ extern RenderSystem* g_pRenderSystem;
 /// <param name="posY">The position y.</param>
 /// <param name="sprites">The sprites.</param>
 /// <param name="idleSprite">The idle sprite.</param>
-StaticAnimatedSpritesComponent::StaticAnimatedSpritesComponent(uint32_t ownerId, uint32_t posX, uint32_t posY, std::vector<std::string> sprites, uint32_t idleSprite) :IGraphicsComponent(ownerId, posX, posY)
+StaticAnimatedSpritesComponent::StaticAnimatedSpritesComponent(uint32_t ownerId, uint32_t posX, uint32_t posY, RenderSystem* renderSystem,std::vector<std::string> sprites, uint32_t idleSprite) :IGraphicsComponent(ownerId, posX, posY,renderSystem)
 {
 
 	for (const auto &sprite : sprites)

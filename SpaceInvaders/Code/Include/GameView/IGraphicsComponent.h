@@ -16,6 +16,7 @@ protected:
 	uint32_t m_ActorId;
 	uint32_t m_PosX;
 	uint32_t m_PosY;
+	RenderSystem *m_pRenderSystem;
 
 public:
 	/// <summary>
@@ -24,7 +25,7 @@ public:
 	/// <param name="ownerId">The owner identifier.</param>
 	/// <param name="posX">The position x.</param>
 	/// <param name="posY">The position y.</param>
-	explicit IGraphicsComponent(uint32_t ownerId, uint32_t posX, uint32_t posY) :m_ActorId(ownerId), m_PosX(posX), m_PosY(posY)
+	explicit IGraphicsComponent(uint32_t ownerId, uint32_t posX, uint32_t posY,RenderSystem *renderSystem) :m_ActorId(ownerId), m_PosX(posX), m_PosY(posY), m_pRenderSystem(renderSystem)
 	{
 	}
 	/// <summary>

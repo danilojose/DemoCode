@@ -5,6 +5,7 @@
 #include <3rdParty\System.h>
 #include <System\Assert.h>
 #include <time.h>
+#include <vld.h>
 using namespace GameSystem;
 
 const uint8_t MAX_LOADSTRING=100;

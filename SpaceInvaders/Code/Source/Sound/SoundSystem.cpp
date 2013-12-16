@@ -1,5 +1,4 @@
 #include <Sound\SoundSystem.h>
-#include <3rdParty\AudioMixer.h>
 #include <SDL_mixer.h>
 #include <System\Assert.h>
 #include <System\Application.h>

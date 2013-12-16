@@ -89,8 +89,7 @@ bool GameCodeApp::InitInstance(int screenWidth, int screenHeight)
 	RegisterBaseGameEvents();	//Register all base event types.
 
 
-	// You usually must have an HWND to initialize your game views...
-	
+
 	m_pGame = std::unique_ptr<SimBinGameLogic>(GCC_NEW SimBinGameLogic(std::strtoul(prueba["Lives"].c_str(), NULL, 0)));
 	if (!m_pGame)
 		return false;

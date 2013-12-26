@@ -3,7 +3,6 @@
 #include <System\Resource.h>
 #include <GameView\ImageResource.h>
 #include <GameView\RenderSystem.h>
-#include <3rdParty\System.h>
 #include <SDL_image.h>
 
 

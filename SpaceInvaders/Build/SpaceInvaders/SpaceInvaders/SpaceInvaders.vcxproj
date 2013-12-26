@@ -17,6 +17,8 @@
     <ClCompile Include="..\..\..\Code\Source\3rdParty\System.cpp" />
     <ClCompile Include="..\..\..\Code\Source\Collision\CollisionSystem.cpp" />
     <ClCompile Include="..\..\..\Code\Source\GameView\AnimatedSpritesComponent.cpp" />
+    <ClCompile Include="..\..\..\Code\Source\GameView\FontResource.cpp" />
+    <ClCompile Include="..\..\..\Code\Source\GameView\FontSystem.cpp" />
     <ClCompile Include="..\..\..\Code\Source\GameView\ImageResource.cpp" />
     <ClCompile Include="..\..\..\Code\Source\GameView\RenderSystem.cpp" />
     <ClCompile Include="..\..\..\Code\Source\GameView\StaticAnimatedSpritesComponent.cpp" />
@@ -44,6 +46,7 @@
     <ClInclude Include="..\..\..\Code\Include\Collision\CollisionComponent.h" />
     <ClInclude Include="..\..\..\Code\Include\Collision\CollisionSystem.h" />
     <ClInclude Include="..\..\..\Code\Include\GameView\AnimatedSpritesComponent.h" />
+    <ClInclude Include="..\..\..\Code\Include\GameView\FontResource.h" />
     <ClInclude Include="..\..\..\Code\Include\GameView\FontSystem.h" />
     <ClInclude Include="..\..\..\Code\Include\GameView\IGraphicsComponent.h" />
     <ClInclude Include="..\..\..\Code\Include\GameView\ImageResource.h" />

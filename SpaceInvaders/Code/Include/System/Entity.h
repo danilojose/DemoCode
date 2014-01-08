@@ -12,19 +12,47 @@ using namespace Graphics;
 using namespace Collision;
 
 /// TypeDefs and enums
-enum ActorType
+enum class ActorType : int8_t
 {
-	AT_Unknown = 0,
-	AT_Player,
-	AT_PlayerFire,
-	AT_Alien1,
-	AT_Alien2,
-	AT_Alien3,
-	AT_Alien4,
-	AT_AlienFire,
-	AT_PlayerExplosion,
-	AT_EnemyExplosion
+	AT_START=0,
+	AT_UNKNOWN = AT_START,
+	AT_PLAYER,
+	AT_PLAYERFIRE,
+	AT_ALIEN1,
+	AT_ALIEN2,
+	AT_ALIEN3,
+	AT_ALIEN4,
+	AT_ALIENFIRE,
+	AT_PLAYEREXPLOSION,
+	AT_ENEMYEXPLOSION,
+	AT_LAST,
+	AT_LENGTH=AT_ENEMYEXPLOSION-AT_START
 };
+
+////////////////////////////////////////////////
+//
+
+///// TODO check TypeDefs and enums
+//enum ActorTypeSergioSample
+//{
+//	AT_Unknown = 0,
+//	
+//	AT_Player,
+//	AT_PlayerFire,
+//	
+//	
+//	AT_AlienTypeStart,
+//	AT_Alien1 = AT_AlienTypeStart,
+//	AT_Alien2,
+//	AT_Alien3,
+//	AT_Alien4,
+//	AT_NumberOfValidAlienTypes = 4 ,
+//
+//	AT_AlienFire,
+//	AT_PlayerExplosion,
+//	AT_EnemyExplosion
+//};
+//////////////////////////////////////////////
 
 namespace GameSystem
 {
@@ -35,14 +63,14 @@ namespace GameSystem
 	class Entity
 	{
 	protected:
-		uint32_t m_ActorId;
-		ActorType m_Type;
-		std::shared_ptr<AI::IBehaviourComponent> m_Behaviour;
-		std::shared_ptr<IGraphicsComponent> m_GraphicsComponent;
-		std::shared_ptr<ICollisionComponent> m_CollisionComponent;
+		uint32_t									m_ActorId;
+		ActorType									m_Type;
+		std::shared_ptr<AI::IBehaviourComponent>	m_Behaviour;
+		std::shared_ptr<IGraphicsComponent>			m_GraphicsComponent;
+		std::shared_ptr<ICollisionComponent>		m_CollisionComponent;
 
-		uint32_t m_PosX;
-		uint32_t m_PosY;
+		uint32_t									m_PosX;
+		uint32_t									m_PosY;
 
 
 		/// <summary>
@@ -65,6 +93,10 @@ namespace GameSystem
 		/// <param name="behaviour">The behaviour.</param>
 		/// <param name="graphicsComponent">The graphics component.</param>
 		/// <param name="collisionComponent">The collision component.</param>
+
+		/// TODO: Añadir componentes con un método AddComponent para no tener constructores gigantescos.
+		/// TODO: Pasarle matrices.
+		/// template <T> AddComponent() {  push_back(T);} ?
 		explicit Entity(uint32_t id, uint32_t posX, uint32_t posY, ActorType type, std::shared_ptr<IBehaviourComponent> behaviour,
 			std::shared_ptr<IGraphicsComponent> graphicsComponent,
 			std::shared_ptr<ICollisionComponent> collisionComponent): m_ActorId(id), m_PosX(posX), m_PosY(posY), m_Type(type), 
@@ -82,7 +114,7 @@ namespace GameSystem
 		/// Gets the type.
 		/// </summary>
 		/// <returns></returns>
-		const int GetType() const  { return m_Type; }
+		const ActorType GetType() const  { return m_Type; }
 		/// <summary>
 		/// Gets the position x.
 		/// </summary>

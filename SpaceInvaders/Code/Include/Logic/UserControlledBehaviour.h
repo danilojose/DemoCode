@@ -21,6 +21,8 @@ private:
 
 
 public:
+
+	static const std::string COMPONENT_NAME;
 	/// <summary>
 	/// Initializes a new instance of the <see cref="UserControlledBehaviour"/> class.
 	/// </summary>

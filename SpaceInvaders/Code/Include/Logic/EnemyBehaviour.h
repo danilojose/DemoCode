@@ -19,6 +19,8 @@ namespace AI
 		std::string m_Shot;
 
 	public:
+
+		static const std::string COMPONENT_NAME;
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EnemyBehaviour" /> class.
 		/// </summary>

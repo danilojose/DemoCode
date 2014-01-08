@@ -135,6 +135,15 @@
     <ClCompile Include="..\..\..\Code\Source\GameView\FontResource.cpp">
       <Filter>Source Files\GameView</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Code\Source\GameView\FontSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Source\Collision\CollisionComponent.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Source\Logic\EmptyBehaviour.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Code\Include\Collision\CollisionComponent.h">
@@ -229,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Code\Include\GameView\FontResource.h">
       <Filter>Header Files\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Include\System\IComponent.h">
+      <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

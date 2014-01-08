@@ -18,6 +18,8 @@ protected:
 	uint32_t m_CurrentSprite;
 
 public:
+
+	static const std::string COMPONENT_NAME;
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AnimatedSpritesComponent"/> class.
 	/// </summary>

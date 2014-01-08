@@ -14,6 +14,8 @@ namespace AI
 		int m_MovementSpeed;
 
 	public:
+
+		static const std::string COMPONENT_NAME;
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FireBehaviour"/> class.
 		/// </summary>

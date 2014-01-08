@@ -19,6 +19,8 @@ protected:
 	uint32_t m_LastAnimationWasPainted;
 
 public:
+
+	static const std::string COMPONENT_NAME;
 	/// <summary>
 	/// Initializes a new instance of the <see cref="StaticAnimatedSpritesComponent"/> class.
 	/// </summary>

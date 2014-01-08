@@ -35,6 +35,7 @@ GameCodeApp::~GameCodeApp()
 
 	// this is the only and single pointer we are not using an autopointer since it will be accessed from multiple places but will always be read accessed and never copied
 	SAFE_DELETE(m_pResCache);
+	SAFE_DELETE(m_pEventManager);
 }
 
 /// <summary>
@@ -42,11 +43,9 @@ GameCodeApp::~GameCodeApp()
 /// </summary>
 /// <param name="deltaTime">The delta time.</param>
 /// <returns></returns>
-bool GameCodeApp::update(uint32_t deltaTime)
+bool GameCodeApp::Update(uint32_t deltaTime)
 {
-	deltaTime = deltaTime;
-	// Insert code here :o) return false when you want to quit the application
-
+	//TODO Add Asserts on NULL MNptrs
 	m_pEventManager->VTick((unsigned long)deltaTime);
 	bool bEntityUpdate=m_pEntitySystem->OnUpdate(deltaTime);
 	bool bLogicUpdate = m_pGame->OnUpdate(deltaTime);
@@ -57,7 +56,7 @@ bool GameCodeApp::update(uint32_t deltaTime)
 /// <summary>
 /// Renders every system that is pontentially renderable
 /// </summary>
-void GameCodeApp::render() const
+void GameCodeApp::Render() const
 {
 	m_pRenderSystem->OnPreRender();
 	m_pUISystem->OnRender();
@@ -75,6 +74,8 @@ bool GameCodeApp::InitInstance(int screenWidth, int screenHeight)
 {
 
 	srand((unsigned int)time(NULL));
+
+	//TODO: Check return of constructors.
 	m_pGameOptions = std::unique_ptr<GameOptions>(GCC_NEW GameOptions("options.ini"));
 	m_pGameOptions->Init();
 	IniValuesMap prueba = m_pGameOptions->GetValuesForAGivenKey("Game");
@@ -84,42 +85,30 @@ bool GameCodeApp::InitInstance(int screenWidth, int screenHeight)
 	// can hook in as desired.
 
 	m_pEventManager = GCC_NEW EventManager( true);
-	if (!m_pEventManager)
-	{
-		return false;
-	}
-
+	ASSERT_DESCRIPTION(m_pEventManager, "The Event Manager was not properly initialized");
 	RegisterBaseGameEvents();	//Register all base event types.
 
-
-
 	m_pGame = std::unique_ptr<SimBinGameLogic>(GCC_NEW SimBinGameLogic(std::strtoul(prueba["Lives"].c_str(), NULL, 0)));
-	if (!m_pGame)
-		return false;
+	ASSERT_DESCRIPTION(m_pGame, "The Game Logic Manager was not properly initialized");
 
 	m_pRenderSystem = std::shared_ptr<RenderSystem>(GCC_NEW RenderSystem(SDL_System::GetWindow()));
-	if (!m_pRenderSystem)
-		return false;
+	ASSERT_DESCRIPTION(m_pRenderSystem, "The Event Manager was not properly initialized");
 
 	m_pSoundSystem = std::unique_ptr<SoundSystem>(GCC_NEW SoundSystem());
-	if (!m_pSoundSystem)
-		return false;
+	ASSERT_DESCRIPTION(m_pSoundSystem, "The Sound System was not properly initialized");
 
 	m_pUISystem = std::unique_ptr<UISystem>(GCC_NEW UISystem(m_pGameOptions,std::shared_ptr<FontSystem> (GCC_NEW FontSystem())));
-	if (!m_pUISystem)
-		return false;
+	ASSERT_DESCRIPTION(m_pUISystem, "The UI System was not properly initialized");
 
 	m_pResCache = GCC_NEW ResCache();
-	if (!m_pResCache)
-		return false;
+	ASSERT_DESCRIPTION(m_pResCache, "The UI System was not properly initialized");
 
 	m_pCollisionSystem = std::unique_ptr<CollisionSystem>(GCC_NEW CollisionSystem());
-	if (!m_pCollisionSystem)
-		return false;
+	ASSERT_DESCRIPTION(m_pCollisionSystem, "The UI System was not properly initialized");
 
 	m_pEntitySystem = std::unique_ptr<EntitySystem>(GCC_NEW EntitySystem(m_pGame,m_pRenderSystem,m_pCollisionSystem,m_pGameOptions));
-	if (!m_pEntitySystem)
-		return false;
+	ASSERT_DESCRIPTION(m_pEntitySystem, "The UI System was not properly initialized");
+
 
 	m_pUISystem->Init();
 	m_pEntitySystem->InitGame();
@@ -149,10 +138,10 @@ bool GameCodeApp::MainLoop()
 		const uint32_t ticksNow = SDL_GetTicks();
 		const uint32_t deltaTime = (ticksNow - oldTicks);
 		oldTicks = ticksNow;
-		continueUpdating = update(deltaTime);
+		continueUpdating = Update(deltaTime);
 		if (!continueUpdating)
 			break;
-		render();
+		Render();
 		Input::setMouseMotion(0, 0);
 		Input::setMouseDown(false);
 		while (SDL_PollEvent(&event))

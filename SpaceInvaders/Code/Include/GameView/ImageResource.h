@@ -7,6 +7,7 @@ using namespace GameSystem;
 namespace Graphics
 {
 
+	/// TODO: Crear método IsValid().
 
 	/// <summary>
 	/// ImageResource that contains the name of the resource and has the ability of creating a handle to the resource

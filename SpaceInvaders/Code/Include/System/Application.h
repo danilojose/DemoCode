@@ -36,13 +36,14 @@ namespace GameSystem
 		/// </summary>
 		/// <param name="deltaTime">The delta time.</param>
 		/// <returns></returns>
-		bool update(uint32_t deltaTime);
+		bool Update(uint32_t deltaTime);
 		/// <summary>
 		/// Renders every system that is pontentially renderable
 		/// </summary>
-		void render() const;
+		void Render() const;
 
 	private:
+		// TODO: No inicializaciones
 		int m_iIncX = 0, m_iIncY = 0;
 
 	protected:
@@ -52,6 +53,7 @@ namespace GameSystem
 		bool m_bQuitting;						// true if the app is running the exit sequence
 		uint32_t m_LastActorId;
 
+		//TODO todo debería ser o std o raw. Singletons?
 		std::shared_ptr<SimBinGameLogic> m_pGame; //The AI GameLogic
 		std::shared_ptr<RenderSystem> m_pRenderSystem; //The RenderSystem
 		std::unique_ptr<SoundSystem> m_pSoundSystem; //The SoundSystem

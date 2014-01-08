@@ -1,6 +1,7 @@
 #pragma once
 #include <System\StdLibraries.h>
 #include <GameView\RenderSystem.h>
+#include <System\IComponent.h>
 
 
 namespace Graphics
@@ -10,7 +11,7 @@ namespace Graphics
 /// <summary>
 /// Parent Component for a Graphics component
 /// </summary>
-class IGraphicsComponent
+	class IGraphicsComponent :IComponent
 {
 protected:
 	uint32_t m_ActorId;
@@ -19,13 +20,15 @@ protected:
 	RenderSystem *m_pRenderSystem;
 
 public:
+
 	/// <summary>
 	/// Initializes a new instance of the <see cref="IGraphicsComponent"/> class.
 	/// </summary>
 	/// <param name="ownerId">The owner identifier.</param>
 	/// <param name="posX">The position x.</param>
 	/// <param name="posY">The position y.</param>
-	explicit IGraphicsComponent(uint32_t ownerId, uint32_t posX, uint32_t posY,RenderSystem *renderSystem) :m_ActorId(ownerId), m_PosX(posX), m_PosY(posY), m_pRenderSystem(renderSystem)
+	IGraphicsComponent(const std::string & componentId,uint32_t ownerId, uint32_t posX, uint32_t posY,RenderSystem *renderSystem) :IComponent(componentId),
+								m_ActorId(ownerId), m_PosX(posX), m_PosY(posY), m_pRenderSystem(renderSystem)
 	{
 	}
 	/// <summary>

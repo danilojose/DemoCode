@@ -1,12 +1,16 @@
 
 #pragma once
+
+#include <System\IComponent.h>
+
+using namespace GameSystem;
 namespace Collision
 {
 /// <summary>
 ///  Component Class storing the Collision properties from a given actor.
 ///  We will use square collision boxes taking into account that the position x and y is the left top corner
 /// </summary>
-struct ICollisionComponent
+class ICollisionComponent :IComponent
 {
 protected:
 	uint32_t m_ActorId;
@@ -15,6 +19,7 @@ protected:
 	uint32_t m_Size;
 
 public:
+	static const std::string COMPONENT_NAME;
 	/// <summary>
 	/// Initializes a new instance of the <see cref="ICollisionComponent"/> struct.
 	/// </summary>
@@ -22,7 +27,7 @@ public:
 	/// <param name="posX">The position x.</param>
 	/// <param name="posY">The position y.</param>
 	/// <param name="size">The size.</param>
-	explicit ICollisionComponent(uint32_t ownerId, uint32_t posX, uint32_t posY, uint32_t size)
+	explicit ICollisionComponent(uint32_t ownerId, uint32_t posX, uint32_t posY, uint32_t size) :IComponent(ICollisionComponent::COMPONENT_NAME)
 	{
 		m_ActorId = ownerId;
 		m_PosX = posX;

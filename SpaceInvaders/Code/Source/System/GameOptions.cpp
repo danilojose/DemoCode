@@ -67,9 +67,11 @@ void GameOptions::Init()
 /// </summary>
 /// <param name="key">The key.</param>
 /// <returns></returns>
-IniValuesMap GameOptions::GetValuesForAGivenKey(const std::string &key)
+const IniValuesMap &GameOptions::GetValuesForAGivenKey(const std::string &key)
 {
 	auto result=m_KeyValues.find(key);
+
+	//TODO como la funcion recibe cadenas que pueden estar rotas... Es adecuado crear un tipo IniValuesMap con Invalid para que el cliente cheque si era válido o no.
 	//TODO Fix ASSERTS are not found
 	//ASSERT_DESCRIPTION(result == m_KeyValues.end(), "Error Section Key Not Found");
 	return result->second;

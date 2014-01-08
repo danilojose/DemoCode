@@ -114,7 +114,7 @@ bool EntitySystem::OnUpdate(uint32_t deltaMilliseconds)
 {
 	for (auto& e : m_EntityMap)
 	{
-		if (e.second->GetType() == AT_Alien1 || e.second->GetType() == AT_Alien2 || e.second->GetType() == AT_Alien3 || e.second->GetType() == AT_Alien4)
+		if (e.second->GetType() == ActorType::AT_ALIEN1 || e.second->GetType() == ActorType::AT_ALIEN2 || e.second->GetType() == ActorType::AT_ALIEN3 || e.second->GetType() == ActorType::AT_ALIEN4)
 		{
 			return true;
 		}
@@ -144,7 +144,7 @@ void EntitySystem::InitGame()
 /// </summary>
 void EntitySystem::CreatePlayer()
 {
-	IniValuesMap playerOptions = m_pGameOptions->GetValuesForAGivenKey("Player");
+	const IniValuesMap& playerOptions = m_pGameOptions->GetValuesForAGivenKey("Player");
 	uint32_t actorId = GetNewActorID();
 	//default values;
 	uint32_t speed = PLAYER_SPEED;
@@ -152,31 +152,31 @@ void EntitySystem::CreatePlayer()
 
 	if (playerOptions.find("Speed")!=playerOptions.end())
 	{
-		speed = std::strtoul(playerOptions["Speed"].c_str(),NULL,0);
+		speed = std::strtoul(playerOptions.at("Speed").c_str(),NULL,0);
 	}
 	if (playerOptions.find("FireRate") != playerOptions.end())
 	{
-		fireRate = std::strtoul(playerOptions["FireRate"].c_str(), NULL, 0);
+		fireRate = std::strtoul(playerOptions.at("FireRate").c_str(), NULL, 0);
 	}
 
 	ASSERT_DESCRIPTION(playerOptions.find("PosX")!=playerOptions.end(), "Initial Position X not found for Player");
-	uint32_t initialPositionX = std::strtoul(playerOptions["PosX"].c_str(),NULL,0);
+	uint32_t initialPositionX = std::strtoul(playerOptions.at("PosX").c_str(),NULL,0);
 
 	ASSERT_DESCRIPTION(playerOptions.find("PosY")!=playerOptions.end(), "Initial Position Y not found for Player");
-	uint32_t initialPositionY = std::strtoul(playerOptions["PosY"].c_str(), NULL, 0);
+	uint32_t initialPositionY = std::strtoul(playerOptions.at("PosY").c_str(), NULL, 0);
 
 	ASSERT_DESCRIPTION(playerOptions.find("FireSound") != playerOptions.end(), "Number of Sprites not found for the given kind");
-	const std::string  fireSound = playerOptions["FireSound"];
+	const std::string  fireSound = playerOptions.at("FireSound");
 
 
 	std::shared_ptr<IBehaviourComponent> behaviour = std::shared_ptr<IBehaviourComponent>(GCC_NEW UserControlledBehaviour(actorId, initialPositionX, initialPositionY, speed, fireRate, fireSound));
 	m_pGame->AddBehaviour(behaviour);
 
 	ASSERT_DESCRIPTION(playerOptions.find("NumberOfSprites")!=playerOptions.end(), "Number of Sprites not found");
-	uint32_t numberOfSprites = std::strtoul(playerOptions["NumberOfSprites"].c_str(), NULL, 0);
+	uint32_t numberOfSprites = std::strtoul(playerOptions.at("NumberOfSprites").c_str(), NULL, 0);
 
 	ASSERT_DESCRIPTION(playerOptions.find("IdleSprite")!=playerOptions.end(), "Idle Sprite not found");
-	uint32_t idleSprite = std::strtoul(playerOptions["IdleSprite"].c_str(), NULL, 0);
+	uint32_t idleSprite = std::strtoul(playerOptions.at("IdleSprite").c_str(), NULL, 0);
 
 
 	std::vector<std::string> sprites;
@@ -185,23 +185,23 @@ void EntitySystem::CreatePlayer()
 		std::stringstream sprite;
 		sprite << "Sprite[" << i << "]";
 		ASSERT_DESCRIPTION(playerOptions.find(sprite.str())!=playerOptions.end(), "Sprite not found for player");
-		sprites.push_back(playerOptions[sprite.str()]);
+		sprites.push_back(playerOptions.at(sprite.str()));
 	}
 
-
+	// TODO Meter if renderEntity
 	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX, initialPositionY,m_pRenderSystem.get(),sprites, idleSprite));
 
 	m_pRenderSystem->AddRenderEntity(renderEntity);
 
 	ASSERT_DESCRIPTION(playerOptions.find("CollisionRadius")!=playerOptions.end(), "Collision Radius Not Found");
-	uint32_t collisionRadius = std::strtoul(playerOptions["CollisionRadius"].c_str(), NULL, 0);
+	uint32_t collisionRadius = std::strtoul(playerOptions.at("CollisionRadius").c_str(), NULL, 0);
 
 	std::shared_ptr<ICollisionComponent> collisionEntity = std::shared_ptr<ICollisionComponent>(GCC_NEW ICollisionComponent(actorId, initialPositionX + collisionRadius, initialPositionY + collisionRadius, collisionRadius));
 
 
-	m_pCollisionSystem->AddCollisionEntity(collisionEntity, AT_Player);
+	m_pCollisionSystem->AddCollisionEntity(collisionEntity, ActorType::AT_PLAYER);
 
-	std::shared_ptr<Entity> player = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, AT_Player, behaviour,renderEntity,collisionEntity));
+	std::shared_ptr<Entity> player = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, ActorType::AT_PLAYER, behaviour,renderEntity,collisionEntity));
 
 	AddEntity(player);
 }
@@ -210,80 +210,83 @@ void EntitySystem::CreatePlayer()
 /// </summary>
 void EntitySystem::CreateSpawn()
 {
-	IniValuesMap spawnOptions = m_pGameOptions->GetValuesForAGivenKey("Spawn");
-	uint32_t numberOfRows=SPAWN_NUMBEROFROWS;
-	uint32_t speedX=SPAWN_SPEEDX;
-	uint32_t speedY=SPAWN_SPEEDY;
-	uint32_t numberOfEnemiesByRows=SPAWN_NUMBEROFENEMIESBYROW;
-	uint32_t initialPositionX=SPAWN_INITIALPOSITIONX;
-	uint32_t initialPositionY=SPAWN_INITIALPOSITIONY;
-	uint32_t numberOfEnemyKinds = SPAWN_NUMBEROFENEMYKINDS;
+	const IniValuesMap &spawnOptions			= m_pGameOptions->GetValuesForAGivenKey("Spawn");
+	uint32_t numberOfRows				= SPAWN_NUMBEROFROWS;
+	uint32_t speedX						= SPAWN_SPEEDX;
+	uint32_t speedY						= SPAWN_SPEEDY;
+	uint32_t numberOfEnemiesByRows		= SPAWN_NUMBEROFENEMIESBYROW;
+	uint32_t initialPositionX			= SPAWN_INITIALPOSITIONX;
+	uint32_t initialPositionY			= SPAWN_INITIALPOSITIONY;
+	uint32_t numberOfEnemyKinds			= SPAWN_NUMBEROFENEMYKINDS;
 
 	if (spawnOptions.find("NumberOfRows")!=spawnOptions.end())
 	{
-		numberOfRows = std::strtoul(spawnOptions["NumberOfRows"].c_str(),NULL, 0);
+		numberOfRows = std::strtoul(spawnOptions.at("NumberOfRows").c_str(),NULL, 0);
 	}
 	if (spawnOptions.find("SpeedX")!=spawnOptions.end())
 	{
-		speedX = std::strtoul(spawnOptions["SpeedX"].c_str(), NULL, 0);
+		speedX = std::strtoul(spawnOptions.at("SpeedX").c_str(), NULL, 0);
 	}
 	if (spawnOptions.find("SpeedY")!=spawnOptions.end())
 	{
-		speedY = std::strtoul(spawnOptions["SpeedY"].c_str(), NULL, 0);
+		speedY = std::strtoul(spawnOptions.at("SpeedY").c_str(), NULL, 0);
 	}
 
 	if (spawnOptions.find("NumberOfEnemiesByRow")!=spawnOptions.end())
 	{
-		numberOfEnemiesByRows = std::strtoul(spawnOptions["NumberOfEnemiesByRow"].c_str(), NULL, 0);
+		numberOfEnemiesByRows = std::strtoul(spawnOptions.at("NumberOfEnemiesByRow").c_str(), NULL, 0);
 	}
 	if (spawnOptions.find("InitialPositionX")!=spawnOptions.end())
 	{
-		initialPositionX = std::strtoul(spawnOptions["InitialPositionX"].c_str(), NULL, 0);
+		initialPositionX = std::strtoul(spawnOptions.at("InitialPositionX").c_str(), NULL, 0);
 	}
 	if (spawnOptions.find("InitialPositionY")!=spawnOptions.end())
 	{
-		initialPositionY = std::strtoul(spawnOptions["InitialPositionY"].c_str(), NULL, 0);
+		initialPositionY = std::strtoul(spawnOptions.at("InitialPositionY").c_str(), NULL, 0);
 	}
 
 	ASSERT_DESCRIPTION(spawnOptions.find("FireSound") != spawnOptions.end(), "Number of Sprites not found for the given kind");
-	const std::string  fireSound = spawnOptions["FireSound"];
+	const std::string  fireSound = spawnOptions.at("FireSound");
 
+	//TODO Chequear numberOfEnemyKinds menor que maxnumberOfEnemyKinds
 	for (uint32_t i = 0; i < numberOfEnemyKinds; ++i)
 	{
 		std::stringstream kind;
 		kind <<"Kind["<<i<<"]";
 
+		//TODO Asegurar que numberOfSprites esté bien. lo que devuelva spawnoptions debe estar correcto o tener algún IsValid() .
+		
 		ASSERT_DESCRIPTION(spawnOptions.find(kind.str()+".NumberOfSprites")!=spawnOptions.end(), "Number of Sprites not found for the given kind");
-		uint32_t numberOfSprites = std::strtoul(spawnOptions[kind.str() + ".NumberOfSprites"].c_str(), NULL, 0);
+		uint32_t numberOfSprites = std::strtoul(spawnOptions.at(kind.str() + ".NumberOfSprites").c_str(), NULL, 0);
 
 		ASSERT_DESCRIPTION(spawnOptions.find(kind.str() + ".IdleSprite") != spawnOptions.end(), "Idle Sprite not found for the given kind");
-		uint32_t idleSprite = std::strtoul(spawnOptions[kind.str() + ".IdleSprite"].c_str(), NULL, 0);
+		uint32_t idleSprite = std::strtoul(spawnOptions.at(kind.str() + ".IdleSprite").c_str(), NULL, 0);
 
 		ASSERT_DESCRIPTION(spawnOptions.find(kind.str() + ".CollisionRadius") != spawnOptions.end(), "CollisionRadius not found for the given kind");
-		uint32_t collisionRadius = std::strtoul(spawnOptions[kind.str() + ".CollisionRadius"].c_str(), NULL, 0);
+		uint32_t collisionRadius = std::strtoul(spawnOptions.at(kind.str() + ".CollisionRadius").c_str(), NULL, 0);
 
 		ASSERT_DESCRIPTION(spawnOptions.find(kind.str() + ".Score") != spawnOptions.end(), "Score not found for the given kind");
-		uint32_t points = std::strtoul(spawnOptions[kind.str() + ".Score"].c_str(), NULL, 0);
+		uint32_t points = std::strtoul(spawnOptions.at(kind.str() + ".Score").c_str(), NULL, 0);
 
 		std::vector<std::string> sprites;
 
-		ActorType actorType = AT_Unknown;
+		ActorType actorType = ActorType::AT_UNKNOWN;
 
 		switch (i)
 		{
 			case 0:
-				actorType = AT_Alien1;
+				actorType = ActorType::AT_ALIEN1;
 				break;
 			case 1:
-				actorType = AT_Alien2;
+				actorType = ActorType::AT_ALIEN2;
 				break;
 
 			case 2:
-				actorType = AT_Alien3;
+				actorType = ActorType::AT_ALIEN3;
 				break;
 
 			case 3:
-				actorType = AT_Alien4;
+				actorType = ActorType::AT_ALIEN4;
 				break;
 			default:
 				ASSERT_DESCRIPTION(false, "Unexpected Alien found, we only support 4 different types of Alien");
@@ -296,10 +299,10 @@ void EntitySystem::CreateSpawn()
 			spriteFromKind << kind.str() << ".Sprite[" << j << "]";
 
 			ASSERT_DESCRIPTION(spawnOptions.find(spriteFromKind.str())!=spawnOptions.end(), "Sprite Not Found in ini file!!");
-			sprites.push_back(spawnOptions[spriteFromKind.str()]);
+			sprites.push_back(spawnOptions.at(spriteFromKind.str()));
 		}
 
-
+		// Defenderse contra una modificación de datos que haga que numberOfEnemiesByRows sea mil millones de filas.
 		for (uint32_t j = 0; j < numberOfEnemiesByRows; j++)
 		{
 			uint32_t actorId = GetNewActorID();
@@ -329,26 +332,26 @@ void EntitySystem::CreateSpawn()
 /// <param name="initialPositionY">The initial position y.</param>
 void EntitySystem::CreatePlayerFire(uint32_t initialPositionX, unsigned initialPositionY)
 {
-	IniValuesMap playerFireOptions = m_pGameOptions->GetValuesForAGivenKey("PlayerFire");
+	const IniValuesMap &playerFireOptions = m_pGameOptions->GetValuesForAGivenKey("PlayerFire");
 	uint32_t actorId = GetNewActorID();
 	//default values;
 	int speed = PLAYERFIRE_SPEED;
 
 	if (playerFireOptions.find("Speed")!=playerFireOptions.end())
 	{
-		speed = std::strtol(playerFireOptions["Speed"].c_str(),NULL,0);
+		speed = std::strtol(playerFireOptions.at("Speed").c_str(),NULL,0);
 	}
 	ASSERT_DESCRIPTION(playerFireOptions.find("CollisionRadius")!=playerFireOptions.end(), "Collision Radius Not Found");
-	uint32_t collisionRadius = std::strtoul(playerFireOptions["CollisionRadius"].c_str(),NULL,0);
+	uint32_t collisionRadius = std::strtoul(playerFireOptions.at("CollisionRadius").c_str(), NULL, 0);
 
 	std::shared_ptr<IBehaviourComponent> behaviour = std::shared_ptr<IBehaviourComponent>(GCC_NEW FireBehaviour(actorId,initialPositionX,initialPositionY,speed));
 	m_pGame->AddBehaviour(behaviour);
 
 	ASSERT_DESCRIPTION(playerFireOptions.find("NumberOfSprites")!=playerFireOptions.end(), "Number of Sprites not found");
-	uint32_t numberOfSprites = std::strtoul(playerFireOptions["NumberOfSprites"].c_str(),NULL,0);
+	uint32_t numberOfSprites = std::strtoul(playerFireOptions.at("NumberOfSprites").c_str(),NULL,0);
 
 	ASSERT_DESCRIPTION(playerFireOptions.find("IdleSprite")!=playerFireOptions.end(), "Idle Sprite not found");
-	uint32_t idleSprite = std::strtoul(playerFireOptions["IdleSprite"].c_str(),NULL,0);
+	uint32_t idleSprite = std::strtoul(playerFireOptions.at("IdleSprite").c_str(),NULL,0);
 
 	std::vector<std::string> sprites;
 	for (uint32_t i = 0; i < numberOfSprites; ++i)
@@ -358,7 +361,7 @@ void EntitySystem::CreatePlayerFire(uint32_t initialPositionX, unsigned initialP
 		sprite <<"Sprite[" <<i<<"]";
 
 		ASSERT_DESCRIPTION(playerFireOptions.find(sprite.str())!=playerFireOptions.end(), "Sprite not found for player fire");
-		sprites.push_back(playerFireOptions[sprite.str()]);
+		sprites.push_back(playerFireOptions.at(sprite.str()));
 	}
 
 
@@ -367,8 +370,8 @@ void EntitySystem::CreatePlayerFire(uint32_t initialPositionX, unsigned initialP
 	m_pRenderSystem->AddRenderEntity(renderEntity);
 
 	std::shared_ptr<ICollisionComponent> collisionEntity = std::shared_ptr<ICollisionComponent>(GCC_NEW ICollisionComponent(actorId, initialPositionX + collisionRadius, initialPositionY + collisionRadius, collisionRadius));
-	m_pCollisionSystem->AddCollisionEntity(collisionEntity, AT_PlayerFire);
-	std::shared_ptr<Entity> playerFire = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, AT_PlayerFire, behaviour,renderEntity,collisionEntity));
+	m_pCollisionSystem->AddCollisionEntity(collisionEntity, ActorType::AT_PLAYERFIRE);
+	std::shared_ptr<Entity> playerFire = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, ActorType::AT_PLAYERFIRE, behaviour,renderEntity,collisionEntity));
 	AddEntity(playerFire);
 
 
@@ -380,26 +383,26 @@ void EntitySystem::CreatePlayerFire(uint32_t initialPositionX, unsigned initialP
 /// <param name="initialPositionY">The initial position y.</param>
 void EntitySystem::CreateEnemyFire(uint32_t initialPositionX, uint32_t initialPositionY)
 {
-	IniValuesMap enemyFireOptions = m_pGameOptions->GetValuesForAGivenKey("EnemyFire");
+	const IniValuesMap &enemyFireOptions = m_pGameOptions->GetValuesForAGivenKey("EnemyFire");
 	uint32_t actorId = GetNewActorID();
 	//default values;
 	int speed = PLAYERFIRE_SPEED;
 
 	if (enemyFireOptions.find("Speed") != enemyFireOptions.end())
 	{
-		speed = std::strtol(enemyFireOptions["Speed"].c_str(), NULL, 0);
+		speed = std::strtol(enemyFireOptions.at("Speed").c_str(), NULL, 0);
 	}
 	ASSERT_DESCRIPTION(enemyFireOptions.find("CollisionRadius") != enemyFireOptions.end(), "Collision Radius Not Found");
-	uint32_t collisionRadius = std::strtoul(enemyFireOptions["CollisionRadius"].c_str(), NULL, 0);
+	uint32_t collisionRadius = std::strtoul(enemyFireOptions.at("CollisionRadius").c_str(), NULL, 0);
 
 	std::shared_ptr<IBehaviourComponent> behaviour = std::shared_ptr<IBehaviourComponent>(GCC_NEW FireBehaviour(actorId, initialPositionX, initialPositionY, speed));
 	m_pGame->AddBehaviour(behaviour);
 
 	ASSERT_DESCRIPTION(enemyFireOptions.find("NumberOfSprites") != enemyFireOptions.end(), "Number of Sprites not found");
-	uint32_t numberOfSprites = std::strtoul(enemyFireOptions["NumberOfSprites"].c_str(), NULL, 0);
+	uint32_t numberOfSprites = std::strtoul(enemyFireOptions.at("NumberOfSprites").c_str(), NULL, 0);
 
 	ASSERT_DESCRIPTION(enemyFireOptions.find("IdleSprite") != enemyFireOptions.end(), "Idle Sprite not found");
-	uint32_t idleSprite = std::strtoul(enemyFireOptions["IdleSprite"].c_str(), NULL, 0);
+	uint32_t idleSprite = std::strtoul(enemyFireOptions.at("IdleSprite").c_str(), NULL, 0);
 
 	std::vector<std::string> sprites;
 	for (uint32_t i = 0; i < numberOfSprites; ++i)
@@ -409,7 +412,7 @@ void EntitySystem::CreateEnemyFire(uint32_t initialPositionX, uint32_t initialPo
 		sprite << "Sprite[" << i << "]";
 
 		ASSERT_DESCRIPTION(enemyFireOptions.find(sprite.str()) != enemyFireOptions.end(), "Sprite not found for player fire");
-		sprites.push_back(enemyFireOptions[sprite.str()]);
+		sprites.push_back(enemyFireOptions.at(sprite.str()));
 	}
 
 
@@ -418,8 +421,8 @@ void EntitySystem::CreateEnemyFire(uint32_t initialPositionX, uint32_t initialPo
 	m_pRenderSystem->AddRenderEntity(renderEntity);
 
 	std::shared_ptr<ICollisionComponent> collisionEntity = std::shared_ptr<ICollisionComponent>(GCC_NEW ICollisionComponent(actorId, initialPositionX + collisionRadius, initialPositionY + collisionRadius, collisionRadius));
-	m_pCollisionSystem->AddCollisionEntity(collisionEntity,AT_AlienFire);
-	std::shared_ptr<Entity> enemyFire = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, AT_AlienFire, behaviour, renderEntity, collisionEntity));
+	m_pCollisionSystem->AddCollisionEntity(collisionEntity,ActorType::AT_ALIENFIRE);
+	std::shared_ptr<Entity> enemyFire = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, ActorType::AT_ALIENFIRE, behaviour, renderEntity, collisionEntity));
 	AddEntity(enemyFire);
 }
 
@@ -432,14 +435,14 @@ void EntitySystem::CreateEnemyFire(uint32_t initialPositionX, uint32_t initialPo
 /// <param name="actorType">Type of the actor.</param>
 void EntitySystem::CreateExplosion(uint32_t initialPositionX, uint32_t initialPositionY,uint32_t parentId,ActorType explosionType)
 {
-	IniValuesMap explosionOptions = m_pGameOptions->GetValuesForAGivenKey("Explosion");
+	const IniValuesMap &explosionOptions = m_pGameOptions->GetValuesForAGivenKey("Explosion");
 	uint32_t actorId = GetNewActorID();
 
 	ASSERT_DESCRIPTION(explosionOptions.find("NumberOfSprites") != explosionOptions.end(), "Number of Sprites not found");
-	uint32_t numberOfSprites = std::strtoul(explosionOptions["NumberOfSprites"].c_str(), NULL, 0);
+	uint32_t numberOfSprites = std::strtoul(explosionOptions.at("NumberOfSprites").c_str(), NULL, 0);
 
 	ASSERT_DESCRIPTION(explosionOptions.find("IdleSprite") != explosionOptions.end(), "Idle Sprite not found");
-	uint32_t idleSprite = std::strtoul(explosionOptions["IdleSprite"].c_str(), NULL, 0);
+	uint32_t idleSprite = std::strtoul(explosionOptions.at("IdleSprite").c_str(), NULL, 0);
 
 	std::vector<std::string> sprites;
 	for (uint32_t i = 0; i < numberOfSprites; ++i)
@@ -449,7 +452,7 @@ void EntitySystem::CreateExplosion(uint32_t initialPositionX, uint32_t initialPo
 		sprite << "Sprite[" << i << "]";
 
 		ASSERT_DESCRIPTION(explosionOptions.find(sprite.str()) != explosionOptions.end(), "Sprite not found for player fire");
-		sprites.push_back(explosionOptions[sprite.str()]);
+		sprites.push_back(explosionOptions.at(sprite.str()));
 	}
 
 
@@ -491,7 +494,7 @@ bool EntitySystemListener::HandleEvent(IEventData const & event) const
 		std::shared_ptr<Entity> entity=m_EntitySystem->GetEntity(ed.m_id);
 		if (entity != nullptr)
 		{
-			if (entity->GetType() == AT_PlayerExplosion)
+			if (entity->GetType() == ActorType::AT_PLAYEREXPLOSION)
 			{
 				m_EntitySystem->InitGame();
 			}
@@ -505,13 +508,13 @@ bool EntitySystemListener::HandleEvent(IEventData const & event) const
 	if (eventType == EvtData_CreateEnemyExplosion::sk_EventType)
 	{
 		EvtData_CreateEnemyExplosion const & ed = static_cast< const EvtData_CreateEnemyExplosion & >(event);
-		m_EntitySystem->CreateExplosion(ed.m_PosX, ed.m_PosY, ed.m_id,AT_EnemyExplosion);
+		m_EntitySystem->CreateExplosion(ed.m_PosX, ed.m_PosY, ed.m_id,ActorType::AT_ENEMYEXPLOSION);
 	}
 
 	if (eventType == EvtData_CreatePlayerExplosion::sk_EventType)
 	{
 		EvtData_CreateEnemyExplosion const & ed = static_cast< const EvtData_CreateEnemyExplosion & >(event);
-		m_EntitySystem->CreateExplosion(ed.m_PosX, ed.m_PosY, ed.m_id,AT_PlayerExplosion);
+		m_EntitySystem->CreateExplosion(ed.m_PosX, ed.m_PosY, ed.m_id,ActorType::AT_PLAYEREXPLOSION);
 	}
 
 	return true;

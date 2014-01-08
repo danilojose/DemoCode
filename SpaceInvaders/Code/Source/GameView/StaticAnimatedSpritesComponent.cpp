@@ -6,8 +6,10 @@
 using namespace GameSystem;
 using namespace Graphics;
 const uint32_t ANIMATION_RATE = 50;
-
 extern RenderSystem* g_pRenderSystem;
+
+const std::string Graphics::StaticAnimatedSpritesComponent::COMPONENT_NAME = "StaticAnimatedSpritesComponent";
+
 /// <summary>
 /// Initializes a new instance of the <see cref="StaticAnimatedSpritesComponent"/> class.
 /// </summary>
@@ -16,7 +18,8 @@ extern RenderSystem* g_pRenderSystem;
 /// <param name="posY">The position y.</param>
 /// <param name="sprites">The sprites.</param>
 /// <param name="idleSprite">The idle sprite.</param>
-StaticAnimatedSpritesComponent::StaticAnimatedSpritesComponent(uint32_t ownerId, uint32_t posX, uint32_t posY, RenderSystem* renderSystem,std::vector<std::string> sprites, uint32_t idleSprite) :IGraphicsComponent(ownerId, posX, posY,renderSystem)
+StaticAnimatedSpritesComponent::StaticAnimatedSpritesComponent(uint32_t ownerId, uint32_t posX, uint32_t posY, RenderSystem* renderSystem,std::vector<std::string> sprites, uint32_t idleSprite)
+									:IGraphicsComponent(StaticAnimatedSpritesComponent::COMPONENT_NAME,ownerId, posX, posY,renderSystem)
 {
 
 	for (const auto &sprite : sprites)

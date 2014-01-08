@@ -2,6 +2,8 @@
 #include <System\Entity.h>
 #include <Logic\FireBehaviour.h>
 using namespace AI;
+
+const std::string FireBehaviour::COMPONENT_NAME = "FireBehaviour";
 /// <summary>
 /// Initializes a new instance of the <see cref="FireBehaviour"/> class.
 /// </summary>
@@ -9,9 +11,9 @@ using namespace AI;
 /// <param name="posX">The position x.</param>
 /// <param name="posY">The position y.</param>
 /// <param name="movementSpeed">The movement speed.</param>
-FireBehaviour::FireBehaviour(uint32_t actorId,uint32_t posX, uint32_t posY, int movementSpeed) :IBehaviourComponent(actorId,posX,posY,0)
+FireBehaviour::FireBehaviour(uint32_t actorId,uint32_t posX, uint32_t posY, int movementSpeed) :IBehaviourComponent(FireBehaviour::COMPONENT_NAME,actorId,posX,posY,0),
+								m_MovementSpeed(movementSpeed)
 {
-	m_MovementSpeed = movementSpeed;
 }
 
 /// <summary>

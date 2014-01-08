@@ -1,12 +1,17 @@
 #pragma once
 #include <System\StdLibraries.h>
+#include <System\IComponent.h>
 
+using namespace GameSystem;
 namespace AI
 {
 /// <summary>
 /// IBehaviourComponent base class for implementing AI Behaviours
 /// </summary>
-class IBehaviourComponent
+
+	//TODO: Añadir componentes y hacer que esos componentes hereden de IComponent. Los IComponents van a tener una cadena del tipo parecido a los eventos el entity system te dice si acepta o no ese componente.
+	// Entidad farola puede recibir tres tipos de componentes. y el EntitySystem es capaz de saber para una entidad "Farola" puede recibir componentes del tipo Logica, graficos.
+class IBehaviourComponent:IComponent
 {
 protected:
 	
@@ -22,7 +27,8 @@ public:
 	/// <param name="actorId">The actor identifier.</param>
 	/// <param name="posX">The position x.</param>
 	/// <param name="posY">The position y.</param>
-	IBehaviourComponent(uint32_t actorId, uint32_t posX, uint32_t posY,uint16_t points) :m_ActorId(actorId), m_Alive(true), m_PosX(posX), m_PosY(posY),m_Points(points){}
+	IBehaviourComponent(const std::string &componentId,uint32_t actorId, uint32_t posX, uint32_t posY,uint16_t points) :IComponent(componentId),
+						m_ActorId(actorId), m_Alive(true), m_PosX(posX), m_PosY(posY),m_Points(points){}
 	/// <summary>
 	/// Finalizes an instance of the <see cref="IBehaviourComponent"/> class.
 	/// </summary>

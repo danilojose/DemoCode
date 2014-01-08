@@ -78,9 +78,15 @@ public:
 
 	std::pair<const Point&, const Point&> ReturnMinimumDistanceSortingAndProning();
 
-	std::pair<const Point&, const Point&> ReturnMinimumDistanceRecursiveDivideAndConquer();
 
-	std::pair<const Point&, const Point&> ReturnMinimumDistanceIterativeDivideAndConquer();
+	std::pair<Point,Point> StripClosest(int indexStart, int indexEnd, int midPoint,float &distance);
+
+	std::pair<Point,Point> RecursiveDivideAndConquer(int indexStart, int indexEnd, float &distance);
+
+	std::pair<Point, Point> ReturnMinimumDistanceRecursiveDivideAndConquer();
+
+	std::pair<Point, Point> CalculateMinimum(int indexStart, int indexEnd, float &distance);
+	std::pair<Point,Point> ReturnMinimumDistanceIterativeDivideAndConquer();
     
 
 protected:

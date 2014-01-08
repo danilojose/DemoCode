@@ -278,9 +278,10 @@ namespace ClosestPointsTest
 
 			Assert::IsTrue(distance == 0.138299f);
 
-			Assert::IsTrue(returnedPar.first == (Point(-77.3083115f, -222.680206f, 9997.22168f)));
+			Assert::IsTrue(returnedPar.first == (Point(-77.3131409f, -222.542023f, 9997.22461f)));
 
-			Assert::IsTrue(returnedPar.second == (Point(-77.3131409f, -222.542023f, 9997.22461f)));
+			Assert::IsTrue(returnedPar.second == (Point(-77.3083115f, -222.680206f, 9997.22168f)));
+
 
 		}
 
@@ -320,6 +321,40 @@ namespace ClosestPointsTest
 		}
 
 
+		TEST_METHOD(CheckTestPointsRecursiveAndDivideAndConquerVolumeShort)
+		{
+			std::chrono::high_resolution_clock::time_point tstart, tend;
+			string contents = FileReader::GetFileContents(volumeShortTestFile);
+
+			SpaceOfPoints space;
+			ContentsParser::Parse(contents, space);
+
+			tstart = std::chrono::high_resolution_clock::now();
+			std::pair<Point, Point> returnedPar = space.ReturnMinimumDistanceRecursiveDivideAndConquer();
+			float distance = const_cast<Point&>(returnedPar.first).Distance(returnedPar.second);
+			tend = std::chrono::high_resolution_clock::now();
+
+			std::chrono::microseconds micros = std::chrono::duration_cast<std::chrono::microseconds>(tend - tstart);
+			stringstream sbuffer;
+			sbuffer.precision(6);
+			sbuffer << "Minimum points are : " << endl;
+			sbuffer << "Point A (" << returnedPar.first.GetX() << "," << returnedPar.first.GetY() << "," << returnedPar.first.GetZ() << ")" << endl;
+			sbuffer << "Point B (" << returnedPar.second.GetX() << "," << returnedPar.second.GetY() << "," << returnedPar.second.GetZ() << ")" << endl;
+			sbuffer << "Distance between points is " << distance << endl;
+			sbuffer << "It took  " << micros.count() << "  microsecond(s).  " << endl;
+			std::string s = sbuffer.str();
+			Logger::WriteMessage(s.c_str());
+
+			Assert::IsTrue(distance == 5.40938807f);
+
+			Assert::IsTrue(returnedPar.second == (Point(771.872742f, 755.730591f, -213.203262f)));
+
+			Assert::IsTrue(returnedPar.first == (Point(771.761597f, 753.115662f, -217.937317f)));
+
+			Assert::IsTrue(micros.count() < (649467422 / 10), (wchar_t*)"We are not reducing the time constraint 163353808");
+
+
+		}
 		TEST_METHOD(CheckTestPointsIterativeDivideAndConquerSphere)
 		{
 			std::chrono::high_resolution_clock::time_point tstart, tend;

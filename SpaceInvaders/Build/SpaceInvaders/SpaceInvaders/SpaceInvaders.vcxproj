@@ -15,6 +15,7 @@
     <ClCompile Include="..\..\..\Code\Source\3rdParty\Font.cpp" />
     <ClCompile Include="..\..\..\Code\Source\3rdParty\Input.cpp" />
     <ClCompile Include="..\..\..\Code\Source\3rdParty\System.cpp" />
+    <ClCompile Include="..\..\..\Code\Source\Collision\CollisionComponent.cpp" />
     <ClCompile Include="..\..\..\Code\Source\Collision\CollisionSystem.cpp" />
     <ClCompile Include="..\..\..\Code\Source\GameView\AnimatedSpritesComponent.cpp" />
     <ClCompile Include="..\..\..\Code\Source\GameView\FontResource.cpp" />
@@ -22,6 +23,7 @@
     <ClCompile Include="..\..\..\Code\Source\GameView\ImageResource.cpp" />
     <ClCompile Include="..\..\..\Code\Source\GameView\RenderSystem.cpp" />
     <ClCompile Include="..\..\..\Code\Source\GameView\StaticAnimatedSpritesComponent.cpp" />
+    <ClCompile Include="..\..\..\Code\Source\Logic\EmptyBehaviour.cpp" />
     <ClCompile Include="..\..\..\Code\Source\Logic\EnemyBehaviour.cpp" />
     <ClCompile Include="..\..\..\Code\Source\Logic\FireBehaviour.cpp" />
     <ClCompile Include="..\..\..\Code\Source\Logic\SimBinVadersLogic.cpp" />
@@ -68,6 +70,7 @@
     <ClInclude Include="..\..\..\Code\Include\System\Events.h" />
     <ClInclude Include="..\..\..\Code\Include\System\GameOptions.h" />
     <ClInclude Include="..\..\..\Code\Include\System\HashedString.h" />
+    <ClInclude Include="..\..\..\Code\Include\System\IComponent.h" />
     <ClInclude Include="..\..\..\Code\Include\System\Resource.h" />
     <ClInclude Include="..\..\..\Code\Include\System\StdLibraries.h" />
     <ClInclude Include="..\..\..\Code\Include\UI\UISystem.h" />
@@ -113,6 +116,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

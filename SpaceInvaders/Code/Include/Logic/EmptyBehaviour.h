@@ -13,13 +13,14 @@ namespace AI
 	private:
 
 	public:
+		static const std::string COMPONENT_NAME;
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EmptyBehaviour"/> class.
 		/// </summary>
 		/// <param name="actorId">The actor identifier.</param>
 		/// <param name="posX">The position x.</param>
 		/// <param name="posY">The position y.</param>
-		EmptyBehaviour(uint32_t actorId, uint32_t posX, uint32_t posY) :IBehaviourComponent(actorId, posX, posY, 0){}
+		EmptyBehaviour(uint32_t actorId, uint32_t posX, uint32_t posY) :IBehaviourComponent(EmptyBehaviour::COMPONENT_NAME,actorId, posX, posY, 0){}
 		/// <summary>
 		/// Finalizes an instance of the <see cref="EmptyBehaviour"/> class.
 		/// </summary>

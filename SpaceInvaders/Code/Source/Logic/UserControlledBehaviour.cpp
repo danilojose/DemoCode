@@ -4,6 +4,8 @@
 
 const int PlayerFireDirection = 1;
 using namespace AI;
+
+const std::string AI::UserControlledBehaviour::COMPONENT_NAME = "UserControlledBehaviour";
 /// <summary>
 /// Initializes a new instance of the <see cref="UserControlledBehaviour"/> class.
 /// </summary>
@@ -13,8 +15,9 @@ using namespace AI;
 /// <param name="movementSpeed">The movement speed.</param>
 /// <param name="fireRate">The fire rate.</param>
 /// <param name="sound">The sound.</param>
-UserControlledBehaviour::UserControlledBehaviour(uint32_t actorId, uint32_t posX, uint32_t posY, int movementSpeed, uint32_t fireRate,const std::string &shot) :IBehaviourComponent(actorId, posX, posY,0), m_MovementSpeed(movementSpeed), m_FireRate(fireRate), m_LastFire(UINT32_MAX)
-
+UserControlledBehaviour::UserControlledBehaviour(uint32_t actorId, uint32_t posX, uint32_t posY, int movementSpeed, uint32_t fireRate,const std::string &shot) 
+						:IBehaviourComponent(UserControlledBehaviour::COMPONENT_NAME,
+						actorId, posX, posY,0), m_MovementSpeed(movementSpeed), m_FireRate(fireRate), m_LastFire(UINT32_MAX)
 {
 }
 

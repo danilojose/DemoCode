@@ -6,6 +6,8 @@
 const uint16_t MAX_FIRERATE = 30000;
 const uint16_t MIN_FIRERATE = 2000;
 using namespace AI;
+
+const std::string EnemyBehaviour::COMPONENT_NAME = "EnemyBehaviour";
 /// <summary>
 /// Initializes a new instance of the <see cref="EnemyBehaviour" /> class.
 /// </summary>
@@ -16,19 +18,14 @@ using namespace AI;
 /// <param name="movementYSpeed">The movement y speed.</param>
 /// <param name="shot">The shot.</param>
 /// <param name="points">The points.</param>
-EnemyBehaviour::EnemyBehaviour(uint32_t actorId, uint32_t posX, uint32_t posY,int movementXSpeed, int movementYSpeed,const std::string &shot,uint16_t points) :IBehaviourComponent(actorId,posX,posY,points)
+EnemyBehaviour::EnemyBehaviour(uint32_t actorId, uint32_t posX, uint32_t posY,int movementXSpeed, int movementYSpeed,const std::string &shot,uint16_t points) :IBehaviourComponent(EnemyBehaviour::COMPONENT_NAME,actorId,posX,posY,points),
+							  m_MovementXSpeed(movementXSpeed), m_MovementYSpeed(movementYSpeed), m_LastFire(0), m_Shot(shot)
 {
-	m_MovementXSpeed = movementXSpeed;
-	m_MovementYSpeed = movementYSpeed;
 	m_FireRate = rand() % MAX_FIRERATE;
 	if(m_FireRate < MIN_FIRERATE)
 	{
 		m_FireRate += MIN_FIRERATE;
 	}
-	// We do not want every alien to start firing...
-	m_LastFire = 0;
-	m_Shot = shot;
-	m_Points = points;
 }
 
 /// <summary>

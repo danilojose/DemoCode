@@ -24,7 +24,7 @@ void SDL_System::Init(unsigned int screenWidth, unsigned int screenHeight)
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	s_window = SDL_CreateWindow("Danilo Vaders", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
-	ASSERT_DESCRIPTION((win == nullptr), "SDL_Init windows failed: " << SDL_GetError());
+	ASSERT_DESCRIPTION((s_window != nullptr), "SDL_Init windows failed: " << SDL_GetError());
 
 
 	SDL_ShowCursor(0);

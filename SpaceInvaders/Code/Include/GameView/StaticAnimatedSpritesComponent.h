@@ -15,21 +15,26 @@ protected:
 	std::vector<std::shared_ptr<ImageResource>> m_SpriteList;
 	uint32_t m_IdleSprite;
 	uint32_t m_CurrentSprite;
-	bool m_Dirty;
 	uint32_t m_LastAnimationWasPainted;
 
 public:
 
 	static const std::string COMPONENT_NAME;
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="AnimatedSpritesComponent" /> class.
+	/// </summary>
+	StaticAnimatedSpritesComponent() :IGraphicsComponent(StaticAnimatedSpritesComponent::COMPONENT_NAME),
+		m_IdleSprite(-1), m_CurrentSprite(-1), m_LastAnimationWasPainted(std::numeric_limits<uint32_t>::max())
+	{
+	}
 	/// <summary>
 	/// Initializes a new instance of the <see cref="StaticAnimatedSpritesComponent"/> class.
 	/// </summary>
-	/// <param name="ownerId">The owner identifier.</param>
-	/// <param name="posX">The position x.</param>
-	/// <param name="posY">The position y.</param>
+	/// <param name="owner">The owner entity.</param>
 	/// <param name="sprites">The sprites.</param>
 	/// <param name="idleSprite">The idle sprite.</param>
-	explicit StaticAnimatedSpritesComponent(uint32_t ownerId, uint32_t posX, uint32_t posY, RenderSystem* renderSystem,std::vector<std::string> sprites, uint32_t idleSprite);
+	StaticAnimatedSpritesComponent(Entity *owner,RenderSystem* renderSystem,std::vector<std::string> sprites, uint32_t idleSprite);
 	/// <summary>
 	/// Finalizes an instance of the <see cref="StaticAnimatedSpritesComponent"/> class.
 	/// </summary>
@@ -47,16 +52,15 @@ private:
 	/// <param name="other">The other.</param>
 	/// <returns></returns>
 	StaticAnimatedSpritesComponent operator=(const StaticAnimatedSpritesComponent &other);
-	/// <summary>
-	/// Updates the position.
-	/// </summary>
-	/// <param name="x">The x.</param>
-	/// <param name="y">The y.</param>
-	virtual void UpdatePosition(uint32_t x, uint32_t y) override;
 
 public:
-	virtual void Render();
+	virtual void OnRender() override;
 
+	/// <summary>
+	/// Builds the specified Component using the specified descriptor.
+	/// </summary>
+	/// <param name="descriptor">The descriptor.</param>
+	virtual void Build(const IniValuesMap &descriptor) override;
 };
 
 }

@@ -10,7 +10,6 @@ using namespace Collision;
 CollisionSystem::CollisionSystem()
 {
 	m_pCollisionListener = EventListenerPtr(GCC_NEW CollisionSystemListener(this));
-	IEventManager::Get()->VAddListener(m_pCollisionListener, EvtData_UpdatePosition::sk_EventType);
 	IEventManager::Get()->VAddListener(m_pCollisionListener, EvtData_DestroyActor::sk_EventType);
 
 }
@@ -42,9 +41,9 @@ void CollisionSystem::Reset()
 /// <param name="type">The type.</param>
 void CollisionSystem::AddCollisionEntity(std::shared_ptr<ICollisionComponent> collisionEntity,ActorType type)
 {
-	ASSERT_DESCRIPTION(collisionEntity->GetOwner() > 0, "Attempted to add an actor with no valid ID")
+	ASSERT_DESCRIPTION(collisionEntity->GetEntity()!=nullptr&&collisionEntity->GetEntity()->GetID() > 0, "Attempted to add an actor with no valid ID")
 
-	m_CollisionEntityList[collisionEntity->GetOwner()] = type;
+	m_CollisionEntityList[collisionEntity->GetEntity()->GetID()] = type;
 
 	switch (type)
 	{
@@ -53,7 +52,7 @@ void CollisionSystem::AddCollisionEntity(std::shared_ptr<ICollisionComponent> co
 			m_PlayerCollisionEntityList.push_back(collisionEntity);
 			// We always sort the Player list according the X Element once we get a new entity added
 			m_PlayerCollisionEntityList.sort([](std::shared_ptr<ICollisionComponent> a, std::shared_ptr<ICollisionComponent> b)
-			{ return a->GetPosX() < b->GetPosX(); });
+			{ return a->GetEntity()->GetPosX() < b->GetEntity()->GetPosX(); });
 			break;
 		case ActorType::AT_ALIEN1:
 		case ActorType::AT_ALIEN2:
@@ -63,7 +62,7 @@ void CollisionSystem::AddCollisionEntity(std::shared_ptr<ICollisionComponent> co
 			m_EnemyCollisionEntityList.push_back(collisionEntity);
 			// We always sort the Enemy list according the X Element once we get a new entity added
 			m_EnemyCollisionEntityList.sort([](std::shared_ptr<ICollisionComponent> a, std::shared_ptr<ICollisionComponent> b)
-			{ return a->GetPosX() < b->GetPosX(); });
+			{ return a->GetEntity()->GetPosX() < b->GetEntity()->GetPosX(); });
 			break;
 		case ActorType::AT_UNKNOWN:
 			ASSERT_DESCRIPTION(false, "AT_Unknown tried to be added");
@@ -87,7 +86,7 @@ std::shared_ptr<ICollisionComponent> CollisionSystem::GetCollisionEntity(const u
 	{
 		if (it->second == ActorType::AT_PLAYER || it->second == ActorType::AT_PLAYERFIRE)
 		{
-			auto  entity = std::find_if(m_PlayerCollisionEntityList.begin(), m_PlayerCollisionEntityList.end(), [&](std::shared_ptr<ICollisionComponent> a){ return a->GetOwner() == id; });
+			auto  entity = std::find_if(m_PlayerCollisionEntityList.begin(), m_PlayerCollisionEntityList.end(), [&](std::shared_ptr<ICollisionComponent> a){ return a->GetEntity()->GetID() == id; });
 			if (entity == m_PlayerCollisionEntityList.end())
 			{
 				return nullptr;
@@ -99,7 +98,7 @@ std::shared_ptr<ICollisionComponent> CollisionSystem::GetCollisionEntity(const u
 		}
 		else
 		{
-			auto  entity = std::find_if(m_EnemyCollisionEntityList.begin(), m_EnemyCollisionEntityList.end(), [&](std::shared_ptr<ICollisionComponent> a){ return a->GetOwner() == id; });
+			auto  entity = std::find_if(m_EnemyCollisionEntityList.begin(), m_EnemyCollisionEntityList.end(), [&](std::shared_ptr<ICollisionComponent> a){ return a->GetEntity()->GetID() == id; });
 			if (entity == m_EnemyCollisionEntityList.end())
 			{
 				return nullptr;
@@ -128,14 +127,14 @@ void CollisionSystem::RemoveCollisionEntity(uint32_t id)
 		{
 		case ActorType::AT_PLAYER:
 		case ActorType::AT_PLAYERFIRE:
-			m_PlayerCollisionEntityList.remove_if([&](std::shared_ptr<ICollisionComponent> a) { return a->GetOwner() == id; });
+			m_PlayerCollisionEntityList.remove_if([&](std::shared_ptr<ICollisionComponent> a) { return a->GetEntity()->GetID() == id; });
 			break;
 		case ActorType::AT_ALIEN1:
 		case ActorType::AT_ALIEN2:
 		case ActorType::AT_ALIEN3:
 		case ActorType::AT_ALIEN4:
 		case ActorType::AT_ALIENFIRE:
-			m_EnemyCollisionEntityList.remove_if([&](std::shared_ptr<ICollisionComponent> a) { return a->GetOwner() == id; });
+			m_EnemyCollisionEntityList.remove_if([&](std::shared_ptr<ICollisionComponent> a) { return a->GetEntity()->GetID() == id; });
 			break;
 		case ActorType::AT_UNKNOWN:
 			ASSERT_DESCRIPTION(false, "AT_Unknown tried to be removed");
@@ -159,24 +158,24 @@ bool CollisionSystem::OnUpdate(uint32_t deltaMilliseconds)
 		for (auto& enemyEntity : m_EnemyCollisionEntityList)
 		{
 			
-			if ((abs((int)(playerEntity->GetPosX() - enemyEntity->GetPosX())) <= (int)playerEntity->GetSize())
+			if ((abs((int)(playerEntity->GetEntity()->GetPosX() - enemyEntity->GetEntity()->GetPosX())) <= (int)playerEntity->GetSize())
 				||
-				(abs((int)(playerEntity->GetPosX() - enemyEntity->GetPosX())) <= (int)enemyEntity->GetSize()))
+				(abs((int)(playerEntity->GetEntity()->GetPosX() - enemyEntity->GetEntity()->GetPosX())) <= (int)enemyEntity->GetSize()))
 			{
-				if ((abs((int)(playerEntity->GetPosY() - enemyEntity->GetPosY())) <= (int)playerEntity->GetSize())
+				if ((abs((int)(playerEntity->GetEntity()->GetPosY() - enemyEntity->GetEntity()->GetPosY())) <= (int)playerEntity->GetSize())
 					||
-					(abs((int)(playerEntity->GetPosY() - enemyEntity->GetPosY())) <= (int)enemyEntity->GetSize()))
+					(abs((int)(playerEntity->GetEntity()->GetPosY() - enemyEntity->GetEntity()->GetPosY())) <= (int)enemyEntity->GetSize()))
 
 					{
-						auto it = m_CollisionEntityList.find(playerEntity->GetOwner());
+					auto it = m_CollisionEntityList.find(playerEntity->GetEntity()->GetID());
 						ASSERT_DESCRIPTION(it != m_CollisionEntityList.end(), "There is an error and the collision Entity List has got desynched with the player and enemy collision entity lists");
 						if (it->second == ActorType::AT_PLAYERFIRE)
 						{
-							IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_EnemyCollisionDetected(playerEntity->GetOwner(), enemyEntity->GetOwner())));
+							IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_EnemyCollisionDetected(playerEntity->GetEntity()->GetID(), enemyEntity->GetEntity()->GetID())));
 						}
 						else
 						{
-							IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_PlayerCollisionDetected(playerEntity->GetOwner(), enemyEntity->GetOwner())));
+							IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_PlayerCollisionDetected(playerEntity->GetEntity()->GetID(), enemyEntity->GetEntity()->GetID())));
 						}
 					}
 			}
@@ -197,22 +196,7 @@ bool CollisionSystemListener::HandleEvent(IEventData const & event) const
 
 	EventType eventType = event.GetEventType();
 
-	if (eventType == EvtData_UpdatePosition::sk_EventType)
-	{
-		EvtData_UpdatePosition const & ed = static_cast< const EvtData_UpdatePosition & >(event);
-		std::shared_ptr<ICollisionComponent> entity = m_CollisionSystem->GetCollisionEntity(ed.m_ActorId);
-		if (entity)
-		{
-			entity->UpdatePosition(ed.m_PosX, ed.m_PosY);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-	else if (eventType == EvtData_DestroyActor::sk_EventType)
+	if (eventType == EvtData_DestroyActor::sk_EventType)
 	{
 		EvtData_DestroyActor const & ed = static_cast< const EvtData_DestroyActor & >(event);
 		m_CollisionSystem->RemoveCollisionEntity(ed.m_ActorId);

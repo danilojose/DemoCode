@@ -1,5 +1,6 @@
 #include <Logic\SimBinVadersLogic.h>
 #include <System\Assert.h>
+#include <System\Entity.h>
 
 
 
@@ -53,9 +54,9 @@ void SimBinGameLogic::Reset()
 /// <param name="actor">The actor.</param>
 void SimBinGameLogic::AddBehaviour(std::shared_ptr<IBehaviourComponent> behaviour)
 {
-	ASSERT_DESCRIPTION(behaviour->VGetOwner() > 0, "Attempted to add an actor with no valid ID")
+	ASSERT_DESCRIPTION(behaviour->GetEntity()!=nullptr&&behaviour->GetEntity()->GetID() > 0, "Attempted to add an actor with no valid ID")
 
-		m_BehaviourList[behaviour->VGetOwner()] = behaviour;
+	m_BehaviourList[behaviour->GetEntity()->GetID()] = behaviour;
 
 }
 /// <summary>
@@ -97,7 +98,7 @@ bool SimBinGameLogic::OnUpdate(uint32_t elapsedTime)
 {
 	for (const auto &behaviour : m_BehaviourList)
 	{
-		behaviour.second->behave(elapsedTime);
+		behaviour.second->OnUpdate(elapsedTime);
 	}
 	return m_ContinueRunning;
 }
@@ -156,11 +157,11 @@ bool AiEventListener::HandleEvent(IEventData const & event) const
 		}
 		else
 		{
-			friendlyEntity->VSetAlive(false);
-			enemyEntity->VSetAlive(false);
-			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(friendlyEntity->VGetOwner())));
-			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(enemyEntity->VGetOwner())));
-			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_CreateEnemyExplosion(enemyEntity->VGetOwner(),enemyEntity->VGetPositionX(),enemyEntity->VGetPositionY())));
+			friendlyEntity->SetAlive(false);
+			enemyEntity->SetAlive(false);
+			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(friendlyEntity->GetEntity()->GetID())));
+			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(enemyEntity->GetEntity()->GetID())));
+			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_CreateEnemyExplosion(enemyEntity->GetEntity()->GetID(), enemyEntity->GetEntity()->GetPosX(), enemyEntity->GetEntity()->GetPosY())));
 			uint16_t score=m_LogicSystem->AddScore(enemyEntity->VGetPoints());
 			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_PointsObtained(score)));
 		}
@@ -180,11 +181,11 @@ bool AiEventListener::HandleEvent(IEventData const & event) const
 		}
 		else
 		{
-			friendlyEntity->VSetAlive(false);
-			enemyEntity->VSetAlive(false);
-			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(friendlyEntity->VGetOwner())));
-			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(enemyEntity->VGetOwner())));
-			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_CreatePlayerExplosion(friendlyEntity->VGetOwner(), friendlyEntity->VGetPositionX(), friendlyEntity->VGetPositionY())));
+			friendlyEntity->SetAlive(false);
+			enemyEntity->SetAlive(false);
+			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(friendlyEntity->GetEntity()->GetID())));
+			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(enemyEntity->GetEntity()->GetID())));
+			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_CreatePlayerExplosion(friendlyEntity->GetEntity()->GetID(), friendlyEntity->GetEntity()->GetPosX(), friendlyEntity->GetEntity()->GetPosY())));
 			if (m_LogicSystem->GetCurrentLives() > 0)
 			{
 				m_LogicSystem->SetCurrentLives(m_LogicSystem->GetCurrentLives() - 1);

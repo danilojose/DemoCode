@@ -11,7 +11,7 @@
 	{ \
 		std::ostringstream stream; \
 		stream << description; \
-		if (internal_assert(__FILE__, __LINE__, #expression, stream.str())) \
+		if (internal_assert(__FILE__, __LINE__, false, stream.str())) \
 		{ \
 		__debugbreak(); \
 	} \

@@ -15,16 +15,15 @@ using namespace Graphics;
 RenderSystem::RenderSystem(SDL_Window* window)
 {
 	m_pGraphicsComponentListener = EventListenerPtr(GCC_NEW RenderEntityListener(this));
-	IEventManager::Get()->VAddListener(m_pGraphicsComponentListener, EvtData_UpdatePosition::sk_EventType);
 	IEventManager::Get()->VAddListener(m_pGraphicsComponentListener, EvtData_DestroyActor::sk_EventType);
 	IEventManager::Get()->VAddListener(m_pGraphicsComponentListener, EvtData_AnimationFinished::sk_EventType);
 	m_RenderEntityList.clear();
 	g_pRenderSystem = this;
 
-	ASSERT_DESCRIPTION((window == nullptr), "SDL_Window cannot be null: " << SDL_GetError());
+	ASSERT_DESCRIPTION((window != nullptr), "SDL_Window cannot be null: " << SDL_GetError());
 	m_Renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-	ASSERT_DESCRIPTION((ren == nullptr), "SDL_Init renderer failed: " << SDL_GetError());
+	ASSERT_DESCRIPTION((m_Renderer != nullptr), "SDL_Init renderer failed: " << SDL_GetError());
 
 }
 RenderSystem::~RenderSystem()
@@ -57,9 +56,11 @@ void RenderSystem::Reset()
 /// <param name="renderEntity">The render entity.</param>
 void RenderSystem::AddRenderEntity(std::shared_ptr<IGraphicsComponent> renderEntity)
 {
-	ASSERT_DESCRIPTION(renderEntity->VGetOwner() > 0, "Attempted to add an actor with no valid ID");
+	ASSERT_DESCRIPTION(renderEntity->GetEntity()!=nullptr&&renderEntity->GetEntity()->GetID() > 0, "Attempted to add an actor with no valid ID");
 
-	m_RenderEntityList[renderEntity->VGetOwner()] = renderEntity;
+	m_RenderEntityList[renderEntity->GetEntity()->GetID()] = renderEntity;
+
+	renderEntity->SetRenderSystem(this);
 
 }
 /// <summary>
@@ -72,7 +73,6 @@ std::shared_ptr<IGraphicsComponent> RenderSystem::GetRenderEntity(const uint32_t
 	auto it = m_RenderEntityList.find(id);
 	if (it == m_RenderEntityList.end())
 	{
-		std::shared_ptr<IGraphicsComponent> null;
 		return nullptr;
 	}
 	return it->second;
@@ -105,7 +105,7 @@ void RenderSystem::OnRender()
 {
 	for (const auto &renderEntity : m_RenderEntityList)
 	{
-		renderEntity.second->Render();
+		renderEntity.second->OnRender();
 	}
 }
 /// <summary>
@@ -113,8 +113,7 @@ void RenderSystem::OnRender()
 /// </summary>
 void RenderSystem::OnPostRender()
 {
-	ASSERT_RESULT_DECL(const int result, SDL_RenderPresent(m_Renderer));
-	ASSERT_DESCRIPTION(!result, "Rendering did not properly update the system");
+	SDL_RenderPresent(m_Renderer);
 }
 
 /// <summary>
@@ -122,9 +121,6 @@ void RenderSystem::OnPostRender()
 /// </summary>
 void RenderSystem::RenderImage(std::shared_ptr<ImageResource> &ImageResource, const int &posX,const int &posY)
 {
-	ASSERT_DESCRIPTION(m_surface, "No image surface exists! Did you forget to call LoadBmp?");
-	ASSERT_DESCRIPTION(alpha >= 0.0f && alpha <= 1.0f, "alpha must be a value between 0.0 and 1.0! alpha = " << alpha);
-
 	std::shared_ptr<ImageResHandle> imageResHandle = std::static_pointer_cast<ImageResHandle>(g_pApp->GetCache()->GetHandle(ImageResource.get()));
 
 	SDL_Rect destinationRect;
@@ -148,23 +144,7 @@ bool RenderEntityListener::HandleEvent(IEventData const & event) const
 
 	EventType eventType = event.GetEventType();
 
-	if (eventType == EvtData_UpdatePosition::sk_EventType)
-	{
-		EvtData_UpdatePosition const & ed = static_cast< const EvtData_UpdatePosition & >(event);
-		std::shared_ptr<IGraphicsComponent> entity = m_RenderSystem->GetRenderEntity(ed.m_ActorId);
-		if (entity)
-		{
-			entity->UpdatePosition(ed.m_PosX, ed.m_PosY);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-
-	}
-
-	else if (eventType == EvtData_DestroyActor::sk_EventType)
+	if (eventType == EvtData_DestroyActor::sk_EventType)
 	{
 		EvtData_DestroyActor const & ed = static_cast< const EvtData_DestroyActor & >(event);
 		m_RenderSystem->RemoveRenderEntity(ed.m_ActorId);

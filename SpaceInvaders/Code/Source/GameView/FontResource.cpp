@@ -39,9 +39,9 @@ FontResHandle::FontResHandle(Resource &r, const std::string &filename, ResCache 
 /// <returns></returns>
 void FontResHandle::Load()
 {
-	ASSERT_DESCRIPTION(!filename.empty(), "Cannot load font without a filename!");
+	ASSERT_DESCRIPTION(!m_Filename.empty(), "Cannot load font without a filename!");
 	m_Font = TTF_OpenFont(m_Filename.c_str(), m_Size);
-	ASSERT_DESCRIPTION(m_font != nullptr, "TTF_OpenFont failed: " << TTF_GetError());
+	ASSERT_DESCRIPTION(m_Font != nullptr, "TTF_OpenFont failed: " << TTF_GetError());
 
 }
 /// <summary>

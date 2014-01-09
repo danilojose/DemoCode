@@ -14,7 +14,7 @@ bool Entity::Init(std::istrstream &in)
 	if (hasActorId)
 	{
 		in >> hasActorId;
-		m_ActorId = hasActorId;
+		m_EntityId = hasActorId;
 	}
 	in >> m_PosX >> m_PosY;
 
@@ -27,7 +27,12 @@ bool Entity::Init(std::istrstream &in)
 /// <param name="out">The out.</param>
 void Entity::Serialize(std::ostrstream &out) const
 {
-	out << m_ActorId;
+	out << m_EntityId;
 	out << m_PosX << m_PosY;
 }
 
+void Entity::AddComponent(std::shared_ptr<IComponent> component)
+{
+	m_Components.push_back(component);
+	component->SetEntity(this);
+}

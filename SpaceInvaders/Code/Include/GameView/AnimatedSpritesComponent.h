@@ -21,14 +21,20 @@ public:
 
 	static const std::string COMPONENT_NAME;
 	/// <summary>
+	/// Initializes a new instance of the <see cref="AnimatedSpritesComponent" /> class.
+	/// </summary>
+	AnimatedSpritesComponent::AnimatedSpritesComponent() :IGraphicsComponent(AnimatedSpritesComponent::COMPONENT_NAME),
+		m_IdleSprite(-1), m_CurrentSprite(-1)
+	{
+	}
+
+	/// <summary>
 	/// Initializes a new instance of the <see cref="AnimatedSpritesComponent"/> class.
 	/// </summary>
-	/// <param name="ownerId">The owner identifier.</param>
-	/// <param name="posX">The position x.</param>
-	/// <param name="posY">The position y.</param>
+	/// <param name="owner">The owner entity.</param>
 	/// <param name="sprites">The sprites.</param>
 	/// <param name="idleSprite">The idle sprite.</param>
-	explicit AnimatedSpritesComponent(uint32_t ownerId, uint32_t posX, uint32_t posY,RenderSystem* renderSystem,std::vector<std::string> &sprites, uint32_t idleSprite);
+	AnimatedSpritesComponent(Entity* ownerId,RenderSystem* renderSystem,std::vector<std::string> &sprites, uint32_t idleSprite);
 	/// <summary>
 	/// Finalizes an instance of the <see cref="AnimatedSpritesComponent"/> class.
 	/// </summary>
@@ -46,19 +52,19 @@ private:
 	/// <param name="other">The other.</param>
 	/// <returns></returns>
 	AnimatedSpritesComponent operator=(const AnimatedSpritesComponent &other);
-	/// <summary>
-	/// Updates the position. In this kind of component when the position gets updated the current sprite to be rendered gets updated too
-	/// </summary>
-	/// <param name="x">The x.</param>
-	/// <param name="y">The y.</param>
-	virtual void UpdatePosition(uint32_t x, uint32_t y) override;
 
 public:
 
 	/// <summary>
 	/// This function is in charge of rendering the current sprite... 
 	/// </summary>
-	virtual void Render();
+	virtual void OnRender() override;
+
+	/// <summary>
+	/// Builds the specified Component using the specified descriptor.
+	/// </summary>
+	/// <param name="descriptor">The descriptor.</param>
+	virtual void Build(const IniValuesMap &descriptor) override;
 
 };
 

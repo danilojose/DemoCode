@@ -32,13 +32,33 @@ public:
 	/// <param name="movementSpeed">The movement speed.</param>
 	/// <param name="fireRate">The fire rate.</param>
 	/// <param name="sound">The sound.</param>
-	UserControlledBehaviour(uint32_t actorId, uint32_t posX, uint32_t posY,int movementSpeed,uint32_t fireRate,const std::string &sound);
+	UserControlledBehaviour() :IBehaviourComponent(UserControlledBehaviour::COMPONENT_NAME),
+		m_MovementSpeed(0), m_FireRate(0), m_LastFire(UINT32_MAX)
+	{}
+	/// <summary>
+	/// Initializes a new instance of the <see cref="UserControlledBehaviour"/> class.
+	/// </summary>
+	/// <param name="owner">The entity owner.</param>
+	/// <param name="movementSpeed">The movement speed.</param>
+	/// <param name="fireRate">The fire rate.</param>
+	/// <param name="sound">The sound.</param>
+	UserControlledBehaviour(Entity *owner,int movementSpeed,uint32_t fireRate,const std::string &sound);
 	/// <summary>
 	/// Finalizes an instance of the <see cref="UserControlledBehaviour"/> class.
 	/// </summary>
 	virtual ~UserControlledBehaviour(){
 	}
-	virtual void behave(uint32_t deltaMilliseconds) override;
 
+	/// <summary>
+	/// Behaves when the specified delta milliseconds have passed. It checks the output from the Input and depending on the fire rate decides if it can fire or not.
+	/// </summary>
+	/// <param name="deltaMilliseconds">The delta milliseconds.</param>
+	virtual void OnUpdate(uint32_t deltaMilliseconds) override;
+
+	/// <summary>
+	/// Builds the specified Component using the specified descriptor.
+	/// </summary>
+	/// <param name="descriptor">The descriptor.</param>
+	virtual void Build(const IniValuesMap &descriptor) override;
 };
 }

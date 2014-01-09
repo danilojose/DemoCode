@@ -29,6 +29,7 @@
     <ClCompile Include="..\..\..\Code\Source\Logic\SimBinVadersLogic.cpp" />
     <ClCompile Include="..\..\..\Code\Source\Logic\UserControlledBehaviour.cpp" />
     <ClCompile Include="..\..\..\Code\Source\Sound\SoundSystem.cpp" />
+    <ClCompile Include="..\..\..\Code\Source\System\ComponentManager.cpp" />
     <ClCompile Include="..\..\..\Code\Source\System\Entity.cpp" />
     <ClCompile Include="..\..\..\Code\Source\System\Application.cpp" />
     <ClCompile Include="..\..\..\Code\Source\System\Assert.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="..\..\..\Code\Include\Logic\UserControlledBehaviour.h" />
     <ClInclude Include="..\..\..\Code\Include\Sound\AudioResource.h" />
     <ClInclude Include="..\..\..\Code\Include\Sound\SoundSystem.h" />
+    <ClInclude Include="..\..\..\Code\Include\System\ComponentManager.h" />
     <ClInclude Include="..\..\..\Code\Include\System\Entity.h" />
     <ClInclude Include="..\..\..\Code\Include\System\Application.h" />
     <ClInclude Include="..\..\..\Code\Include\System\Assert.h" />
@@ -116,7 +118,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

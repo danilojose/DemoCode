@@ -11,12 +11,9 @@ namespace Graphics
 /// <summary>
 /// Parent Component for a Graphics component
 /// </summary>
-	class IGraphicsComponent :IComponent
+class IGraphicsComponent :public IComponent
 {
 protected:
-	uint32_t m_ActorId;
-	uint32_t m_PosX;
-	uint32_t m_PosY;
 	RenderSystem *m_pRenderSystem;
 
 public:
@@ -27,8 +24,18 @@ public:
 	/// <param name="ownerId">The owner identifier.</param>
 	/// <param name="posX">The position x.</param>
 	/// <param name="posY">The position y.</param>
-	IGraphicsComponent(const std::string & componentId,uint32_t ownerId, uint32_t posX, uint32_t posY,RenderSystem *renderSystem) :IComponent(componentId),
-								m_ActorId(ownerId), m_PosX(posX), m_PosY(posY), m_pRenderSystem(renderSystem)
+	IGraphicsComponent(const std::string & componentId) :IComponent(componentId,nullptr),m_pRenderSystem(nullptr)
+	{
+	}
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="IGraphicsComponent"/> class.
+	/// </summary>
+	/// <param name="ownerId">The owner identifier.</param>
+	/// <param name="posX">The position x.</param>
+	/// <param name="posY">The position y.</param>
+	IGraphicsComponent(const std::string & componentId, Entity *owner, RenderSystem *renderSystem) :IComponent(componentId,owner),
+								m_pRenderSystem(renderSystem)
 	{
 	}
 	/// <summary>
@@ -36,32 +43,20 @@ public:
 	/// </summary>
 	virtual ~IGraphicsComponent(){}
 
-
-
 	/// <summary>
-	/// Updates the position.
+	/// Finalizes an instance of the <see cref="IGraphicsComponent"/> class.
 	/// </summary>
-	/// <param name="x">The x.</param>
-	/// <param name="y">The y.</param>
-	virtual void UpdatePosition(uint32_t x, uint32_t y)
+	virtual void SetRenderSystem(RenderSystem *renderSystem)
 	{
-		m_PosX = x;
-		m_PosY = y;
+		m_pRenderSystem = renderSystem;
 	}
+
+
+
 	/// <summary>
-	/// Abstract funciton that is in charge of the rendering. To be implemented by the child classes
+	/// Updates the position. In this kind of component when the position gets updated the current sprite to be rendered gets updated too
 	/// </summary>
-	virtual void Render() = 0;
-	/// <summary>
-	/// Vs the get owner.
-	/// </summary>
-	/// <returns></returns>
-	const uint32_t VGetOwner() const { return m_ActorId; }
-	/// <summary>
-	/// Vs the set owner.
-	/// </summary>
-	/// <param name="owner">The owner.</param>
-	virtual void VSetOwner(uint32_t owner) { m_ActorId = owner; };
+	virtual void OnRender() =0;
 };
 
 }

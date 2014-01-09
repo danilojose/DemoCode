@@ -126,23 +126,26 @@
     <ClCompile Include="..\..\..\Code\Source\System\Resource.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Code\Source\System\Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Code\Source\GameView\ImageResource.cpp">
       <Filter>Source Files\GameView</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Code\Source\GameView\FontResource.cpp">
       <Filter>Source Files\GameView</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Code\Source\GameView\FontSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Code\Source\Collision\CollisionComponent.cpp">
       <Filter>Source Files\Collision</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Code\Source\Logic\EmptyBehaviour.cpp">
       <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Source\System\Entity.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Source\GameView\FontSystem.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Source\System\ComponentManager.cpp">
+      <Filter>Source Files\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -240,6 +243,9 @@
       <Filter>Header Files\GameView</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Code\Include\System\IComponent.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Include\System\ComponentManager.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>

@@ -57,18 +57,29 @@ enum class ActorType : int8_t
 namespace GameSystem
 {
 
+	class EntityID
+	{
+		protected:
+			enum class EntityIdType : int8_t{ INVALID = -1 };
+			void SetId(int8_t id) { m_Id = id; }
+			bool IsValid() { return !(m_Id == static_cast<int8_t>(EntityIdType::INVALID)); }
+
+		public:
+			EntityID() :m_Id(static_cast<int8_t>(EntityIdType::INVALID)){};
+
+		private:
+			int8_t m_Id;
+	};
+
 	/// <summary>
 	/// Entity class that stores the different subcomponents. (pending to make them inherit a single interface component)
 	/// </summary>
 	class Entity
 	{
 	protected:
-		uint32_t									m_ActorId;
+		uint32_t									m_EntityId;
 		ActorType									m_Type;
-		std::shared_ptr<AI::IBehaviourComponent>	m_Behaviour;
-		std::shared_ptr<IGraphicsComponent>			m_GraphicsComponent;
-		std::shared_ptr<ICollisionComponent>		m_CollisionComponent;
-
+		std::vector<std::shared_ptr<IComponent>> m_Components;
 		uint32_t									m_PosX;
 		uint32_t									m_PosY;
 
@@ -79,7 +90,7 @@ namespace GameSystem
 		/// <param name="id">The identifier.</param>
 		virtual void SetID(uint32_t id) {
 
-			m_ActorId = id;
+			m_EntityId = id;
 		}
 
 	public:
@@ -97,10 +108,7 @@ namespace GameSystem
 		/// TODO: Añadir componentes con un método AddComponent para no tener constructores gigantescos.
 		/// TODO: Pasarle matrices.
 		/// template <T> AddComponent() {  push_back(T);} ?
-		explicit Entity(uint32_t id, uint32_t posX, uint32_t posY, ActorType type, std::shared_ptr<IBehaviourComponent> behaviour,
-			std::shared_ptr<IGraphicsComponent> graphicsComponent,
-			std::shared_ptr<ICollisionComponent> collisionComponent): m_ActorId(id), m_PosX(posX), m_PosY(posY), m_Type(type), 
-					m_Behaviour(behaviour), m_GraphicsComponent(graphicsComponent),m_CollisionComponent(collisionComponent)
+		explicit Entity(uint32_t id, uint32_t posX, uint32_t posY, ActorType type): m_EntityId(id), m_PosX(posX), m_PosY(posY), m_Type(type)
 
 		{
 		}
@@ -139,9 +147,13 @@ namespace GameSystem
 		/// Gets the identifier.
 		/// </summary>
 		/// <returns></returns>
-		const uint32_t GetID() const { return m_ActorId; }
-		//Still to decide what to do with the Update of an Entity
-		virtual void OnUpdate(uint32_t deltaMilliseconds) {};
+		const uint32_t GetID() const { return m_EntityId; }
+		//TODO: Still to decide what to do with the Update of an Entity
+		/// <summary>
+		/// Called when [update].
+		/// </summary>
+		/// <param name="deltaMilliseconds">The delta milliseconds.</param>
+		virtual void OnUpdate(uint32_t deltaMilliseconds){}
 		/// <summary>
 		/// Initializes the specified in.
 		/// </summary>
@@ -153,6 +165,13 @@ namespace GameSystem
 		/// </summary>
 		/// <param name="out">The out.</param>
 		virtual void Serialize(std::ostrstream &out) const;
+
+		/// <summary>
+		/// Adds the component.
+		/// </summary>
+		/// <param name="component">The component.</param>
+		virtual void AddComponent(std::shared_ptr<IComponent> component);
+
 
 	};
 

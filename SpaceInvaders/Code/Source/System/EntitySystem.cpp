@@ -1,12 +1,12 @@
-#include <Logic\UserControlledBehaviour.h>
+#include <Collision\CollisionSystem.h>
+#include <GameView\AnimatedSpritesComponent.h>
+#include <GameView\StaticAnimatedSpritesComponent.h>
 #include <Logic\FireBehaviour.h>
 #include <Logic\EmptyBehaviour.h>
 #include <Logic\EnemyBehaviour.h>
-#include <GameView\AnimatedSpritesComponent.h>
-#include <GameView\StaticAnimatedSpritesComponent.h>
+#include <Logic\UserControlledBehaviour.h>
 #include <System\EntitySystem.h>
 #include <GameView\RenderSystem.h>
-#include <Collision\CollisionSystem.h>
 #include <Logic\SimBinVadersLogic.h>
 #include <System\Assert.h>
 
@@ -41,16 +41,15 @@ const uint32_t SPAWN_NUMBEROFENEMYKINDS = 4;
 /// <param name="collisionSystem">The collision system.</param>
 /// <param name="gameOptions">The game options.</param>
 EntitySystem::EntitySystem(std::shared_ptr<SimBinGameLogic> game, std::shared_ptr<RenderSystem> renderSystem, std::shared_ptr<CollisionSystem> collisionSystem, std::shared_ptr<GameOptions> gameOptions):
-m_pGame(game), m_pRenderSystem(renderSystem), m_pCollisionSystem(collisionSystem), m_pGameOptions(gameOptions)
+						  m_pGame(game), m_pRenderSystem(renderSystem), m_pCollisionSystem(collisionSystem), m_pGameOptions(gameOptions), m_LastActorId(0)
 {
-	m_LastActorId = 0;
+	m_ComponentManager = std::unique_ptr <ComponentManager>( GCC_NEW ComponentManager());
 	m_pEntityListener = EventListenerPtr(GCC_NEW EntitySystemListener(this));
 	IEventManager::Get()->VAddListener(m_pEntityListener, EvtData_CreatePlayerFire::sk_EventType);
 	IEventManager::Get()->VAddListener(m_pEntityListener, EvtData_CreateEnemyFire::sk_EventType);
 	IEventManager::Get()->VAddListener(m_pEntityListener, EvtData_CreateEnemyExplosion::sk_EventType);
 	IEventManager::Get()->VAddListener(m_pEntityListener, EvtData_CreatePlayerExplosion::sk_EventType);
 	IEventManager::Get()->VAddListener(m_pEntityListener, EvtData_DestroyActor::sk_EventType);
-
 }
 /// <summary>
 /// Toggles the pause.
@@ -128,6 +127,7 @@ bool EntitySystem::OnUpdate(uint32_t deltaMilliseconds)
 /// </summary>
 void EntitySystem::InitGame()
 {
+	m_ComponentManager->Init();
 	// Reset the entities available
 	m_EntityMap.clear();
 	m_pCollisionSystem->Reset();
@@ -146,62 +146,33 @@ void EntitySystem::CreatePlayer()
 {
 	const IniValuesMap& playerOptions = m_pGameOptions->GetValuesForAGivenKey("Player");
 	uint32_t actorId = GetNewActorID();
-	//default values;
-	uint32_t speed = PLAYER_SPEED;
-	uint32_t fireRate = PLAYER_FIRERATE;
 
-	if (playerOptions.find("Speed")!=playerOptions.end())
+	uint32_t initialPositionX = PLAYER_POSX;
+	uint32_t initialPositionY = PLAYER_POSY;
+
+	if (playerOptions.find("InitialPositionX") != playerOptions.end())
 	{
-		speed = std::strtoul(playerOptions.at("Speed").c_str(),NULL,0);
+		initialPositionX = std::strtoul(playerOptions.at("InitialPositionX").c_str(), NULL, 0);
 	}
-	if (playerOptions.find("FireRate") != playerOptions.end())
+	if (playerOptions.find("InitialPositionY") != playerOptions.end())
 	{
-		fireRate = std::strtoul(playerOptions.at("FireRate").c_str(), NULL, 0);
-	}
-
-	ASSERT_DESCRIPTION(playerOptions.find("PosX")!=playerOptions.end(), "Initial Position X not found for Player");
-	uint32_t initialPositionX = std::strtoul(playerOptions.at("PosX").c_str(),NULL,0);
-
-	ASSERT_DESCRIPTION(playerOptions.find("PosY")!=playerOptions.end(), "Initial Position Y not found for Player");
-	uint32_t initialPositionY = std::strtoul(playerOptions.at("PosY").c_str(), NULL, 0);
-
-	ASSERT_DESCRIPTION(playerOptions.find("FireSound") != playerOptions.end(), "Number of Sprites not found for the given kind");
-	const std::string  fireSound = playerOptions.at("FireSound");
-
-
-	std::shared_ptr<IBehaviourComponent> behaviour = std::shared_ptr<IBehaviourComponent>(GCC_NEW UserControlledBehaviour(actorId, initialPositionX, initialPositionY, speed, fireRate, fireSound));
-	m_pGame->AddBehaviour(behaviour);
-
-	ASSERT_DESCRIPTION(playerOptions.find("NumberOfSprites")!=playerOptions.end(), "Number of Sprites not found");
-	uint32_t numberOfSprites = std::strtoul(playerOptions.at("NumberOfSprites").c_str(), NULL, 0);
-
-	ASSERT_DESCRIPTION(playerOptions.find("IdleSprite")!=playerOptions.end(), "Idle Sprite not found");
-	uint32_t idleSprite = std::strtoul(playerOptions.at("IdleSprite").c_str(), NULL, 0);
-
-
-	std::vector<std::string> sprites;
-	for (uint32_t i= 0; i < numberOfSprites; ++i)
-	{
-		std::stringstream sprite;
-		sprite << "Sprite[" << i << "]";
-		ASSERT_DESCRIPTION(playerOptions.find(sprite.str())!=playerOptions.end(), "Sprite not found for player");
-		sprites.push_back(playerOptions.at(sprite.str()));
+		initialPositionY = std::strtoul(playerOptions.at("InitialPositionY").c_str(), NULL, 0);
 	}
 
-	// TODO Meter if renderEntity
-	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX, initialPositionY,m_pRenderSystem.get(),sprites, idleSprite));
+	std::shared_ptr<Entity> player = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, ActorType::AT_PLAYER));
 
-	m_pRenderSystem->AddRenderEntity(renderEntity);
-
-	ASSERT_DESCRIPTION(playerOptions.find("CollisionRadius")!=playerOptions.end(), "Collision Radius Not Found");
-	uint32_t collisionRadius = std::strtoul(playerOptions.at("CollisionRadius").c_str(), NULL, 0);
-
-	std::shared_ptr<ICollisionComponent> collisionEntity = std::shared_ptr<ICollisionComponent>(GCC_NEW ICollisionComponent(actorId, initialPositionX + collisionRadius, initialPositionY + collisionRadius, collisionRadius));
+	std::shared_ptr<IComponent> behaviour= m_ComponentManager->GetNewComponent("UserControlledBehaviour",playerOptions);
+	player->AddComponent(behaviour);
+	m_pGame->AddBehaviour(std::dynamic_pointer_cast<IBehaviourComponent>(behaviour));
 
 
+	std::shared_ptr<IComponent> renderComponent = m_ComponentManager->GetNewComponent("AnimatedSpritesComponent", playerOptions);
+	player->AddComponent(renderComponent);
+	m_pRenderSystem->AddRenderEntity(std::dynamic_pointer_cast<IGraphicsComponent>(renderComponent));
+
+	std::shared_ptr<ICollisionComponent> collisionEntity = std::dynamic_pointer_cast<ICollisionComponent>(m_ComponentManager->GetNewComponent("ICollisionComponent", playerOptions));
+	player->AddComponent(collisionEntity);
 	m_pCollisionSystem->AddCollisionEntity(collisionEntity, ActorType::AT_PLAYER);
-
-	std::shared_ptr<Entity> player = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, ActorType::AT_PLAYER, behaviour,renderEntity,collisionEntity));
 
 	AddEntity(player);
 }
@@ -307,18 +278,21 @@ void EntitySystem::CreateSpawn()
 		{
 			uint32_t actorId = GetNewActorID();
 
-			std::shared_ptr<IBehaviourComponent> behaviour = std::shared_ptr<IBehaviourComponent>(GCC_NEW EnemyBehaviour(actorId, initialPositionX + 100 * (j), initialPositionY + 100 * i,speedX, speedY,fireSound,points));
-			m_pGame->AddBehaviour(behaviour);
-
-			std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX + 100 * (j), initialPositionY + 100 * i, m_pRenderSystem.get(), sprites, idleSprite));
-			m_pRenderSystem->AddRenderEntity(renderEntity);
-
-			std::shared_ptr<ICollisionComponent> collisionEntity = std::shared_ptr<ICollisionComponent>(GCC_NEW ICollisionComponent(actorId, initialPositionX + +collisionRadius+100 * (j), initialPositionY +collisionRadius+ 100 * i, collisionRadius));
-
-			m_pCollisionSystem->AddCollisionEntity(collisionEntity, actorType);
-
-			std::shared_ptr<Entity> enemy = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX + 100 * (j), initialPositionY + 100 * i, actorType, behaviour,renderEntity,collisionEntity));
+			std::shared_ptr<Entity> enemy = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX + 100 * (j), initialPositionY + 100 * i, actorType));
 			AddEntity(enemy);
+
+			std::shared_ptr<IBehaviourComponent> behaviour = std::shared_ptr<IBehaviourComponent>(GCC_NEW EnemyBehaviour(enemy.get(),speedX, speedY,fireSound,points));
+			m_pGame->AddBehaviour(behaviour);
+			enemy->AddComponent(behaviour);
+
+			std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(enemy.get(), m_pRenderSystem.get(), sprites, idleSprite));
+			m_pRenderSystem->AddRenderEntity(renderEntity);
+			enemy->AddComponent(renderEntity);
+
+			std::shared_ptr<ICollisionComponent> collisionEntity = std::shared_ptr<ICollisionComponent>(GCC_NEW ICollisionComponent(enemy.get(), collisionRadius));
+			m_pCollisionSystem->AddCollisionEntity(collisionEntity, actorType);
+			enemy->AddComponent(collisionEntity);
+
 		}
 	}
 
@@ -334,44 +308,21 @@ void EntitySystem::CreatePlayerFire(uint32_t initialPositionX, unsigned initialP
 {
 	const IniValuesMap &playerFireOptions = m_pGameOptions->GetValuesForAGivenKey("PlayerFire");
 	uint32_t actorId = GetNewActorID();
-	//default values;
-	int speed = PLAYERFIRE_SPEED;
 
-	if (playerFireOptions.find("Speed")!=playerFireOptions.end())
-	{
-		speed = std::strtol(playerFireOptions.at("Speed").c_str(),NULL,0);
-	}
-	ASSERT_DESCRIPTION(playerFireOptions.find("CollisionRadius")!=playerFireOptions.end(), "Collision Radius Not Found");
-	uint32_t collisionRadius = std::strtoul(playerFireOptions.at("CollisionRadius").c_str(), NULL, 0);
+	std::shared_ptr<Entity> playerFire = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, ActorType::AT_PLAYERFIRE));
 
-	std::shared_ptr<IBehaviourComponent> behaviour = std::shared_ptr<IBehaviourComponent>(GCC_NEW FireBehaviour(actorId,initialPositionX,initialPositionY,speed));
-	m_pGame->AddBehaviour(behaviour);
+	std::shared_ptr<IComponent> behaviour = m_ComponentManager->GetNewComponent("FireBehaviour", playerFireOptions);
+	playerFire->AddComponent(behaviour);
+	m_pGame->AddBehaviour(std::dynamic_pointer_cast<IBehaviourComponent>(behaviour));
 
-	ASSERT_DESCRIPTION(playerFireOptions.find("NumberOfSprites")!=playerFireOptions.end(), "Number of Sprites not found");
-	uint32_t numberOfSprites = std::strtoul(playerFireOptions.at("NumberOfSprites").c_str(),NULL,0);
+	std::shared_ptr<IComponent> renderComponent = m_ComponentManager->GetNewComponent("AnimatedSpritesComponent", playerFireOptions);
+	playerFire->AddComponent(renderComponent);
+	m_pRenderSystem->AddRenderEntity(std::dynamic_pointer_cast<IGraphicsComponent>(renderComponent));
 
-	ASSERT_DESCRIPTION(playerFireOptions.find("IdleSprite")!=playerFireOptions.end(), "Idle Sprite not found");
-	uint32_t idleSprite = std::strtoul(playerFireOptions.at("IdleSprite").c_str(),NULL,0);
+	std::shared_ptr<ICollisionComponent> collisionEntity = std::dynamic_pointer_cast<ICollisionComponent>(m_ComponentManager->GetNewComponent("ICollisionComponent", playerFireOptions));
+	playerFire->AddComponent(collisionEntity);
+	m_pCollisionSystem->AddCollisionEntity(std::dynamic_pointer_cast<ICollisionComponent>(collisionEntity), ActorType::AT_PLAYERFIRE);
 
-	std::vector<std::string> sprites;
-	for (uint32_t i = 0; i < numberOfSprites; ++i)
-	{
-		//TODO Use a _TCHAR somehow... this is ugly
-		std::stringstream sprite;
-		sprite <<"Sprite[" <<i<<"]";
-
-		ASSERT_DESCRIPTION(playerFireOptions.find(sprite.str())!=playerFireOptions.end(), "Sprite not found for player fire");
-		sprites.push_back(playerFireOptions.at(sprite.str()));
-	}
-
-
-	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX, initialPositionY, m_pRenderSystem.get(),sprites, idleSprite));
-
-	m_pRenderSystem->AddRenderEntity(renderEntity);
-
-	std::shared_ptr<ICollisionComponent> collisionEntity = std::shared_ptr<ICollisionComponent>(GCC_NEW ICollisionComponent(actorId, initialPositionX + collisionRadius, initialPositionY + collisionRadius, collisionRadius));
-	m_pCollisionSystem->AddCollisionEntity(collisionEntity, ActorType::AT_PLAYERFIRE);
-	std::shared_ptr<Entity> playerFire = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, ActorType::AT_PLAYERFIRE, behaviour,renderEntity,collisionEntity));
 	AddEntity(playerFire);
 
 
@@ -385,44 +336,22 @@ void EntitySystem::CreateEnemyFire(uint32_t initialPositionX, uint32_t initialPo
 {
 	const IniValuesMap &enemyFireOptions = m_pGameOptions->GetValuesForAGivenKey("EnemyFire");
 	uint32_t actorId = GetNewActorID();
-	//default values;
-	int speed = PLAYERFIRE_SPEED;
 
-	if (enemyFireOptions.find("Speed") != enemyFireOptions.end())
-	{
-		speed = std::strtol(enemyFireOptions.at("Speed").c_str(), NULL, 0);
-	}
-	ASSERT_DESCRIPTION(enemyFireOptions.find("CollisionRadius") != enemyFireOptions.end(), "Collision Radius Not Found");
-	uint32_t collisionRadius = std::strtoul(enemyFireOptions.at("CollisionRadius").c_str(), NULL, 0);
-
-	std::shared_ptr<IBehaviourComponent> behaviour = std::shared_ptr<IBehaviourComponent>(GCC_NEW FireBehaviour(actorId, initialPositionX, initialPositionY, speed));
-	m_pGame->AddBehaviour(behaviour);
-
-	ASSERT_DESCRIPTION(enemyFireOptions.find("NumberOfSprites") != enemyFireOptions.end(), "Number of Sprites not found");
-	uint32_t numberOfSprites = std::strtoul(enemyFireOptions.at("NumberOfSprites").c_str(), NULL, 0);
-
-	ASSERT_DESCRIPTION(enemyFireOptions.find("IdleSprite") != enemyFireOptions.end(), "Idle Sprite not found");
-	uint32_t idleSprite = std::strtoul(enemyFireOptions.at("IdleSprite").c_str(), NULL, 0);
-
-	std::vector<std::string> sprites;
-	for (uint32_t i = 0; i < numberOfSprites; ++i)
-	{
-		//TODO Use a _TCHAR somehow... this is ugly
-		std::stringstream sprite;
-		sprite << "Sprite[" << i << "]";
-
-		ASSERT_DESCRIPTION(enemyFireOptions.find(sprite.str()) != enemyFireOptions.end(), "Sprite not found for player fire");
-		sprites.push_back(enemyFireOptions.at(sprite.str()));
-	}
+	std::shared_ptr<Entity> enemyFire = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, ActorType::AT_ALIENFIRE));
 
 
-	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW AnimatedSpritesComponent(actorId, initialPositionX, initialPositionY,m_pRenderSystem.get(), sprites, idleSprite));
+	std::shared_ptr<IComponent> behaviour = m_ComponentManager->GetNewComponent("FireBehaviour", enemyFireOptions);
+	enemyFire->AddComponent(behaviour);
+	m_pGame->AddBehaviour(std::dynamic_pointer_cast<IBehaviourComponent>(behaviour));
 
-	m_pRenderSystem->AddRenderEntity(renderEntity);
+	std::shared_ptr<IComponent> renderComponent = m_ComponentManager->GetNewComponent("AnimatedSpritesComponent", enemyFireOptions);
+	enemyFire->AddComponent(renderComponent);
+	m_pRenderSystem->AddRenderEntity(std::dynamic_pointer_cast<IGraphicsComponent>(renderComponent));
 
-	std::shared_ptr<ICollisionComponent> collisionEntity = std::shared_ptr<ICollisionComponent>(GCC_NEW ICollisionComponent(actorId, initialPositionX + collisionRadius, initialPositionY + collisionRadius, collisionRadius));
-	m_pCollisionSystem->AddCollisionEntity(collisionEntity,ActorType::AT_ALIENFIRE);
-	std::shared_ptr<Entity> enemyFire = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, ActorType::AT_ALIENFIRE, behaviour, renderEntity, collisionEntity));
+	std::shared_ptr<ICollisionComponent> collisionEntity = std::dynamic_pointer_cast<ICollisionComponent>(m_ComponentManager->GetNewComponent("ICollisionComponent", enemyFireOptions));
+	enemyFire->AddComponent(collisionEntity);
+	m_pCollisionSystem->AddCollisionEntity(std::dynamic_pointer_cast<ICollisionComponent>(collisionEntity), ActorType::AT_ALIENFIRE);
+
 	AddEntity(enemyFire);
 }
 
@@ -438,31 +367,10 @@ void EntitySystem::CreateExplosion(uint32_t initialPositionX, uint32_t initialPo
 	const IniValuesMap &explosionOptions = m_pGameOptions->GetValuesForAGivenKey("Explosion");
 	uint32_t actorId = GetNewActorID();
 
-	ASSERT_DESCRIPTION(explosionOptions.find("NumberOfSprites") != explosionOptions.end(), "Number of Sprites not found");
-	uint32_t numberOfSprites = std::strtoul(explosionOptions.at("NumberOfSprites").c_str(), NULL, 0);
-
-	ASSERT_DESCRIPTION(explosionOptions.find("IdleSprite") != explosionOptions.end(), "Idle Sprite not found");
-	uint32_t idleSprite = std::strtoul(explosionOptions.at("IdleSprite").c_str(), NULL, 0);
-
-	std::vector<std::string> sprites;
-	for (uint32_t i = 0; i < numberOfSprites; ++i)
-	{
-		//TODO Use a _TCHAR somehow... this is ugly
-		std::stringstream sprite;
-		sprite << "Sprite[" << i << "]";
-
-		ASSERT_DESCRIPTION(explosionOptions.find(sprite.str()) != explosionOptions.end(), "Sprite not found for player fire");
-		sprites.push_back(explosionOptions.at(sprite.str()));
-	}
-
-
-	std::shared_ptr<IGraphicsComponent> renderEntity = std::shared_ptr<IGraphicsComponent>(GCC_NEW StaticAnimatedSpritesComponent(actorId, initialPositionX, initialPositionY, m_pRenderSystem.get(),sprites, idleSprite));
-
-	m_pRenderSystem->AddRenderEntity(renderEntity);
-
-	std::shared_ptr<ICollisionComponent> nullCollision;
-	std::shared_ptr<IBehaviourComponent> nullBehaviour;
-	std::shared_ptr<Entity> explosion = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, explosionType, nullBehaviour, renderEntity, nullCollision));
+	std::shared_ptr<Entity> explosion = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, explosionType));
+	std::shared_ptr<IComponent> renderComponent = m_ComponentManager->GetNewComponent("StaticAnimatedSpritesComponent", explosionOptions);
+	explosion->AddComponent(renderComponent);
+	m_pRenderSystem->AddRenderEntity(std::dynamic_pointer_cast<IGraphicsComponent>(renderComponent));
 	AddEntity(explosion);
 }
 
@@ -482,13 +390,13 @@ bool EntitySystemListener::HandleEvent(IEventData const & event) const
 		m_EntitySystem->CreatePlayerFire(ed.m_PosX, ed.m_PosY);
 	}
 
-	if (eventType == EvtData_CreateEnemyFire::sk_EventType)
+	else if (eventType == EvtData_CreateEnemyFire::sk_EventType)
 	{
 		EvtData_CreateEnemyFire const & ed = static_cast< const EvtData_CreateEnemyFire & >(event);
 		m_EntitySystem->CreateEnemyFire(ed.m_PosX, ed.m_PosY);
 	}
 
-	if (eventType == EvtData_DestroyActor::sk_EventType)
+	else if (eventType == EvtData_DestroyActor::sk_EventType)
 	{
 		EvtData_CreatePlayerFire const & ed = static_cast< const EvtData_CreatePlayerFire & >(event);
 		std::shared_ptr<Entity> entity=m_EntitySystem->GetEntity(ed.m_id);
@@ -505,13 +413,13 @@ bool EntitySystemListener::HandleEvent(IEventData const & event) const
 		}
 	}
 
-	if (eventType == EvtData_CreateEnemyExplosion::sk_EventType)
+	else if (eventType == EvtData_CreateEnemyExplosion::sk_EventType)
 	{
 		EvtData_CreateEnemyExplosion const & ed = static_cast< const EvtData_CreateEnemyExplosion & >(event);
 		m_EntitySystem->CreateExplosion(ed.m_PosX, ed.m_PosY, ed.m_id,ActorType::AT_ENEMYEXPLOSION);
 	}
 
-	if (eventType == EvtData_CreatePlayerExplosion::sk_EventType)
+	else if (eventType == EvtData_CreatePlayerExplosion::sk_EventType)
 	{
 		EvtData_CreateEnemyExplosion const & ed = static_cast< const EvtData_CreateEnemyExplosion & >(event);
 		m_EntitySystem->CreateExplosion(ed.m_PosX, ed.m_PosY, ed.m_id,ActorType::AT_PLAYEREXPLOSION);

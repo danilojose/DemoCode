@@ -89,7 +89,11 @@ bool GameCodeApp::InitInstance(int screenWidth, int screenHeight)
 	RegisterBaseGameEvents();	//Register all base event types.
 
 	m_pGame = std::unique_ptr<SimBinGameLogic>(GCC_NEW SimBinGameLogic(std::strtoul(prueba["Lives"].c_str(), NULL, 0)));
-	ASSERT_DESCRIPTION(m_pGame, "The Game Logic Manager was not properly initialized");
+	if (!m_pGame)
+	{
+		ASSERT_DESCRIPTION(false, "The Game Logic Manager was not properly initialized");
+	}
+
 
 	m_pRenderSystem = std::shared_ptr<RenderSystem>(GCC_NEW RenderSystem(SDL_System::GetWindow()));
 	ASSERT_DESCRIPTION(m_pRenderSystem, "The Event Manager was not properly initialized");

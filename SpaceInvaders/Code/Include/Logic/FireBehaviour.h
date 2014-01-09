@@ -19,11 +19,16 @@ namespace AI
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FireBehaviour"/> class.
 		/// </summary>
-		/// <param name="actorId">The actor identifier.</param>
-		/// <param name="posX">The position x.</param>
-		/// <param name="posY">The position y.</param>
+		FireBehaviour() :IBehaviourComponent(FireBehaviour::COMPONENT_NAME),
+			m_MovementSpeed(0)
+		{}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FireBehaviour"/> class.
+		/// </summary>
+		/// <param name="owner">The entity owner.</param>
 		/// <param name="movementSpeed">The movement speed.</param>
-		FireBehaviour(uint32_t actorId, uint32_t posX, uint32_t posY,int movementSpeed);
+		FireBehaviour(Entity *owner,int movementSpeed);
 		/// <summary>
 		/// Finalizes an instance of the <see cref="FireBehaviour"/> class.
 		/// </summary>
@@ -33,7 +38,12 @@ namespace AI
 		/// Provides the behaviour to the component. It just goes in the direction provided by the enemy or player class and gets destroyed once it gets beyond the limits of the board
 		/// </summary>
 		/// <param name="deltaMilliseconds">The delta milliseconds.</param>
-		virtual void behave(uint32_t deltaMilliseconds) override;
+		virtual void OnUpdate(uint32_t deltaMilliseconds) override;
 
+		/// <summary>
+		/// Builds the specified Component using the specified descriptor.
+		/// </summary>
+		/// <param name="descriptor">The descriptor.</param>
+		virtual void Build(const IniValuesMap &descriptor) override;
 	};
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <System\ComponentManager.h>
 #include <System\StdLibraries.h>
 #include <System\Events.h>
 #include <System\EventManager.h>
@@ -31,6 +32,7 @@ protected:
 	EventListenerPtr m_pEntityListener;			// Collision event listener
 	uint32_t m_LastActorId;
 	bool m_RenderDiagnostics;						// Are we rendering diagnostics?
+	std::unique_ptr<ComponentManager> m_ComponentManager;
 	std::shared_ptr<AI::SimBinGameLogic> m_pGame; //The AI GameLogic
 	std::shared_ptr<RenderSystem> m_pRenderSystem; //The RenderSystem
 	std::shared_ptr<CollisionSystem> m_pCollisionSystem; //The Collision system

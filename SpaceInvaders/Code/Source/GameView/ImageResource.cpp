@@ -39,14 +39,14 @@ ImageResHandle::ImageResHandle(Resource &r, const std::string &filename, ResCach
 void ImageResHandle::Load()
 {
 	SDL_Surface *loadedSurface = IMG_Load(m_Filename.c_str());
-	ASSERT_DESCRIPTION(loadedSurface == nullptr, "Create Texture from surface failed: " << IMG_GetError());
+	ASSERT_DESCRIPTION(loadedSurface != nullptr, "Create Texture from surface failed: " << IMG_GetError());
 
 	ASSERT_RESULT_DECL(const int result, SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 255, 0, 255)));
 
 	ASSERT_DESCRIPTION(result == 0, "SDL_SetColorKey failed: " << SDL_GetError());
 
 	m_Texture = SDL_CreateTextureFromSurface(g_pRenderSystem->GetRenderer(), loadedSurface);
-	ASSERT_DESCRIPTION(m_Texture == nullptr, "Create Texture from surface failed: " << IMG_GetError());
+	ASSERT_DESCRIPTION(m_Texture != nullptr, "Create Texture from surface failed: " << IMG_GetError());
 
 	ASSERT_RESULT_DECL(const int error, SDL_QueryTexture(m_Texture, &m_Format, &m_Access, &m_Width, &m_Height));
 	ASSERT_DESCRIPTION(error == 0, "Create Texture from surface failed: " << IMG_GetError());

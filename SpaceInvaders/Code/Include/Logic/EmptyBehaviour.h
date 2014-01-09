@@ -14,13 +14,17 @@ namespace AI
 
 	public:
 		static const std::string COMPONENT_NAME;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EmptyBehaviour"/> class.
 		/// </summary>
-		/// <param name="actorId">The actor identifier.</param>
-		/// <param name="posX">The position x.</param>
-		/// <param name="posY">The position y.</param>
-		EmptyBehaviour(uint32_t actorId, uint32_t posX, uint32_t posY) :IBehaviourComponent(EmptyBehaviour::COMPONENT_NAME,actorId, posX, posY, 0){}
+		EmptyBehaviour() :IBehaviourComponent(EmptyBehaviour::COMPONENT_NAME){}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="EmptyBehaviour"/> class.
+		/// </summary>
+		/// <param name="owner">The entity owner</param>
+		EmptyBehaviour(Entity *owner) :IBehaviourComponent(EmptyBehaviour::COMPONENT_NAME,owner, 0){}
 		/// <summary>
 		/// Finalizes an instance of the <see cref="EmptyBehaviour"/> class.
 		/// </summary>
@@ -30,7 +34,12 @@ namespace AI
 		/// Behaves the specified delta milliseconds.
 		/// </summary>
 		/// <param name="deltaMilliseconds">The delta milliseconds.</param>
-		virtual void behave(uint32_t deltaMilliseconds) override {};
+		virtual void OnUpdate(uint32_t deltaMilliseconds) override {};
 
+		/// <summary>
+		/// Builds the specified Component using the specified descriptor.
+		/// </summary>
+		/// <param name="descriptor">The descriptor.</param>
+		virtual void Build(const IniValuesMap &descriptor) override;
 	};
 }

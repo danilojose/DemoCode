@@ -62,7 +62,7 @@ public:
 	/// Gets the Points property
 	/// </summary>
 	/// <param name="alive">The alive.</param>
-	virtual const uint16_t VGetPoints() const { return m_Points; }
+	virtual const uint16_t GetPoints() const { return m_Points; }
 
 };
 }

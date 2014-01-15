@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpaceInvaders", "SpaceInvaders\SpaceInvaders.vcxproj", "{F259864F-E08C-4E1F-9A54-F87AE91FD9F8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DaniloEngine", "DaniloEngine\DaniloEngine.vcxproj", "{62E835CB-E845-4478-8085-840FB345C70A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpaceTestProject", "SpaceTestProject\SpaceTestProject.vcxproj", "{A8923F87-844B-4E0A-B866-289401038597}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +19,14 @@ Global
 		{F259864F-E08C-4E1F-9A54-F87AE91FD9F8}.Debug|Win32.Build.0 = Debug|Win32
 		{F259864F-E08C-4E1F-9A54-F87AE91FD9F8}.Release|Win32.ActiveCfg = Release|Win32
 		{F259864F-E08C-4E1F-9A54-F87AE91FD9F8}.Release|Win32.Build.0 = Release|Win32
+		{62E835CB-E845-4478-8085-840FB345C70A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{62E835CB-E845-4478-8085-840FB345C70A}.Debug|Win32.Build.0 = Debug|Win32
+		{62E835CB-E845-4478-8085-840FB345C70A}.Release|Win32.ActiveCfg = Release|Win32
+		{62E835CB-E845-4478-8085-840FB345C70A}.Release|Win32.Build.0 = Release|Win32
+		{A8923F87-844B-4E0A-B866-289401038597}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A8923F87-844B-4E0A-B866-289401038597}.Debug|Win32.Build.0 = Debug|Win32
+		{A8923F87-844B-4E0A-B866-289401038597}.Release|Win32.ActiveCfg = Release|Win32
+		{A8923F87-844B-4E0A-B866-289401038597}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

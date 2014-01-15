@@ -1,0 +1,224 @@
+{
+
+"Entities": 
+[
+	{
+		"Name":"Player",
+		"spawned":false,
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"Name": "MinerUserControlledBehaviour",
+				"Speed": 10,
+				"FireRate":500,
+				"Lives":3,
+				"SelectedCellSound":"sounds\\player_shot.wav"				
+			}
+		]
+	},
+	{
+		"Name":"Board",
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"Name": "GameBoardBehaviour",
+				"Stones": 	
+				[
+					{ 
+						"Name":"BlueStone"
+					},
+					{ 
+						"Name":"GreenStone"
+					},
+					{ 
+						"Name":"PurpleStone"
+					},
+					{ 
+						"Name":"YellowStone"
+					},
+					{ 
+						"Name":"RedStone"
+					}
+
+				]
+				
+			}
+		]
+	},	
+	{
+		"Name":"Explosion",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"Name": "StaticAnimatedSpritesComponent",
+				"NumberOfSprites": 18,
+				"IdleSprite":0,
+				"Sprites":[
+					{"Sprite":"graphics\\explosion\\explosion_001.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_002.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_003.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_004.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_005.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_006.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_007.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_008.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_009.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_010.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_011.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_012.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_013.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_014.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_015.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_016.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_017.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_018.bmp"}
+				]
+					
+			}
+
+		]
+	},
+	{
+		"Name":"BlueStone",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"Name": "SelectableSpritesComponent",
+				"NumberOfSprites": 2,
+				"IdleSprite":0,
+				"OnSelectedSprite":1,				
+				"Sprites":[
+					{"Sprite":"graphics\\Blue.png"},
+					{"Sprite":"graphics\\BlueSelected.png"}					
+				]
+					
+			},
+			{
+				"Name": "StoneBehaviour",
+				"Points" : 25,
+				"TimeBonus" : 5				
+			}			
+
+		]
+	},	
+	{
+		"Name":"GreenStone",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"Name": "SelectableSpritesComponent",
+				"NumberOfSprites": 2,
+				"IdleSprite":0,
+				"OnSelectedSprite":1,				
+				"Sprites":[
+					{"Sprite":"graphics\\Green.png"},
+					{"Sprite":"graphics\\GreenSelected.png"}					
+				]
+					
+			},
+			
+			{
+				"Name": "StoneBehaviour",
+				"Points" : 50,
+				"TimeBonus" : 10				
+			}			
+			
+
+		]
+	},	
+	{
+		"Name":"PurpleStone",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"Name": "SelectableSpritesComponent",
+				"NumberOfSprites": 2,
+				"IdleSprite":0,
+				"OnSelectedSprite":1,				
+				"Sprites":[
+					{"Sprite":"graphics\\Purple.png"},
+					{"Sprite":"graphics\\PurpleSelected.png"}					
+				]
+					
+			},
+			{
+				"Name": "StoneBehaviour",
+				"Points" : 75,
+				"TimeBonus" : 15				
+			}			
+
+		]
+	},	
+	{
+		"Name":"YellowStone",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"Name": "SelectableSpritesComponent",
+				"NumberOfSprites": 2,
+				"IdleSprite":0,
+				"OnSelectedSprite":1,				
+				"Sprites":[
+					{"Sprite":"graphics\\Yellow.png"},
+					{"Sprite":"graphics\\YellowSelected.png"}					
+				]
+				
+			},
+			{
+				"Name": "StoneBehaviour",
+				"Points" : 100,
+				"TimeBonus" : 20				
+			}			
+
+		]
+	},	
+	{
+		"Name":"RedStone",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"Name": "SelectableSpritesComponent",
+				"NumberOfSprites": 2,
+				"IdleSprite":0,
+				"OnSelectedSprite":1,				
+				"Sprites":[
+					{"Sprite":"graphics\\Red.png"},
+					{"Sprite":"graphics\\RedSelected.png"}					
+				]
+					
+			},
+			{
+				"Name": "StoneBehaviour",
+				"Points" : 125,
+				"TimeBonus" : 25				
+			}			
+
+		]
+	}	
+	
+]
+}
+
+

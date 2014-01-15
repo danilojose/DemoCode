@@ -11,71 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Code\Include\Sound\AudioResource.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\3rdParty\Font.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\3rdParty\Input.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\3rdParty\System.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\Collision\CollisionComponent.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\Collision\CollisionSystem.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\GameView\AnimatedSpritesComponent.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\GameView\FontResource.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\GameView\FontSystem.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\GameView\ImageResource.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\GameView\RenderSystem.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\GameView\StaticAnimatedSpritesComponent.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\Logic\EmptyBehaviour.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\Logic\EnemyBehaviour.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\Logic\FireBehaviour.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\Logic\SimBinVadersLogic.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\Logic\UserControlledBehaviour.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\Sound\SoundSystem.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\System\ComponentManager.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\System\Entity.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\System\Application.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\System\Assert.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\System\EntitySystem.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\System\EventManager.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\System\Events.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\System\GameOptions.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\System\HashedString.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\System\main.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\System\Resource.cpp" />
-    <ClCompile Include="..\..\..\Code\Source\UI\UISystem.cpp" />
+    <ProjectReference Include="..\DaniloEngine\DaniloEngine.vcxproj">
+      <Project>{62e835cb-e845-4478-8085-840fb345c70a}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Code\Include\3rdParty\Font.h" />
-    <ClInclude Include="..\..\..\Code\Include\3rdParty\Input.h" />
-    <ClInclude Include="..\..\..\Code\Include\3rdParty\System.h" />
-    <ClInclude Include="..\..\..\Code\Include\Collision\CollisionComponent.h" />
-    <ClInclude Include="..\..\..\Code\Include\Collision\CollisionSystem.h" />
-    <ClInclude Include="..\..\..\Code\Include\GameView\AnimatedSpritesComponent.h" />
-    <ClInclude Include="..\..\..\Code\Include\GameView\FontResource.h" />
-    <ClInclude Include="..\..\..\Code\Include\GameView\FontSystem.h" />
-    <ClInclude Include="..\..\..\Code\Include\GameView\IGraphicsComponent.h" />
-    <ClInclude Include="..\..\..\Code\Include\GameView\ImageResource.h" />
-    <ClInclude Include="..\..\..\Code\Include\GameView\RenderSystem.h" />
-    <ClInclude Include="..\..\..\Code\Include\GameView\StaticAnimatedSpritesComponent.h" />
-    <ClInclude Include="..\..\..\Code\Include\Logic\EmptyBehaviour.h" />
-    <ClInclude Include="..\..\..\Code\Include\Logic\EnemyBehaviour.h" />
-    <ClInclude Include="..\..\..\Code\Include\Logic\FireBehaviour.h" />
-    <ClInclude Include="..\..\..\Code\Include\Logic\IBehaviourComponent.h" />
-    <ClInclude Include="..\..\..\Code\Include\Logic\SimBinVadersLogic.h" />
-    <ClInclude Include="..\..\..\Code\Include\Logic\UserControlledBehaviour.h" />
-    <ClInclude Include="..\..\..\Code\Include\Sound\AudioResource.h" />
-    <ClInclude Include="..\..\..\Code\Include\Sound\SoundSystem.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\ComponentManager.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\Entity.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\Application.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\Assert.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\EntitySystem.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\EventManager.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\Events.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\GameOptions.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\HashedString.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\IComponent.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\Resource.h" />
-    <ClInclude Include="..\..\..\Code\Include\System\StdLibraries.h" />
-    <ClInclude Include="..\..\..\Code\Include\UI\UISystem.h" />
+    <ClCompile Include="..\..\..\Code\Source\System\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F259864F-E08C-4E1F-9A54-F87AE91FD9F8}</ProjectGuid>
@@ -106,12 +47,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\..\..\Code\Include;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\include;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\include;$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\include;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32</LibraryPath>
+    <IncludePath>$(SolutionDir)\..\..\Code\Include;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\include;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\include;$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\include;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\include;$(SolutionDir)\..\..\3rdParty\rapidjson\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32;$(SolutionDir)\$(Configuration)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)\..\..\Code\Include;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\include;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\include;$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\include;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32</LibraryPath>
+    <IncludePath>$(SolutionDir)\..\..\Code\Include;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\include;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\include;$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\include;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\include;$(SolutionDir)\..\..\3rdParty\rapidjson\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32;$(SolutionDir)\$(Configuration)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -123,7 +64,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>SDL2_ttf.lib;SDL2.lib;SDL2Main.lib;SDL2_image.lib;SDL2_mixer.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2_ttf.lib;SDL2.lib;SDL2Main.lib;SDL2_image.lib;SDL2_mixer.lib;DaniloEngine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

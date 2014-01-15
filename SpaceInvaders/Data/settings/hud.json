@@ -1,0 +1,62 @@
+{
+"Widgets": 	
+[
+	{ 
+		"WidgetType":"ImageWidget",
+		"Name"="Background",
+		"Parent":0,	
+		"PosX":0,		
+		"PosY":0,			
+		"ImageFile":"graphics\backdrop.bmp"				
+	},
+	{ 
+		"WidgetType":"ImageWidget",
+		"Name"="ScoreBackground",		
+		"Parent":0,	
+		"PosX":850,		
+		"PosY":0,			
+		"ImageFile":"graphics\spacex-normandy-640x353.bmp"				
+	},
+	{ 
+		"WidgetType":"LabelWidget",
+		"Name"="ScoreLabel",		
+		"Parent":0,	
+		"PosX":850,		
+		"PosY":600,			
+		"Font":"font\\arial.ttf",
+		"FontSize":16,
+		"Text"="Score"
+	},
+	{ 
+		"WidgetType":"LabelWidget",
+		"Name"="LivesLabel",		
+		"Parent":0,	
+		"PosX":850,		
+		"PosY":600,			
+		"Font":"font\\arial.ttf",
+		"FontSize":16,
+		"Text"="Lives"
+	},
+	{ 
+		"WidgetType":"BindingLabelWidget",
+		"Name"="ScoresValueLabel",		
+		"Parent":0,	
+		"PosX":900,		
+		"PosY":600,			
+		"Font":"font\\arial.ttf",
+		"FontSize":16,
+		"Binding":"ScoreEvent"
+	},
+	{ 
+		"WidgetType":"BindingLabelWidget",
+		"Name"="LivesValueLabel",		
+		"Parent":0,	
+		"PosX":900,		
+		"PosY":700,			
+		"Font":"font\\arial.ttf",
+		"FontSize":16,
+		"Text"="LivesEvent"
+	}
+]
+
+}

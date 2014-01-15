@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Collision">
+      <UniqueIdentifier>{87aa10c3-8338-4088-8403-c7e8e8f2cd76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameView">
+      <UniqueIdentifier>{a2f14454-0492-4a57-9243-37b38502dae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic">
+      <UniqueIdentifier>{dabe145f-1645-4445-aae9-77c6e8c24c05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{a3c9964c-1fbc-4ab2-8aa0-0d60efba4ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{e1b12f54-8bac-47f1-a371-352a199d081c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sound">
+      <UniqueIdentifier>{3ea22f90-e11e-4e52-9f56-85773d758f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Collision">
+      <UniqueIdentifier>{c3dde36d-78ac-4a2f-aedb-ea629d730142}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameView">
+      <UniqueIdentifier>{bd21c5ef-b6e6-4e75-ac72-e1dc0a9bd6b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic">
+      <UniqueIdentifier>{9750134d-c44f-4d4f-a3f4-2498067c0f0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{7e23d674-a161-4c26-befa-944d92729e4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{231b21a3-c0e1-4c77-b38b-b8515d72c250}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sound">
+      <UniqueIdentifier>{7dcde0f6-1b1f-4aa6-92f5-ccd81125ecdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\3rdParty">
+      <UniqueIdentifier>{18914a0b-6a34-4088-803a-0f972d030e1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3rdParty">
+      <UniqueIdentifier>{cf49ffde-5a3d-432c-85f9-bcadf7bb4296}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\3rdParty\Input.h">
+      <Filter>Header Files\3rdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\3rdParty\System.h">
+      <Filter>Header Files\3rdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Collision\CollisionComponent.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\AnimatedSpritesComponent.h">
+      <Filter>Header Files\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\IGraphicsComponent.h">
+      <Filter>Header Files\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\ImageResource.h">
+      <Filter>Header Files\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\RenderSystem.h">
+      <Filter>Header Files\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\StaticAnimatedSpritesComponent.h">
+      <Filter>Header Files\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\EmptyBehaviour.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\EnemyBehaviour.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\FireBehaviour.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\IBehaviourComponent.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\SimBinVadersLogic.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Sound\AudioResource.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Sound\SoundSystem.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Application.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Assert.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\ComponentManager.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Entity.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\EntitySystem.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\EventManager.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Events.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\FileSystemReader.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\GameOptions.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\HashedString.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\IComponent.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Resource.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\StdLibraries.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\UI\UISystem.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\UI\FontResource.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\UI\FontSystem.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\UI\UIElements.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\World.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Source\System\Spawner.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\SelectableSpritesComponent.h">
+      <Filter>Header Files\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\EntityEvents.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\UserControlledBehaviour.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Collision\PhysicsSystem.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\3rdParty\Input.cpp">
+      <Filter>Source Files\3rdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\3rdParty\System.cpp">
+      <Filter>Source Files\3rdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Collision\CollisionComponent.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\AnimatedSpritesComponent.cpp">
+      <Filter>Source Files\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\ImageResource.cpp">
+      <Filter>Source Files\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\RenderSystem.cpp">
+      <Filter>Source Files\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\StaticAnimatedSpritesComponent.cpp">
+      <Filter>Source Files\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\EmptyBehaviour.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\EnemyBehaviour.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\FireBehaviour.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\SimBinVadersLogic.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Sound\SoundSystem.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Application.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Assert.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\ComponentManager.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Entity.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\EntitySystem.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\EventManager.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Events.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\FileSystemReader.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\GameOptions.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\HashedString.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Resource.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\UI\UISystem.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Sound\AudioResource.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\UI\FontResource.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\UI\FontSystem.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\UI\UIElements.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\World.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\SelectableSpritesComponent.cpp">
+      <Filter>Source Files\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\EntityEvents.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\UserControlledBehaviour.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Collision\PhgysicsSystem.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

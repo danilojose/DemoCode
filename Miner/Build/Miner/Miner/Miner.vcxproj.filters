@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\3rdParty">
+      <UniqueIdentifier>{9fd32f3a-4ca3-429a-bff5-4d41b3c0114b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Collision">
+      <UniqueIdentifier>{ae58a008-77de-45de-b856-c1af29bd3320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameView">
+      <UniqueIdentifier>{c13121d7-1fae-4c35-b1eb-b22548eb6dcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic">
+      <UniqueIdentifier>{59ac21f3-72cf-4222-a55e-8e32708e8d57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sound">
+      <UniqueIdentifier>{49764fac-3cfd-453a-9050-57fbe7a94b8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{5d14153a-3351-46c6-baff-9586389b2f1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{a5d44c01-f3ca-4c93-a2df-f8e2dfb74520}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3rdParty">
+      <UniqueIdentifier>{a9e71b35-c7ca-4194-8f66-acbde747b525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Collision">
+      <UniqueIdentifier>{ee51bc30-8f49-40e2-9fe0-ff47264181d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameView">
+      <UniqueIdentifier>{ed17405c-516e-432a-80fb-032c3420f87c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic">
+      <UniqueIdentifier>{62222556-b6be-4c70-bcad-7f34d2e0d0a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{48d93332-0deb-48ba-83c1-93fb994ba88a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{2e469a75-151f-4171-b725-c00b8731747f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sound">
+      <UniqueIdentifier>{216d201f-6cdc-4929-81c3-0426b3ace22a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Code\Miner\Source\main.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Miner\Source\Logic\MinerUserControlledBehaviour.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Miner\Include\System\MinerEngine.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Miner\Source\Logic\GameBoardBehaviour.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Miner\Source\Logic\StoneBehaviour.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Code\Miner\Include\Logic\StoneBehaviour.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Miner\Include\Logic\GameBoardBehaviour.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Miner\Include\Logic\MinerUserControlledBehaviour.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Miner\Include\System\MinerEngine.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

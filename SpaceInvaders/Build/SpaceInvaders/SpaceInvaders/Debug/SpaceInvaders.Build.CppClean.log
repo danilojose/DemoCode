@@ -3,9 +3,12 @@ d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\vc120.i
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\rendersystem.obj
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\staticanimatedspritescomponent.obj
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\emptybehaviour.obj
+d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\enemybehaviour.obj
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\firebehaviour.obj
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\simbinvaderslogic.obj
+d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\usercontrolledbehaviour.obj
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\soundsystem.obj
+d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\componentmanager.obj
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\entity.obj
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\application.obj
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\assert.obj
@@ -27,6 +30,11 @@ d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\animate
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\fontresource.obj
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\fontsystem.obj
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\imageresource.obj
+d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\spaceinvaders.vcxprojresolveassemblyreference.cache
+d:\github\democode\spaceinvaders\build\spaceinvaders\debug\spaceinvaders.exe
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\spaceinvaders.tlog\cl.command.1.tlog
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\spaceinvaders.tlog\cl.read.1.tlog
 d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\spaceinvaders.tlog\cl.write.1.tlog
+d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\spaceinvaders.tlog\link.command.1.tlog
+d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\spaceinvaders.tlog\link.read.1.tlog
+d:\github\democode\spaceinvaders\build\spaceinvaders\spaceinvaders\debug\spaceinvaders.tlog\link.write.1.tlog

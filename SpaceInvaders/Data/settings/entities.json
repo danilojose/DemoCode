@@ -1,0 +1,309 @@
+{
+
+"Entities": 
+[
+	{
+		"name":"Player",
+		"spawned":false,
+		"PosX":320,
+		"PosY":700,
+		"components":
+		[
+			{
+				"name": "UserControlledBehaviour",
+				"speed": 10,
+				"FireRate":500,
+				"Lives":3,
+				"FireSound":"sounds\\player_shot.wav"				
+			},
+			{
+				"name": "CollisionComponent",
+				"CollisionRadius": 32
+			},			
+			{
+				"name": "AnimatedSpritesComponent",
+				"NumberOfSprites": 21,
+				"IdleSprite":9,
+				"Sprites":[
+					{"Sprite":"graphics\\defender\\defender_000.bmp"},
+					{"Sprite":"graphics\\defender\\defender_001.bmp"},
+					{"Sprite":"graphics\\defender\\defender_002.bmp"},
+					{"Sprite":"graphics\\defender\\defender_003.bmp"},
+					{"Sprite":"graphics\\defender\\defender_004.bmp"},
+					{"Sprite":"graphics\\defender\\defender_005.bmp"},
+					{"Sprite":"graphics\\defender\\defender_006.bmp"},
+					{"Sprite":"graphics\\defender\\defender_007.bmp"},
+					{"Sprite":"graphics\\defender\\defender_008.bmp"},
+					{"Sprite":"graphics\\defender\\defender_009.bmp"},
+					{"Sprite":"graphics\\defender\\defender_010.bmp"},
+					{"Sprite":"graphics\\defender\\defender_011.bmp"},
+					{"Sprite":"graphics\\defender\\defender_012.bmp"},
+					{"Sprite":"graphics\\defender\\defender_013.bmp"},
+					{"Sprite":"graphics\\defender\\defender_014.bmp"},
+					{"Sprite":"graphics\\defender\\defender_015.bmp"},
+					{"Sprite":"graphics\\defender\\defender_016.bmp"},
+					{"Sprite":"graphics\\defender\\defender_017.bmp"},
+					{"Sprite":"graphics\\defender\\defender_018.bmp"},
+					{"Sprite":"graphics\\defender\\defender_019.bmp"},
+					{"Sprite":"graphics\\defender\\defender_020.bmp"}
+				]
+					
+			}
+
+		]
+	},
+	{
+		"name":"PlayerFire",
+		"spawned":true,		
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"name": "FireBehaviour",
+				"speed": -10,
+			},
+			{
+				"name": "CollisionComponent",
+				"CollisionRadius": 8
+			},			
+			{
+				"name": "AnimatedSpritesComponent",
+				"NumberOfSprites": 1,
+				"IdleSprite":0,
+				"Sprites":[
+					{"Sprite":"graphics\\shot.bmp"},
+				]
+					
+			}
+
+		]
+	},
+
+	{
+		"name":"EnemyFire",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"name": "FireBehaviour",
+				"speed": 10,
+			},
+			{
+				"name": "CollisionComponent",
+				"CollisionRadius": 8
+			},			
+			{
+				"name": "AnimatedSpritesComponent",
+				"NumberOfSprites": 1,
+				"IdleSprite":0,
+				"Sprites":[
+					{"Sprite":"graphics\\shot2.bmp"},
+				]
+					
+			}
+
+		]
+	},
+
+	{
+		"name":"Explosion",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"name": "StaticAnimatedSpritesComponent",
+				"NumberOfSprites": 18,
+				"IdleSprite":0,
+				"Sprites":[
+					{"Sprite":"graphics\\explosion\\explosion_001.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_002.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_003.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_004.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_005.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_006.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_007.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_008.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_009.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_010.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_011.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_012.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_013.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_014.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_015.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_016.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_017.bmp"},
+					{"Sprite":"graphics\\explosion\\explosion_018.bmp"}
+				]
+					
+			}
+
+		]
+	},
+	{
+		"name":"Alien1",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"name": "EnemyBehaviour",
+				"speed": 5,
+				"FireRate":50,
+				"Score":50,								
+				"FireSound":"sounds\\vader_shot.wav"				
+			},
+			{
+				"name": "CollisionComponent",
+				"CollisionRadius": 32
+			},			
+			{
+				"name": "AnimatedSpritesComponent",
+				"NumberOfSprites": 10,
+				"IdleSprite":5,
+				"Sprites":[
+					{"Sprite":"graphics\\evil1\\Evil1_031.bmp"},
+					{"Sprite":"graphics\\evil1\\Evil1_032.bmp"},
+					{"Sprite":"graphics\\evil1\\Evil1_033.bmp"},
+					{"Sprite":"graphics\\evil1\\Evil1_034.bmp"},
+					{"Sprite":"graphics\\evil1\\Evil1_035.bmp"},
+					{"Sprite":"graphics\\evil1\\Evil1_035.bmp"},
+					{"Sprite":"graphics\\evil1\\Evil1_036.bmp"},
+					{"Sprite":"graphics\\evil1\\Evil1_037.bmp"},
+					{"Sprite":"graphics\\evil1\\Evil1_038.bmp"},
+					{"Sprite":"graphics\\evil1\\Evil1_039.bmp"},
+				]
+					
+			}
+
+		]
+	},	
+
+	{
+		"name":"Alien2",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"name": "EnemyBehaviour",
+				"speed": 5,
+				"FireRate":50,
+				"Score":100,								
+				"FireSound":"sounds\\vader_shot.wav"				
+			},
+			{
+				"name": "CollisionComponent",
+				"CollisionRadius": 32
+			},			
+			{
+				"name": "AnimatedSpritesComponent",
+				"NumberOfSprites": 10,
+				"IdleSprite":5,
+				"Sprites":[
+					{"Sprite":"graphics\\evil2\\Evil1_031.bmp"},
+					{"Sprite":"graphics\\evil2\\Evil1_032.bmp"},
+					{"Sprite":"graphics\\evil2\\Evil1_033.bmp"},
+					{"Sprite":"graphics\\evil2\\Evil1_034.bmp"},
+					{"Sprite":"graphics\\evil2\\Evil1_035.bmp"},
+					{"Sprite":"graphics\\evil2\\Evil1_035.bmp"},
+					{"Sprite":"graphics\\evil2\\Evil1_036.bmp"},
+					{"Sprite":"graphics\\evil2\\Evil1_037.bmp"},
+					{"Sprite":"graphics\\evil2\\Evil1_038.bmp"},
+					{"Sprite":"graphics\\evil2\\Evil1_039.bmp"},
+				]
+					
+			}
+
+		]
+	},	
+	
+	{
+		"name":"Alien3",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"name": "EnemyBehaviour",
+				"speed": 5,
+				"FireRate":50,
+				"Score":500,								
+				"FireSound":"sounds\\vader_shot.wav"				
+			},
+			{
+				"name": "CollisionComponent",
+				"CollisionRadius": 32
+			},			
+			{
+				"name": "AnimatedSpritesComponent",
+				"NumberOfSprites": 10,
+				"IdleSprite":5,
+				"Sprites":[
+					{"Sprite":"graphics\\evil3\\Evil1_031.bmp"},
+					{"Sprite":"graphics\\evil3\\Evil1_032.bmp"},
+					{"Sprite":"graphics\\evil3\\Evil1_033.bmp"},
+					{"Sprite":"graphics\\evil3\\Evil1_034.bmp"},
+					{"Sprite":"graphics\\evil3\\Evil1_035.bmp"},
+					{"Sprite":"graphics\\evil3\\Evil1_035.bmp"},
+					{"Sprite":"graphics\\evil3\\Evil1_036.bmp"},
+					{"Sprite":"graphics\\evil3\\Evil1_037.bmp"},
+					{"Sprite":"graphics\\evil3\\Evil1_038.bmp"},
+					{"Sprite":"graphics\\evil3\\Evil1_039.bmp"},
+				]
+					
+			}
+
+		]
+	},		
+
+	{
+		"name":"Alien4",
+		"spawned":true,				
+		"PosX":0,
+		"PosY":0,
+		"components":
+		[
+			{
+				"name": "EnemyBehaviour",
+				"speed": 5,
+				"FireRate":50,
+				"Score":1000,				
+				"FireSound":"sounds\\vader_shot.wav"				
+			},
+			{
+				"name": "CollisionComponent",
+				"CollisionRadius": 32
+			},			
+			{
+				"name": "AnimatedSpritesComponent",
+				"NumberOfSprites": 10,
+				"IdleSprite":5,
+				"Sprites":[
+					{"Sprite":"graphics\\evil4\\Evil1_031.bmp"},
+					{"Sprite":"graphics\\evil4\\Evil1_032.bmp"},
+					{"Sprite":"graphics\\evil4\\Evil1_033.bmp"},
+					{"Sprite":"graphics\\evil4\\Evil1_034.bmp"},
+					{"Sprite":"graphics\\evil4\\Evil1_035.bmp"},
+					{"Sprite":"graphics\\evil4\\Evil1_035.bmp"},
+					{"Sprite":"graphics\\evil4\\Evil1_036.bmp"},
+					{"Sprite":"graphics\\evil4\\Evil1_037.bmp"},
+					{"Sprite":"graphics\\evil4\\Evil1_038.bmp"},
+					{"Sprite":"graphics\\evil4\\Evil1_039.bmp"},
+				]
+					
+			}
+
+		]
+	}		
+]
+}
+
+

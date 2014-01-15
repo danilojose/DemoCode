@@ -1,0 +1,42 @@
+{
+
+"options" :
+{
+	"Game":{
+		"Width":1024,
+		"Height": 768,
+		"Font": "font\\arial.ttf",
+		"FontSize": 16,
+		"Lives": 3		
+	},
+	"InGameMap":{
+		"Width":900,
+		"Height":768
+	},
+	"UI":{
+	
+		"FontSystem": 
+		{
+			"Fonts": [
+				{ 
+					"Name": "MediumFont",
+					"Font": "font\\arial.ttf",
+					"FontSize": 16
+				},
+				{ 
+					"Name": "SmallFont",
+					"Font": "font\\arial.ttf",
+					"FontSize": 8
+				},
+				{ 
+					"Name": "BigFont",
+					"Font": "font\\arial.ttf",
+					"FontSize": 24
+				}
+			]
+		}
+	}		
+}
+}
+
+

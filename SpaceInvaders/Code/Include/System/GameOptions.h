@@ -1,6 +1,9 @@
 #pragma once
 #include <System\StdLibraries.h>
+#include <rapidjson\document.h>
 #include <sstream>
+
+using namespace rapidjson;
 namespace GameSystem
 {
 // Typedefs and forward declarations
@@ -38,6 +41,33 @@ namespace GameSystem
 		const char *m_FilePath;
 		std::stringstream m_StrStream;
 		IniSectionValuesMap m_KeyValues;
+	};
+
+	/// <summary>
+	/// Class that reads a JSON file and is able to provide a  map that contains the key values from that INI file
+	/// </summary>
+	class GameOptionsJSON
+	{
+	public:
+		/// <summary>
+		/// Initializes a new instance of the <see cref="GameOptions"/> class.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		explicit GameOptionsJSON(const char * path);
+		/// <summary>
+		/// Finalizes an instance of the <see cref="GameOptions"/> class.
+		/// </summary>
+		virtual ~GameOptionsJSON();
+		/// <summary>
+		/// Initializes this instance with the data loaded in the constructor
+		/// </summary>
+		void Init();
+
+		GenericDocument<UTF8<>, CrtAllocator> m_Document;	// Use Crt allocator to check exception-safety (no memory leak)
+	private:
+
+		std::string m_FilePath;
+		std::stringstream m_StrStream;
 	};
 
 }

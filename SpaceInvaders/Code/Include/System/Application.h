@@ -7,6 +7,7 @@
 #include <Sound\SoundSystem.h>
 #include <Collision\CollisionSystem.h>
 #include <System\EventManager.h>
+#include <System\FileSystemReader.h>
 #include <System\GameOptions.h>
 #include <System\EntitySystem.h>
 #include <System\Resource.h>
@@ -60,6 +61,7 @@ namespace GameSystem
 		std::unique_ptr<UISystem> m_pUISystem; //The SoundSystem
 		std::shared_ptr<CollisionSystem> m_pCollisionSystem; //The SoundSystem
 		std::shared_ptr<GameOptions> m_pGameOptions; //The GameOptions
+		std::unique_ptr<JSONFileSystemParser> m_pJSONGameOptions; //The JSONGameOptions
 		std::unique_ptr<EntitySystem> m_pEntitySystem; //The EntitySystem
 		EventManager *m_pEventManager; // The Event Manager
 		ResCache *m_pResCache; //The ResourceCache

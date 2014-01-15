@@ -1,4 +1,5 @@
 #include <System\Application.h>
+#include <System\FileSystemReader.h>
 #include <System\StdLibraries.h>
 #include <3rdParty\Font.h>
 #include <3rdParty\Input.h>
@@ -75,11 +76,18 @@ bool GameCodeApp::InitInstance(int screenWidth, int screenHeight)
 
 	srand((unsigned int)time(NULL));
 
-	//TODO: Check return of constructors.
+	FileSystemReader fileReader("settings\\options.json");
+	m_pJSONGameOptions = std::unique_ptr<JSONFileSystemParser>(GCC_NEW JSONFileSystemParser(fileReader.GetContents()));
+	ASSERT_DESCRIPTION(m_pJSONGameOptions, "The JSON Game Options where not properly initialized");
+
+	m_pJSONGameOptions->Init();
+
 	m_pGameOptions = std::unique_ptr<GameOptions>(GCC_NEW GameOptions("options.ini"));
 	m_pGameOptions->Init();
-	IniValuesMap prueba = m_pGameOptions->GetValuesForAGivenKey("Game");
-	SDL_System::Init(std::strtoul(prueba["Width"].c_str(), NULL, 0), std::strtoul(prueba["Height"].c_str(), NULL, 0));
+
+	SDL_System::Init(
+		m_pJSONGameOptions->GetNode("options")->GetChild("Game")->GetUInteger("Width"),
+		m_pJSONGameOptions->GetNode("options")->GetChild("Game")->GetUInteger("Height"));
 
 	// event manager should be created first so that subsystems
 	// can hook in as desired.
@@ -88,12 +96,8 @@ bool GameCodeApp::InitInstance(int screenWidth, int screenHeight)
 	ASSERT_DESCRIPTION(m_pEventManager, "The Event Manager was not properly initialized");
 	RegisterBaseGameEvents();	//Register all base event types.
 
-	m_pGame = std::unique_ptr<SimBinGameLogic>(GCC_NEW SimBinGameLogic(std::strtoul(prueba["Lives"].c_str(), NULL, 0)));
-	if (!m_pGame)
-	{
-		ASSERT_DESCRIPTION(false, "The Game Logic Manager was not properly initialized");
-	}
-
+	m_pGame = std::unique_ptr<SimBinGameLogic>(GCC_NEW SimBinGameLogic(m_pJSONGameOptions->GetNode("options")->GetChild("Game")->GetUInteger("Lives")));
+	ASSERT_DESCRIPTION(m_pGame, "The Game Logic Manager was not properly initialized");
 
 	m_pRenderSystem = std::shared_ptr<RenderSystem>(GCC_NEW RenderSystem(SDL_System::GetWindow()));
 	ASSERT_DESCRIPTION(m_pRenderSystem, "The Event Manager was not properly initialized");

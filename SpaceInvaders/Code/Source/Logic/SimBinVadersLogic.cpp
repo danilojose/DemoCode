@@ -9,12 +9,8 @@ using namespace AI;
 /// Initializes a new instance of the <see cref="SimBinGameLogic"/> class.
 /// </summary>
 /// <param name="lives">The lives.</param>
-SimBinGameLogic::SimBinGameLogic(uint32_t lives)
+SimBinGameLogic::SimBinGameLogic(uint32_t lives) :m_Score(0), m_Lives(lives), m_State(SB_Initializing), m_RenderDiagnostics(false)
 {
-	m_Score = 0;
-	m_Lives = lives;
-	m_State = SB_Initializing;
-	m_RenderDiagnostics = false;
 	m_pAiEventListener = EventListenerPtr(GCC_NEW AiEventListener(this));
 	IEventManager::Get()->VAddListener(m_pAiEventListener, EvtData_DestroyActor::sk_EventType);
 	IEventManager::Get()->VAddListener(m_pAiEventListener, EvtData_EnemyCollisionDetected::sk_EventType);
@@ -162,7 +158,7 @@ bool AiEventListener::HandleEvent(IEventData const & event) const
 			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(friendlyEntity->GetEntity()->GetID())));
 			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(enemyEntity->GetEntity()->GetID())));
 			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_CreateEnemyExplosion(enemyEntity->GetEntity()->GetID(), enemyEntity->GetEntity()->GetPosX(), enemyEntity->GetEntity()->GetPosY())));
-			uint16_t score=m_LogicSystem->AddScore(enemyEntity->VGetPoints());
+			uint16_t score=m_LogicSystem->AddScore(enemyEntity->GetPoints());
 			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_PointsObtained(score)));
 		}
 		return true;

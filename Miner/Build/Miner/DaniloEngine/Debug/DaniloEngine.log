@@ -1,0 +1,46 @@
+﻿Build started 1/15/2014 9:11:26 PM.
+     1>Project "D:\GitHub\DemoCode\Miner\Build\Miner\DaniloEngine\DaniloEngine.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(381,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SpaceInvaders.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D ENABLE_ASSERTS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\..\Code\DaniloEngine\Source\System\Application.cpp
+         Application.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"D:\GitHub\DemoCode\Miner\Build\Miner\Debug\DaniloEngine.lib" /NOLOGO Debug\Input.obj
+         Debug\System.obj
+         Debug\CollisionComponent.obj
+         Debug\PhgysicsSystem.obj
+         Debug\AnimatedSpritesComponent.obj
+         Debug\ImageResource.obj
+         Debug\RenderSystem.obj
+         Debug\SelectableSpritesComponent.obj
+         Debug\StaticAnimatedSpritesComponent.obj
+         Debug\EmptyBehaviour.obj
+         Debug\EnemyBehaviour.obj
+         Debug\FireBehaviour.obj
+         Debug\SimBinVadersLogic.obj
+         Debug\UserControlledBehaviour.obj
+         Debug\AudioResource.obj
+         Debug\SoundSystem.obj
+         Debug\Application.obj
+         Debug\Assert.obj
+         Debug\ComponentManager.obj
+         Debug\Entity.obj
+         Debug\EntityEvents.obj
+         Debug\EntitySystem.obj
+         Debug\EventManager.obj
+         Debug\Events.obj
+         Debug\FileSystemReader.obj
+         Debug\GameOptions.obj
+         Debug\HashedString.obj
+         Debug\Resource.obj
+         Debug\World.obj
+         Debug\FontResource.obj
+         Debug\FontSystem.obj
+         Debug\UIElements.obj
+         Debug\UISystem.obj
+         DaniloEngine.vcxproj -> D:\GitHub\DemoCode\Miner\Build\Miner\Debug\DaniloEngine.lib
+     1>Done Building Project "D:\GitHub\DemoCode\Miner\Build\Miner\DaniloEngine\DaniloEngine.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.04

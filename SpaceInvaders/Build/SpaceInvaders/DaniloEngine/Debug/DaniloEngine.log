@@ -1,0 +1,43 @@
+﻿Build started 1/10/2014 2:00:19 AM.
+     1>Project "D:\GitHub\DemoCode\SpaceInvaders\Build\SpaceInvaders\DaniloEngine\DaniloEngine.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(381,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SpaceInvaders.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D ENABLE_ASSERTS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\..\Code\Source\Logic\SimBinVadersLogic.cpp
+         SimBinVadersLogic.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"D:\GitHub\DemoCode\SpaceInvaders\Build\SpaceInvaders\Debug\DaniloEngine.lib" /NOLOGO Debug\AudioResource.obj
+         Debug\Font.obj
+         Debug\Input.obj
+         Debug\System.obj
+         Debug\CollisionComponent.obj
+         Debug\CollisionSystem.obj
+         Debug\AnimatedSpritesComponent.obj
+         Debug\FontResource.obj
+         Debug\FontSystem.obj
+         Debug\ImageResource.obj
+         Debug\RenderSystem.obj
+         Debug\StaticAnimatedSpritesComponent.obj
+         Debug\EmptyBehaviour.obj
+         Debug\EnemyBehaviour.obj
+         Debug\FireBehaviour.obj
+         Debug\SimBinVadersLogic.obj
+         Debug\UserControlledBehaviour.obj
+         Debug\SoundSystem.obj
+         Debug\ComponentManager.obj
+         Debug\Entity.obj
+         Debug\Application.obj
+         Debug\Assert.obj
+         Debug\EntitySystem.obj
+         Debug\EventManager.obj
+         Debug\Events.obj
+         Debug\FileSystemReader.obj
+         Debug\GameOptions.obj
+         Debug\HashedString.obj
+         Debug\Resource.obj
+         Debug\UISystem.obj
+         DaniloEngine.vcxproj -> D:\GitHub\DemoCode\SpaceInvaders\Build\SpaceInvaders\Debug\DaniloEngine.lib
+     1>Done Building Project "D:\GitHub\DemoCode\SpaceInvaders\Build\SpaceInvaders\DaniloEngine\DaniloEngine.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.75

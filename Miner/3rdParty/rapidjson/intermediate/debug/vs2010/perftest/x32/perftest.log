@@ -1,0 +1,48 @@
+﻿Build started 1/9/2014 5:42:47 PM.
+     1>Project "D:\GitHub\DemoCode\SpaceInvaders\3rdParty\rapidjson\build\vs2010\perftest.vcxproj" on node 3 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\include /I..\..\thirdparty\gtest\include /I..\..\thirdparty /I..\..\thirdparty\jsoncpp\include /I..\..\thirdparty\libjson /I..\..\thirdparty\yajl\include /I"C:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W4 /WX- /Od /Oy- /D DEBUG /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTCc /RTC1 /MDd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"..\..\intermediate\debug\vs2010\perftest\x32\\" /Fd"..\..\intermediate\debug\vs2010\perftest\x32\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\test\perftest\jsoncpptest.cpp ..\..\test\perftest\perftest.cpp ..\..\test\perftest\rapidjsontest.cpp ..\..\test\perftest\yajltest.cpp
+         yajltest.cpp
+         rapidjsontest.cpp
+         perftest.cpp
+         jsoncpptest.cpp
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_reader.cpp(480): warning C4100: 'tokenStart' : unreferenced formal parameter
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_reader.cpp(550): warning C4127: conditional expression is constant
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_reader.cpp(539): warning C4100: 'tokenStart' : unreferenced formal parameter
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_reader.cpp(778): warning C4127: conditional expression is constant
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_value.cpp(535): warning C4100: 'other' : unreferenced formal parameter
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_value.cpp(700): warning C4127: conditional expression is constant
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_value.cpp(735): warning C4127: conditional expression is constant
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_value.cpp(762): warning C4127: conditional expression is constant
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_value.cpp(787): warning C4127: conditional expression is constant
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_value.cpp(1603): warning C4100: 'path' : unreferenced formal parameter
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_value.cpp(1625): warning C4100: 'location' : unreferenced formal parameter
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_value.cpp(1624): warning C4100: 'path' : unreferenced formal parameter
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_writer.cpp(326): warning C4127: conditional expression is constant
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_writer.cpp(366): warning C4127: conditional expression is constant
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_writer.cpp(602): warning C4127: conditional expression is constant
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\jsoncpp\src\lib_json\json_writer.cpp(642): warning C4127: conditional expression is constant
+         Generating Code...
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\include /I..\..\thirdparty\gtest\include /I..\..\thirdparty /I..\..\thirdparty\jsoncpp\include /I..\..\thirdparty\libjson /I..\..\thirdparty\yajl\include /I"C:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W4 /WX- /Od /Oy- /D DEBUG /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTCc /RTC1 /MDd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"..\..\intermediate\debug\vs2010\perftest\x32\\" /Fd"..\..\intermediate\debug\vs2010\perftest\x32\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\test\perftest\yajl_all.c
+         yajl_all.c
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\yajl\src\yajl_alloc.c(26): warning C4100: 'ctx' : unreferenced formal parameter
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\yajl\src\yajl_alloc.c(31): warning C4100: 'ctx' : unreferenced formal parameter
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\yajl\src\yajl_alloc.c(37): warning C4100: 'ctx' : unreferenced formal parameter
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\yajl\src\yajl_encode.c(169): warning C4130: '==' : logical operation on address of string constant
+     1>c:\program files (x86)\microsoft visual studio 12.0\vc\include\math.h(288): warning C4005: 'isinf' : macro redefinition
+                 d:\github\democode\spaceinvaders\3rdparty\rapidjson\test\perftest\yajl_all.c(7) : see previous definition of 'isinf'
+     1>c:\program files (x86)\microsoft visual studio 12.0\vc\include\math.h(289): warning C4005: 'isnan' : macro redefinition
+                 d:\github\democode\spaceinvaders\3rdparty\rapidjson\test\perftest\yajl_all.c(8) : see previous definition of 'isnan'
+     1>d:\github\democode\spaceinvaders\3rdparty\rapidjson\thirdparty\yajl\src\yajl_parser.c(490): warning C4702: unreachable code
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\bin\perftest_debug_x32_vs2010.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\thirdparty\lib gtest_debug_x32_vs2010.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\..\bin\perftest_debug_x32_vs2010.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\..\bin\perftest_debug_x32_vs2010.lib" /MACHINE:X86 ..\..\intermediate\debug\vs2010\perftest\x32\jsoncpptest.obj
+         ..\..\intermediate\debug\vs2010\perftest\x32\perftest.obj
+         ..\..\intermediate\debug\vs2010\perftest\x32\rapidjsontest.obj
+         ..\..\intermediate\debug\vs2010\perftest\x32\yajltest.obj
+         ..\..\intermediate\debug\vs2010\perftest\x32\yajl_all.obj
+         perftest.vcxproj -> D:\GitHub\DemoCode\SpaceInvaders\3rdParty\rapidjson\build\vs2010\..\..\bin\perftest_debug_x32_vs2010.exe
+     1>Done Building Project "D:\GitHub\DemoCode\SpaceInvaders\3rdParty\rapidjson\build\vs2010\perftest.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.79

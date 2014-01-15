@@ -1,0 +1,24 @@
+﻿Build started 1/9/2014 5:42:47 PM.
+     1>Project "D:\GitHub\DemoCode\SpaceInvaders\3rdParty\rapidjson\build\vs2010\unittest.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\include /I..\..\thirdparty\gtest\include /I"C:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W4 /WX- /Od /Oy- /D DEBUG /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTCc /RTC1 /MDd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"..\..\intermediate\debug\vs2010\unittest\x32\\" /Fd"..\..\intermediate\debug\vs2010\unittest\x32\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\test\unittest\documenttest.cpp ..\..\test\unittest\jsoncheckertest.cpp ..\..\test\unittest\readertest.cpp ..\..\test\unittest\unittest.cpp ..\..\test\unittest\valuetest.cpp ..\..\test\unittest\writertest.cpp
+         writertest.cpp
+         valuetest.cpp
+         unittest.cpp
+         readertest.cpp
+         jsoncheckertest.cpp
+         documenttest.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\bin\unittest_debug_x32_vs2010.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\thirdparty\lib gtest_debug_x32_vs2010.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\..\bin\unittest_debug_x32_vs2010.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\..\bin\unittest_debug_x32_vs2010.lib" /MACHINE:X86 ..\..\intermediate\debug\vs2010\unittest\x32\documenttest.obj
+         ..\..\intermediate\debug\vs2010\unittest\x32\jsoncheckertest.obj
+         ..\..\intermediate\debug\vs2010\unittest\x32\readertest.obj
+         ..\..\intermediate\debug\vs2010\unittest\x32\unittest.obj
+         ..\..\intermediate\debug\vs2010\unittest\x32\valuetest.obj
+         ..\..\intermediate\debug\vs2010\unittest\x32\writertest.obj
+         unittest.vcxproj -> D:\GitHub\DemoCode\SpaceInvaders\3rdParty\rapidjson\build\vs2010\..\..\bin\unittest_debug_x32_vs2010.exe
+     1>Done Building Project "D:\GitHub\DemoCode\SpaceInvaders\3rdParty\rapidjson\build\vs2010\unittest.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.49

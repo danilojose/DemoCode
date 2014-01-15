@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\3rdParty\Input.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\3rdParty\System.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Collision\CollisionComponent.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Collision\PhysicsSystem.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\AnimatedSpritesComponent.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\IGraphicsComponent.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\ImageResource.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\RenderSystem.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\SelectableSpritesComponent.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\StaticAnimatedSpritesComponent.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\EmptyBehaviour.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\EnemyBehaviour.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\FireBehaviour.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\IBehaviourComponent.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\SimBinVadersLogic.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\UserControlledBehaviour.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Sound\AudioResource.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Sound\SoundSystem.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Application.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Assert.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\ComponentManager.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Entity.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\EntityEvents.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\EntitySystem.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\EventManager.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Events.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\FileSystemReader.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\GameOptions.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\HashedString.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\IComponent.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Resource.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\StdLibraries.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\World.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\UI\FontResource.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\UI\FontSystem.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\UI\UIElements.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\UI\UISystem.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Source\System\Spawner.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\3rdParty\Input.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\3rdParty\System.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Collision\CollisionComponent.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Collision\PhgysicsSystem.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\AnimatedSpritesComponent.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\ImageResource.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\RenderSystem.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\SelectableSpritesComponent.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\StaticAnimatedSpritesComponent.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\EmptyBehaviour.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\EnemyBehaviour.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\FireBehaviour.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\SimBinVadersLogic.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\UserControlledBehaviour.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Sound\AudioResource.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Sound\SoundSystem.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Application.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Assert.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\ComponentManager.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Entity.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\EntityEvents.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\EntitySystem.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\EventManager.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Events.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\FileSystemReader.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\GameOptions.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\HashedString.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Resource.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\World.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\UI\FontResource.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\UI\FontSystem.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\UI\UIElements.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\UI\UISystem.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{62E835CB-E845-4478-8085-840FB345C70A}</ProjectGuid>
+    <RootNamespace>SpaceInvaders</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)\..\..\Code\DaniloEngine\Include;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\include;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\include;$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\include;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\include;$(SolutionDir)\..\..\3rdParty\rapidjson\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)\..\..\Code\DaniloEngine\Include;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\include;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\include;$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\include;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\include;$(SolutionDir)\..\..\3rdParty\rapidjson\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>SDL2_ttf.lib;SDL2.lib;SDL2Main.lib;SDL2_image.lib;SDL2_mixer.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2_ttf.lib;SDL2.lib;SDL2Main.lib;SDL2_image.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

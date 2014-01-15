@@ -1,0 +1,54 @@
+{
+"hud": 	
+{
+	"Widgets":
+[
+	{ 
+		"WidgetType":"ImageWidget",
+		"Name":"Background",
+		"Parent":0,	
+		"PosX":0,		
+		"PosY":0,			
+		"ImageFile":"graphics\\BackGround.jpg"				
+	},
+	{ 
+		"WidgetType":"LabelWidget",
+		"Name":"ScoreLabel",		
+		"Parent":0,	
+		"PosX":850,		
+		"PosY":600,			
+		"FontStyle":"MediumFont",
+		"Text":"Score"
+	},
+	{ 
+		"WidgetType":"LabelWidget",
+		"Name":"LivesLabel",		
+		"Parent":0,	
+		"PosX":850,		
+		"PosY":700,			
+		"FontStyle":"MediumFont",
+		"Text":"Lives"
+	},
+	{ 
+		"WidgetType":"BindingLabelWidget",
+		"Name":"ScoresValueLabel",		
+		"Parent":0,	
+		"PosX":900,		
+		"PosY":600,			
+		"FontStyle":"MediumFont",
+		"Text":"0",		
+		"Binding":"ScoreEvent"
+	},
+	{ 
+		"WidgetType":"BindingLabelWidget",
+		"Name":"LivesValueLabel",		
+		"Parent":0,	
+		"PosX":900,		
+		"PosY":700,			
+		"FontStyle":"MediumFont",
+		"Text":"0",				
+		"Binding":"LivesEvent"
+	}
+]
+}
+}

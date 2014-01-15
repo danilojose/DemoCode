@@ -1,0 +1,18 @@
+{
+
+"spawner":
+{
+	"NumberOfEnemiesByRow":6,	
+	"InitialPositionX":100,	
+	"InitialPositionY":0,	
+	"Rows": 	
+	[
+		{ "Enemy":"Alien1"},
+		{ "Enemy":"Alien2"},
+		{ "Enemy":"Alien3"},
+		{ "Enemy":"Alien4"}, 		
+	]
+}
+}
+
+

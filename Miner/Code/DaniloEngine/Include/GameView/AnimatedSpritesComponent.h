@@ -13,9 +13,9 @@ namespace Graphics
 class AnimatedSpritesComponent:public IGraphicsComponent
 {
 protected:
-	std::vector<std::shared_ptr<ImageResource>> m_SpriteList;
-	uint32_t m_IdleSprite;
-	uint32_t m_CurrentSprite;
+	std::vector<std::shared_ptr<ImageResource>>			m_SpriteList;
+	uint32_t											m_IdleSprite;
+	uint32_t											m_CurrentSprite;
 
 public:
 
@@ -55,7 +55,7 @@ public:
 	/// Clones the current Component
 	/// </summary>
 	/// <param name="descriptor">The descriptor.</param>
-	virtual std::shared_ptr<IComponent> Clone() override;
+	virtual std::shared_ptr<IComponent> Clone(Entity *entity) override;
 	/// <summary>
 	/// OnEntityEvent: This method is in charge of handling the events that are raised inside the entity domain to communicate one component with another.
 	/// </summary>

@@ -15,7 +15,7 @@ namespace UI
 	{
 	public:
 		
-		uint8_t m_FontSize;
+		uint8_t									m_FontSize;
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FontResource"/> class.
 		/// </summary>
@@ -61,8 +61,8 @@ namespace UI
 		void Load() override;
 
 	private:
-		TTF_Font *m_Font = nullptr;
-		uint8_t m_Size;
+		TTF_Font *									m_Font = nullptr;
+		uint8_t										m_Size;
 	};
 
 }

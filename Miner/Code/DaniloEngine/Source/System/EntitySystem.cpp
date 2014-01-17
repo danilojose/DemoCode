@@ -1,4 +1,4 @@
-#include <Collision\PhysicsSystem.h>
+#include <Physics\PhysicsSystem.h>
 #include <GameView\AnimatedSpritesComponent.h>
 #include <GameView\StaticAnimatedSpritesComponent.h>
 #include <Logic\FireBehaviour.h>
@@ -7,14 +7,14 @@
 #include <Logic\UserControlledBehaviour.h>
 #include <System\EntitySystem.h>
 #include <GameView\RenderSystem.h>
-#include <Logic\SimBinVadersLogic.h>
+#include <Logic\GameLogic.h>
 #include <System\Assert.h>
 
 
 //namespaces
 using namespace GameSystem;
 using namespace AI;
-using namespace Collision;
+using namespace Physics;
 using namespace Graphics;
 
 //typedefs and forward declarations
@@ -33,6 +33,9 @@ const uint32_t SPAWN_INITIALPOSITIONX = 100;
 const uint32_t SPAWN_INITIALPOSITIONY = 100;
 const uint32_t SPAWN_NUMBEROFENEMYKINDS = 4;
 
+
+EntitySystem * g_pEntitySystem;
+
 /// <summary>
 /// Initializes a new instance of the <see cref="EntitySystem"/> class.
 /// </summary>
@@ -40,6 +43,7 @@ EntitySystem::EntitySystem()
 {
 	m_ComponentManager = std::unique_ptr<ComponentManager>(GCC_NEW ComponentManager());
 	m_pEntityListener = EventListenerPtr(GCC_NEW EntitySystemListener(this));
+	g_pEntitySystem = this;
 }
 
 /// <summary>
@@ -48,11 +52,15 @@ EntitySystem::EntitySystem()
 EntitySystem::EntitySystem(std::unique_ptr<ComponentManager> componentManager) : m_LastActorId(0)
 {
 	m_ComponentManager = std::move(componentManager);
+	m_pEntityListener = EventListenerPtr(GCC_NEW EntitySystemListener(this));
+	g_pEntitySystem = this;
 }
 EntitySystem::EntitySystem(EntitySystem&& other)
 {
 
 	m_ComponentManager = std::unique_ptr<ComponentManager>(std::move(other.m_ComponentManager));
+	m_pEntityListener = EventListenerPtr(GCC_NEW EntitySystemListener(this));
+	g_pEntitySystem = this;
 }
 
 /// <summary>
@@ -157,7 +165,7 @@ std::shared_ptr<Entity> EntitySystem::CreatePrototype(JSONNode * descriptor)
 	uint32_t initialPositionY = descriptor->GetUInteger("PosY");
 	const char* entityName = descriptor->GetString("Name");
 
-	std::shared_ptr<Entity> entity = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, ActorType::AT_PLAYER,HashedString(entityName)));
+	std::shared_ptr<Entity> entity = std::shared_ptr<Entity>(GCC_NEW Entity(actorId, initialPositionX, initialPositionY, HashedString(entityName)));
 
 	const std::vector<JSONNode *> componentsVector = descriptor->GetChild("components")->GetArrayValues();
 	for (const auto& componentDescriptor : componentsVector)
@@ -176,11 +184,11 @@ std::shared_ptr<Entity> EntitySystem::CreateEntity(const char * entityName)
 {
 	std::shared_ptr<Entity> protoType = m_PrototypeMap[HashedString(entityName).getHashValue()];
 
-	std::shared_ptr<Entity> entity = std::shared_ptr<Entity>(GCC_NEW Entity(GetNewActorID(), protoType->GetPosX(), protoType->GetPosY(), protoType->GetType(), protoType->GetEntityName()));
+	std::shared_ptr<Entity> entity = std::shared_ptr<Entity>(GCC_NEW Entity(GetNewActorID(), protoType->GetPosX(), protoType->GetPosY(), protoType->GetEntityName()));
 
 	for (const auto &component : protoType->GetComponents())
 	{
-		entity->AddComponent(component->Clone());
+		entity->AddComponent(component->Clone(entity.get()));
 	}
 
 	AddEntity(entity);
@@ -228,6 +236,7 @@ bool EntitySystemListener::HandleEvent(IEventData const & event) const
 			}
 			else
 			{
+
 				m_EntitySystem->RemoveEntity(ed.m_id);
 			}
 		}

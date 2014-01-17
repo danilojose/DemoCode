@@ -23,6 +23,16 @@ void World::Build(JSONNode *descriptor)
 
 		m_CellVector.push_back(std::shared_ptr<Cell>(GCC_NEW Cell(posX, posY)));
 	}
+	for (uint16_t i = 0; i < m_NumberOfStonesByRow; i++)
+	{
+		for (uint16_t j = 0; j < m_NumberOfRows; j++)
+		{
+			m_VerticalCellVector.push_back(GetCellAt(i,j));
+		}
+	}
+
+
+
 }
 bool World::IsFull() const 
 {
@@ -39,7 +49,7 @@ bool World::IsEmpty() const
 
 	return cellIt == m_CellVector.end();
 }
-void World::AddEntity(uint16_t positionX, uint16_t positionY, std::shared_ptr<Entity> entity)
+void World::AddEntity(uint16_t positionX, uint16_t positionY, Entity* entity)
 {
 
 	uint16_t positionAtVector = (positionY*m_NumberOfStonesByRow) + positionX;
@@ -74,7 +84,18 @@ std::shared_ptr<Cell> World::GetCellAtWorldPosition(uint16_t positionX, uint16_t
 
 std::shared_ptr<Cell> World::GetCellWhereEntityIsFound(const uint32_t &entityId)
 {
-	auto iter=std::find_if(m_CellVector.begin(), m_CellVector.end(), [&](std::shared_ptr<Cell> cell) { return cell->GetEntity()->GetID() == entityId; });
+	auto iter = std::find_if(m_CellVector.begin(), m_CellVector.end(), [&](std::shared_ptr<Cell> cell) {
+		if (cell->GetEntity() != nullptr)
+		{
+			return cell->GetEntity()->GetID() == entityId;
+
+		}
+		else
+		{
+			return false;
+		}
+	}
+	);
 	if (iter != m_CellVector.end())
 	{
 		return *iter;
@@ -86,12 +107,11 @@ std::shared_ptr<Cell> World::GetCellWhereEntityIsFound(const uint32_t &entityId)
 
 }
 
-
-const std::shared_ptr<Entity> World::GetEntityAt(uint16_t positionX, uint16_t positionY)
+const Entity* World::GetEntityAt(uint16_t positionX, uint16_t positionY)
 {
 	return GetCellAt(positionX,positionY)->GetEntity();
 }
-const std::shared_ptr<Entity> World::GetEntityAtWorldPosition(uint16_t positionX, uint16_t positionY)
+const Entity* World::GetEntityAtWorldPosition(uint16_t positionX, uint16_t positionY)
 {
 	return GetCellAtWorldPosition(positionX,positionY)->GetEntity();
 
@@ -107,3 +127,4 @@ std::pair<uint16_t, uint16_t> World::GetBoardPositionFromCell(std::shared_ptr<Ce
 	uint16_t positionX = (iter - m_CellVector.begin()) % m_NumberOfStonesByRow;
 	return std::pair<uint16_t, uint16_t>(positionX, positionY);
 }
+

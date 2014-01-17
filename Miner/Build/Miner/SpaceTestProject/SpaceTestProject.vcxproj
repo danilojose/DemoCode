@@ -45,6 +45,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)\..\..\Code\DaniloEngine\Include;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\include;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\include;$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\include;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\include;$(SolutionDir)\..\..\3rdParty\rapidjson\include;$(SolutionDir)\..\..\Code\Miner\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32;$(SolutionDir)\Debug</LibraryPath>
+    <IntDir>$(ProjectDir)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>

@@ -1,58 +1,16 @@
 #pragma once
 #include <System\StdLibraries.h>
 #include <strstream>
-#include <Logic\SimBinVadersLogic.h>
+#include <Logic\GameLogic.h>
 #include <Logic\IBehaviourComponent.h>
 #include <GameView\IGraphicsComponent.h>
-#include <Collision\CollisionComponent.h>
+#include <Physics\CollisionComponent.h>
 
 /// Using namespace
 using namespace AI;
 using namespace Graphics;
-using namespace Collision;
+using namespace Physics;
 
-/// TypeDefs and enums
-enum class ActorType : int8_t
-{
-	AT_START=0,
-	AT_UNKNOWN = AT_START,
-	AT_PLAYER,
-	AT_PLAYERFIRE,
-	AT_ALIEN1,
-	AT_ALIEN2,
-	AT_ALIEN3,
-	AT_ALIEN4,
-	AT_ALIENFIRE,
-	AT_PLAYEREXPLOSION,
-	AT_ENEMYEXPLOSION,
-	AT_LAST,
-	AT_LENGTH=AT_ENEMYEXPLOSION-AT_START
-};
-
-////////////////////////////////////////////////
-//
-
-///// TODO check TypeDefs and enums
-//enum ActorTypeSergioSample
-//{
-//	AT_Unknown = 0,
-//	
-//	AT_Player,
-//	AT_PlayerFire,
-//	
-//	
-//	AT_AlienTypeStart,
-//	AT_Alien1 = AT_AlienTypeStart,
-//	AT_Alien2,
-//	AT_Alien3,
-//	AT_Alien4,
-//	AT_NumberOfValidAlienTypes = 4 ,
-//
-//	AT_AlienFire,
-//	AT_PlayerExplosion,
-//	AT_EnemyExplosion
-//};
-//////////////////////////////////////////////
 
 namespace GameSystem
 {
@@ -79,7 +37,6 @@ namespace GameSystem
 	protected:
 
 		uint32_t									m_EntityId;
-		ActorType									m_Type;
 		uint32_t									m_PosX;
 		uint32_t									m_PosY;
 		HashedString								m_EntityName;
@@ -101,7 +58,6 @@ namespace GameSystem
 		/// <param name="id">The identifier.</param>
 		/// <param name="posX">The position x.</param>
 		/// <param name="posY">The position y.</param>
-		/// <param name="type">The type.</param>
 		/// <param name="behaviour">The behaviour.</param>
 		/// <param name="graphicsComponent">The graphics component.</param>
 		/// <param name="collisionComponent">The collision component.</param>
@@ -109,7 +65,7 @@ namespace GameSystem
 		/// TODO: Añadir componentes con un método AddComponent para no tener constructores gigantescos.
 		/// TODO: Pasarle matrices.
 		/// template <T> AddComponent() {  push_back(T);} ?
-		Entity(uint32_t id, uint32_t posX, uint32_t posY, ActorType type, const HashedString &entityName) : m_EntityId(id), m_PosX(posX), m_PosY(posY), m_Type(type), m_EntityName(entityName)
+		Entity(uint32_t id, uint32_t posX, uint32_t posY, const HashedString &entityName) : m_EntityId(id), m_PosX(posX), m_PosY(posY), m_EntityName(entityName)
 		{
 		}
 
@@ -118,11 +74,6 @@ namespace GameSystem
 		/// </summary>
 		virtual ~Entity(){
 		}
-		/// <summary>
-		/// Gets the type.
-		/// </summary>
-		/// <returns></returns>
-		const ActorType GetType() const  { return m_Type; }
 		/// <summary>
 		/// Gets the position x.
 		/// </summary>

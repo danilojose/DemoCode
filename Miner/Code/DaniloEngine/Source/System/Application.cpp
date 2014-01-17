@@ -13,7 +13,8 @@ const uint8_t MAX_LOADSTRING=100;
 GameCodeApp *g_pApp = NULL;
 
 
-GameCodeApp::GameCodeApp(std::unique_ptr<EntitySystem> entitySystem) :m_LastActorId(0), m_bContinueUpdating(true), m_HasModalDialog(0)
+GameCodeApp::GameCodeApp(std::unique_ptr<EntitySystem> entitySystem,std::shared_ptr<GameLogic> gameLogic,std::unique_ptr<PhysicsSystem> physicsSystem) 
+						:m_LastActorId(0), m_bContinueUpdating(true), m_HasModalDialog(0)
 {
 	g_pApp = this;
 	m_pEventManager = GCC_NEW EventManager(true);
@@ -27,12 +28,18 @@ GameCodeApp::GameCodeApp(std::unique_ptr<EntitySystem> entitySystem) :m_LastActo
 	m_pResCache = GCC_NEW ResCache();
 	ASSERT_DESCRIPTION(m_pResCache, "The Resolution Cache System was not properly initialized");
 
-	m_pPhysicsSystem = std::unique_ptr<PhysicsSystem>(GCC_NEW PhysicsSystem());
-	ASSERT_DESCRIPTION(m_pPhysicsSystem, "The Collision System was not properly initialized");
+	ASSERT_DESCRIPTION(physicsSystem, "The Collision System was not properly initialized");
+	m_pPhysicsSystem = std::move(physicsSystem);
 
 	ASSERT_DESCRIPTION(entitySystem, "The Entity System was not properly initialized");
 	m_pEntitySystem = std::move(entitySystem);
 
+	m_pWorld = std::shared_ptr<World>(GCC_NEW World());
+	ASSERT_DESCRIPTION(gameLogic, "The Entity System was not properly initialized");
+	m_pGame = gameLogic;
+	// sets world into gameLogic and PhysicsSytem
+	m_pGame->SetWorld(m_pWorld);
+	m_pPhysicsSystem->SetWorld(m_pWorld);
 
 }
 
@@ -82,8 +89,6 @@ void GameCodeApp::Render() const
 bool GameCodeApp::InitInstance(int screenWidth, int screenHeight)
 {
 
-	srand((unsigned int)time(NULL));
-
 
 	FileSystemReader fileReader("settings\\options.json");
 	m_pJSONGameOptions = std::unique_ptr<JSONFileSystemParser>(GCC_NEW JSONFileSystemParser(fileReader.GetContents()));
@@ -107,10 +112,7 @@ bool GameCodeApp::InitInstance(int screenWidth, int screenHeight)
 	m_pRenderSystem->Reset();
 	m_pSoundSystem->Init();
 
-	m_pWorld = std::shared_ptr<World>(GCC_NEW World());
-	m_pGame = std::unique_ptr<SimBinGameLogic>(GCC_NEW SimBinGameLogic(m_pJSONGameOptions->GetNode("options")->GetChild("Game")->GetUInteger("Lives"), m_pWorld));
-	ASSERT_DESCRIPTION(m_pGame, "The Game Logic Manager was not properly initialized");
-	m_pGame->Reset();
+	m_pGame->Reset(m_pJSONGameOptions->GetNode("options")->GetChild("Game")->GetUInteger("Lives"));
 	m_pGame->ChangeState(SB_Ingame);
 
 	LoadLevel("settings\\level1.json");
@@ -247,24 +249,21 @@ void GameCodeApp::LoadLevel(const char * levelFile)
 	m_pWorld->Build(parser.GetNode("GameBoard"));
 	
 
-	for (int i = 0; i < m_pWorld->GetNumberOfStonesByRow(); ++i)
-	{
-		for (int j = 0; j < m_pWorld->GetNumberOfRows(); ++j)
-		{
-			std::shared_ptr<Entity> stone = m_pEntitySystem->CreateEntity((i%2==0)?
-				((j % 2 == 0) ? "BlueStone" : "YellowStone"):
-				((j % 2 == 0) ? "GreenStone" : "PurpleStone"));
-			m_pRenderSystem->AddRenderEntity(std::dynamic_pointer_cast<IGraphicsComponent>(stone->GetComponents()[0]));
-			m_pGame->AddBehaviour(std::dynamic_pointer_cast<IBehaviourComponent>(stone->GetComponents()[1]));
-			m_pWorld->AddEntity(i, j, stone);
-		}
-	}
+	//for (int i = 0; i < m_pWorld->GetNumberOfStonesByRow(); ++i)
+	//{
+	//	for (int j = 0; j < m_pWorld->GetNumberOfRows(); ++j)
+	//	{
+	//		std::shared_ptr<Entity> stone = m_pEntitySystem->CreateEntity((i%2==0)?
+	//			((j % 2 == 0) ? "BlueStone" : "YellowStone"):
+	//			((j % 2 == 0) ? "GreenStone" : "PurpleStone"));
+	//		m_pWorld->AddEntity(i, j, stone.get());
+	//	}
+	//}
 
 	std::shared_ptr<Entity> player = m_pEntitySystem->CreateEntity("Player");
-	m_pGame->AddBehaviour(std::dynamic_pointer_cast<IBehaviourComponent>(player->GetComponents()[0]));
 
 	std::shared_ptr<Entity> board = m_pEntitySystem->CreateEntity("Board");
-	m_pGame->AddBehaviour(std::dynamic_pointer_cast<IBehaviourComponent>(board->GetComponents()[0]));
+
 
 
 }

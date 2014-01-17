@@ -10,7 +10,7 @@ using namespace AI;
 
 const std::string AI::UserControlledBehaviour::COMPONENT_NAME = "UserControlledBehaviour";
 
-extern SimBinGameLogic * g_pGameLogic;
+extern GameLogic * g_pGameLogic;
 /// <summary>
 /// Initializes a new instance of the <see cref="UserControlledBehaviour"/> class.
 /// </summary>
@@ -96,12 +96,13 @@ void UserControlledBehaviour::Build(JSONNode *descriptor)
 /// Clones the current Component
 /// </summary>
 /// <param name="descriptor">The descriptor.</param>
-std::shared_ptr<IComponent> UserControlledBehaviour::Clone()
+std::shared_ptr<IComponent> UserControlledBehaviour::Clone(Entity *entity)
 {
 	std::shared_ptr<UserControlledBehaviour> cloned = std::shared_ptr<UserControlledBehaviour>(GCC_NEW UserControlledBehaviour());
 	cloned->m_MovementSpeed = this->m_MovementSpeed;
 	cloned->m_FireRate = this->m_FireRate;
 	cloned->m_Sound = this->m_Sound;
+	cloned->m_Entity = entity;
 	g_pGameLogic->AddBehaviour(cloned);
 	return cloned;
 }

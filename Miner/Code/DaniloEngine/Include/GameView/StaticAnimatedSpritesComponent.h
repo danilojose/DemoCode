@@ -12,10 +12,10 @@ namespace Graphics
 class StaticAnimatedSpritesComponent :public IGraphicsComponent
 {
 protected:
-	std::vector<std::shared_ptr<ImageResource>> m_SpriteList;
-	uint32_t m_IdleSprite;
-	uint32_t m_CurrentSprite;
-	uint32_t m_LastAnimationWasPainted;
+	std::vector<std::shared_ptr<ImageResource>>				m_SpriteList;
+	uint32_t												m_IdleSprite;
+	uint32_t												m_CurrentSprite;
+	uint32_t												m_LastAnimationWasPainted;
 
 public:
 
@@ -71,7 +71,7 @@ private:
 	/// Clones the current Component
 	/// </summary>
 	/// <param name="descriptor">The descriptor.</param>
-	virtual std::shared_ptr<IComponent> Clone() override;
+	virtual std::shared_ptr<IComponent> Clone(Entity *entity) override;
 
 };
 

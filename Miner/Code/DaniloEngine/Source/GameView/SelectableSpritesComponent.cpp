@@ -87,7 +87,7 @@ void SelectableSpritesComponent::Build(JSONNode *descriptor)
 /// Clones the current Component
 /// </summary>
 /// <param name="descriptor">The descriptor.</param>
-std::shared_ptr<IComponent> SelectableSpritesComponent::Clone()
+std::shared_ptr<IComponent> SelectableSpritesComponent::Clone(Entity *entity)
 {
 	std::shared_ptr<SelectableSpritesComponent> cloned = std::shared_ptr<SelectableSpritesComponent>(GCC_NEW SelectableSpritesComponent());
 
@@ -95,7 +95,8 @@ std::shared_ptr<IComponent> SelectableSpritesComponent::Clone()
 	cloned->m_IdleSprite = this->m_IdleSprite;
 	cloned->m_SpriteList = this->m_SpriteList;
 	cloned->m_SelectedSprite = this->m_SelectedSprite;
-
+	cloned->m_Entity = entity;
+	g_pRenderSystem->AddRenderEntity(cloned);
 	return cloned;
 }
 

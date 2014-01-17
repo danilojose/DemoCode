@@ -11,6 +11,8 @@ const uint32_t SPAWN_SPEEDY = 50;
 using namespace AI;
 
 const std::string EnemyBehaviour::COMPONENT_NAME = "EnemyBehaviour";
+
+extern GameLogic * g_pGameLogic;
 /// <summary>
 /// Initializes a new instance of the <see cref="EnemyBehaviour" /> class.
 /// </summary>
@@ -97,13 +99,15 @@ void EnemyBehaviour::Build(JSONNode *descriptor)
 /// Clones the current Component
 /// </summary>
 /// <param name="descriptor">The descriptor.</param>
-std::shared_ptr<IComponent> EnemyBehaviour::Clone()
+std::shared_ptr<IComponent> EnemyBehaviour::Clone(Entity *entity)
 {
 	std::shared_ptr<EnemyBehaviour> cloned = std::shared_ptr<EnemyBehaviour>(GCC_NEW EnemyBehaviour());
 	cloned->m_MovementXSpeed = this->m_MovementXSpeed;
 	cloned->m_MovementYSpeed = this->m_MovementYSpeed;
 	cloned->m_SoundFire = this->m_SoundFire;
 	cloned->m_FireRate = this->m_FireRate;
+	cloned->m_Entity = entity;
+	g_pGameLogic->AddBehaviour(cloned);
 	return cloned;
 }
 

@@ -16,8 +16,8 @@ class SoundSystem
 
 protected:
 
-	bool m_RenderDiagnostics;						// Are we rendering diagnostics?
-	EventListenerPtr m_pSoundEventListener;			// Actors event listener to create additional Actors to be added to the system
+	bool											m_RenderDiagnostics;						// Are we rendering diagnostics?
+	EventListenerPtr								m_pSoundEventListener;			// Actors event listener to create additional Actors to be added to the system
 
 
 public:
@@ -53,7 +53,7 @@ public:
 /// </summary>
 class SoundListener : public IEventListener
 {
-	SoundSystem *m_SoundSystem;
+	SoundSystem *											m_SoundSystem;
 public:
 	/// <summary>
 	/// Initializes a new instance of the <see cref="SoundListener"/> class.

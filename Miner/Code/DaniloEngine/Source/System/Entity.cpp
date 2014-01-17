@@ -37,7 +37,6 @@ void Entity::Serialize(std::ostrstream &out) const
 void Entity::AddComponent(std::shared_ptr<IComponent> component)
 {
 	m_Components.push_back(component);
-	component->SetEntity(this);
 }
 /// <summary>
 /// Trigger event inside the Entity. Later to be moved to a deque to be updated every single tick

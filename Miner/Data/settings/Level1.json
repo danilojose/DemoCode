@@ -8,40 +8,6 @@
 	"SquareSize":50,		
 	"NumberOfStonesByRow":9,	
 	"NumberOfRows":8		
-},
-
-"spawner":
-{
-	"name":"Board",
-	"PosX":0,
-	"PosY":0,
-	"components":
-	[
-		{
-			"name": "GameBoardBehaviour",
-			"Stones": 	
-			[
-				{ 
-					"Name":"BlueStone"
-				},
-				{ 
-					"Name":"GreenStone"
-				},
-				{ 
-					"Name":"PurpleStone"
-				},
-				{ 
-					"Name":"YellowStone"
-				},
-				{ 
-					"Name":"RedStone"
-				}
-
-			]
-			
-		}
-	]	
-
 }
 }
 

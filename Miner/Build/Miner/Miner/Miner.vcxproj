@@ -17,16 +17,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Code\Miner\Include\System\MinerEngine.cpp" />
+    <ClCompile Include="..\..\..\Code\Miner\Include\System\MinerEntityEvents.cpp" />
     <ClCompile Include="..\..\..\Code\Miner\Source\Logic\GameBoardBehaviour.cpp" />
+    <ClCompile Include="..\..\..\Code\Miner\Source\Logic\MinerGameLogic.cpp" />
     <ClCompile Include="..\..\..\Code\Miner\Source\Logic\MinerUserControlledBehaviour.cpp" />
     <ClCompile Include="..\..\..\Code\Miner\Source\Logic\StoneBehaviour.cpp" />
     <ClCompile Include="..\..\..\Code\Miner\Source\main.cpp" />
+    <ClCompile Include="..\..\..\Code\Miner\Source\Physics\MinerPhysicsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Code\Miner\Include\Logic\GameBoardBehaviour.h" />
+    <ClInclude Include="..\..\..\Code\Miner\Include\Logic\MinerGameLogic.h" />
     <ClInclude Include="..\..\..\Code\Miner\Include\Logic\MinerUserControlledBehaviour.h" />
     <ClInclude Include="..\..\..\Code\Miner\Include\Logic\StoneBehaviour.h" />
+    <ClInclude Include="..\..\..\Code\Miner\Include\Physics\MinerPhysicsSystem.h" />
     <ClInclude Include="..\..\..\Code\Miner\Include\System\MinerEngine.h" />
+    <ClInclude Include="..\..\..\Code\Miner\Include\System\MinerEntityEvents.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F259864F-E08C-4E1F-9A54-F87AE91FD9F8}</ProjectGuid>
@@ -59,6 +65,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)\..\..\Code\DaniloEngine\Include;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\include;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\include;$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\include;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\include;$(SolutionDir)\..\..\3rdParty\rapidjson\include;$(SolutionDir)\..\..\Code\Miner\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\lib\x86;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32;$(SolutionDir)\$(Configuration)</LibraryPath>
+    <IntDir>$(ProjectDir)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)\..\..\Code\DaniloEngine\Include;$(SolutionDir)\..\..\3rdParty\SDL2_image-2.0.0\include;$(SolutionDir)\..\..\3rdParty\SDL2_ttf-2.0.12\include;$(SolutionDir)\..\..\3rdParty\SDL2-2.0.1\include;$(SolutionDir)\..\..\3rdParty\SDL2_mixer-2.0.0\include;$(SolutionDir)\..\..\3rdParty\rapidjson\include;$(SolutionDir)\..\..\Code\Miner\Include;$(IncludePath)</IncludePath>

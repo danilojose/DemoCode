@@ -20,12 +20,10 @@ class RenderSystem
 {
 
 protected:
-	GraphicsComponentMap m_RenderEntityList;
-	EventListenerPtr m_pGraphicsComponentListener;			// AI event listener
-
-	bool m_RenderDiagnostics;						// Are we rendering diagnostics?
-
-	static SDL_Renderer* m_Renderer;
+	GraphicsComponentMap								m_RenderEntityList;
+	EventListenerPtr									m_pGraphicsComponentListener;			// AI event listener
+	bool												m_RenderDiagnostics;						// Are we rendering diagnostics?
+	static SDL_Renderer*								m_Renderer;
 
 public:
 
@@ -114,7 +112,7 @@ private:
 /// </summary>
 class RenderEntityListener : public IEventListener
 {
-	RenderSystem *m_RenderSystem;
+	RenderSystem*								m_RenderSystem;
 public:
 	/// <summary>
 	/// Initializes a new instance of the <see cref="RenderEntityListener"/> class.

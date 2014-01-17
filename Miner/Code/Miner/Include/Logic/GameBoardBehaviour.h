@@ -12,11 +12,12 @@ namespace AI
 	/// </summary>
 	class GameBoardBehaviour : public IBehaviourComponent
 	{
+		enum class AISTATE : char { INITIALIZING = 1, RUNNING = 2};
 		friend class GameBoardBehaviourListener;
 	private:
-
+		AISTATE m_AIState;
 		EventListenerPtr m_pEntityListener;			// Entity event listener
-		std::vector<HashedString>  m_StonesVector;
+		std::vector<std::string>  m_StonesVector;
 
 	public:
 
@@ -44,6 +45,18 @@ namespace AI
 		virtual void OnUpdate(uint32_t deltaMilliseconds) override;
 
 		/// <summary>
+		/// Initializes the step.
+		/// </summary>
+		/// <param name="deltaMilliseconds">The delta milliseconds.</param>
+		void InitializeStep(uint32_t deltaMilliseconds);
+
+		/// <summary>
+		/// Initializes the step.
+		/// </summary>
+		/// <param name="deltaMilliseconds">The delta milliseconds.</param>
+		void RunningStep(uint32_t deltaMilliseconds);
+
+		/// <summary>
 		/// Builds the specified Component using the specified descriptor.
 		/// </summary>
 		/// <param name="descriptor">The descriptor.</param>
@@ -53,7 +66,7 @@ namespace AI
 		/// Clones the current Component
 		/// </summary>
 		/// <param name="descriptor">The descriptor.</param>
-		virtual std::shared_ptr<IComponent> Clone() override;
+		virtual std::shared_ptr<IComponent> Clone(Entity *entity) override;
 
 		/// <summary>
 		/// OnEntityEvent: This method is in charge of handling the events that are raised inside the entity domain to communicate one component with another.
@@ -67,7 +80,17 @@ namespace AI
 		/// <param name="positionX">The position x.</param>
 		/// <param name="positionY">The position y.</param>
 		/// <param name="entityName">Name of the entity.</param>
-		bool EvaluateHit(uint16_t positionX, uint16_t positionY, const HashedString & entityName);
+		/// <param name="entityId">Name of the entity and Entity ID.</param>
+		bool EvaluateHit(uint16_t positionX, uint16_t positionY, const HashedString & entityName, const uint32_t &entityId) const;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cell">The cell</param>
+		/// <param name="multiplier">The Multiplier of the score and points.</param>
+		/// <param name="entityId">The Entity Id.</param>
+		void DestroyCell(Cell *cell, uint16_t multiplier);
+
 		
 
 	private:

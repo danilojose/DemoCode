@@ -27,8 +27,8 @@ public:
 
 protected:
 
-	std::string m_FilePath;
-	std::stringstream m_StrStream;
+	std::string										m_FilePath;
+	std::stringstream								m_StrStream;
 };
 
 /// <summary>
@@ -78,11 +78,11 @@ public:
 	const uint32_t GetUInteger(const char* key);
 
 private:
-	const rapidjson::GenericValue<rapidjson::UTF8<char>, rapidjson::CrtAllocator>& m_Contents;	// Use Crt allocator to check exception-safety (no memory leak)
+	const rapidjson::GenericValue<rapidjson::UTF8<char>, rapidjson::CrtAllocator>&	m_Contents;	// Use Crt allocator to check exception-safety (no memory leak)
 
-	std::vector<std::unique_ptr<JSONNode>> m_ArrayValues;	
+	std::vector<std::unique_ptr<JSONNode>>											m_ArrayValues;	
 
-	std::unordered_map<std::string, std::unique_ptr<JSONNode>> m_NodeMap;	// Use Crt allocator to check exception-safety (no memory leak)
+	std::unordered_map<std::string, std::unique_ptr<JSONNode>>						m_NodeMap;	// Use Crt allocator to check exception-safety (no memory leak)
 
 	JSONNode();
 
@@ -122,9 +122,8 @@ public:
 
 
 private:
-	rapidjson::GenericDocument<UTF8<>, CrtAllocator> m_Document;	// Use Crt allocator to check exception-safety (no memory leak)
-
-	std::unordered_map<std::string, std::unique_ptr<JSONNode>> m_NodeMap;	// Use Crt allocator to check exception-safety (no memory leak)
+	rapidjson::GenericDocument<UTF8<>, CrtAllocator>							m_Document;	// Use Crt allocator to check exception-safety (no memory leak)
+	std::unordered_map<std::string, std::unique_ptr<JSONNode>>					m_NodeMap;	// Use Crt allocator to check exception-safety (no memory leak)
 
 };
 

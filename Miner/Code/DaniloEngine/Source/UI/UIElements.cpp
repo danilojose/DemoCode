@@ -1,11 +1,13 @@
 #include <UI\UIElements.h>
 #include <UI\UISystem.h>
 #include <GameView\RenderSystem.h>
+#include <Logic\GameLogic.h>
 
 using namespace UI;
+using namespace AI;
 extern RenderSystem * g_pRenderSystem;
 extern UISystem * g_pUISystem;
-
+extern GameLogic * g_pGameLogic;
 void UIWidgetFactory::RegisterComponents()
 {
 	REGISTER_WIDGET(ImageWidget);
@@ -60,8 +62,8 @@ void ImageWidget::Build(JSONNode * nodeDescriptor)
 }
 
 
-LabelWidget::LabelWidget(uint32_t entityId, const std::string &fontStyle, uint32_t positionX, uint32_t positionY, const std::string &text)
-						:UIWidget(entityId, positionX, positionY), m_FontStyle(fontStyle),m_Text(text)
+LabelWidget::LabelWidget(uint32_t entityId, const std::string &fontStyle, uint32_t positionX, uint32_t positionY, uint16_t width,const std::string &text)
+						:UIWidget(entityId, positionX, positionY), m_FontStyle(fontStyle), m_Text(text), m_Width(width)
 {
 }
 
@@ -70,7 +72,7 @@ LabelWidget::LabelWidget(uint32_t entityId, const std::string &fontStyle, uint32
 /// </summary>
 void LabelWidget::OnRender()
 {
-	g_pUISystem->GetFontSystem()->RenderText(m_FontStyle, m_Text, m_PosX, m_PosY, 40, 20, 1.0, 1.0, 0);
+	g_pUISystem->GetFontSystem()->RenderText(m_FontStyle, m_Text, m_PosX, m_PosY, m_Width, 20, 1.0, 1.0, 0);
 }
 
 /// <summary>
@@ -80,11 +82,12 @@ void LabelWidget::Build(JSONNode * nodeDescriptor)
 {
 	UIWidget::Build(nodeDescriptor);
 	m_FontStyle = nodeDescriptor->GetString("FontStyle");
+	m_Width = nodeDescriptor->GetUInteger("Width");
 	m_Text = nodeDescriptor->GetString("Text");
 }
 
-BindingLabelWidget::BindingLabelWidget(uint32_t entityId, const std::string &fontStyle, uint32_t positionX, uint32_t positionY, const std::string &binding, const std::string &text,
-	const std::string &bindingText) :LabelWidget(entityId, fontStyle, positionX, positionY,text)
+BindingLabelWidget::BindingLabelWidget(uint32_t entityId, const std::string &fontStyle, uint32_t positionX, uint32_t positionY, uint16_t width,const std::string &binding, const std::string &text,
+	const std::string &bindingText) :LabelWidget(entityId, fontStyle, positionX, positionY,width,text)
 {
 
 	m_Binding = std::unique_ptr<HashedString>(GCC_NEW HashedString(bindingText.c_str()));
@@ -95,7 +98,9 @@ BindingLabelWidget::BindingLabelWidget(uint32_t entityId, const std::string &fon
 /// </summary>
 void BindingLabelWidget::OnRender()
 {
-	LabelWidget::OnRender();
+	std::string textValue = g_pUISystem->GetBindingValue(*m_Binding);
+	g_pUISystem->GetFontSystem()->RenderText(m_FontStyle, textValue, m_PosX, m_PosY, m_Width, 20, 1.0, 1.0, 0);
+
 }
 
 /// <summary>

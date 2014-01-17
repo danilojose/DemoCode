@@ -16,9 +16,6 @@
     <Filter Include="Header Files\3rdParty">
       <UniqueIdentifier>{9fd32f3a-4ca3-429a-bff5-4d41b3c0114b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Collision">
-      <UniqueIdentifier>{ae58a008-77de-45de-b856-c1af29bd3320}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\GameView">
       <UniqueIdentifier>{c13121d7-1fae-4c35-b1eb-b22548eb6dcf}</UniqueIdentifier>
     </Filter>
@@ -37,9 +34,6 @@
     <Filter Include="Source Files\3rdParty">
       <UniqueIdentifier>{a9e71b35-c7ca-4194-8f66-acbde747b525}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Collision">
-      <UniqueIdentifier>{ee51bc30-8f49-40e2-9fe0-ff47264181d0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GameView">
       <UniqueIdentifier>{ed17405c-516e-432a-80fb-032c3420f87c}</UniqueIdentifier>
     </Filter>
@@ -54,6 +48,12 @@
     </Filter>
     <Filter Include="Source Files\Sound">
       <UniqueIdentifier>{216d201f-6cdc-4929-81c3-0426b3ace22a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{ae58a008-77de-45de-b856-c1af29bd3320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{ee51bc30-8f49-40e2-9fe0-ff47264181d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +72,15 @@
     <ClCompile Include="..\..\..\Code\Miner\Source\Logic\StoneBehaviour.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Code\Miner\Source\Logic\MinerGameLogic.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Miner\Include\System\MinerEntityEvents.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Miner\Source\Physics\MinerPhysicsSystem.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Code\Miner\Include\Logic\StoneBehaviour.h">
@@ -85,6 +94,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Code\Miner\Include\System\MinerEngine.h">
       <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Miner\Include\Logic\MinerGameLogic.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Miner\Include\System\MinerEntityEvents.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Miner\Include\Physics\MinerPhysicsSystem.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

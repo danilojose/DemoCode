@@ -1,4 +1,5 @@
 #include<System\MinerEngine.h>
+#include<System\MinerEntityEvents.h>
 #include<Logic\MinerUserControlledBehaviour.h>
 #include<Logic\GameBoardBehaviour.h>
 #include<Logic\StoneBehaviour.h>
@@ -14,39 +15,8 @@ using namespace GameSystem;
 /// <returns></returns>
 bool MinerEngine::InitInstance(int screenWidth , int screenHeight )
 {
-	srand((unsigned int)time(NULL));
-
-	FileSystemReader fileReader("settings\\options.json");
-	m_pJSONGameOptions = std::unique_ptr<JSONFileSystemParser>(GCC_NEW JSONFileSystemParser(fileReader.GetContents()));
-	ASSERT_DESCRIPTION(m_pJSONGameOptions, "The JSON Game Options where not properly initialized");
-
-	m_pJSONGameOptions->Init();
-
-	SDL_System::Init(
-		m_pJSONGameOptions->GetNode("options")->GetChild("Game")->GetUInteger("Width"),
-		m_pJSONGameOptions->GetNode("options")->GetChild("Game")->GetUInteger("Height"));
-
-	RegisterBaseGameEvents();	//Register all base event types.
-	m_pRenderSystem = std::shared_ptr<RenderSystem>(GCC_NEW RenderSystem(SDL_System::GetWindow()));
-	ASSERT_DESCRIPTION(m_pRenderSystem, "The Event Manager was not properly initialized");
-
-	m_pUISystem->Init(m_pJSONGameOptions->GetNode("options")->GetChild("UI"));
-	m_pEntitySystem->InitGame("settings\\entities.json");
-	m_pUISystem->LoadFrontEnd("settings\\hud.json");
-
-	m_pPhysicsSystem->Reset();
-	m_pRenderSystem->Reset();
-	m_pSoundSystem->Init();
-
-	m_pWorld = std::shared_ptr<World>(GCC_NEW World());
-	m_pGame = std::unique_ptr<SimBinGameLogic>(GCC_NEW SimBinGameLogic(m_pJSONGameOptions->GetNode("options")->GetChild("Game")->GetUInteger("Lives"), m_pWorld));
-	ASSERT_DESCRIPTION(m_pGame, "The Game Logic Manager was not properly initialized");
-	m_pGame->Reset();
-	m_pGame->ChangeState(SB_Ingame);
-
-	LoadLevel("settings\\level1.json");
-
-	IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_LivesRemaining(m_pGame->GetCurrentLives())));
+	
+	GameCodeApp::InitInstance(screenWidth, screenHeight);
 	return true;
 }
 void MinerEngine::RegisterBaseGameEvents()
@@ -56,8 +26,30 @@ void MinerEngine::RegisterBaseGameEvents()
 	// AI events....
 	m_pEventManager->RegisterEvent(EvtData_SwapEntitiesRequested::sk_EventType);
 	m_pEventManager->RegisterEvent(EvtData_StoneMovementRequested::sk_EventType);
+	m_pEventManager->RegisterEvent(EvtData_ReleasePosition::sk_EventType);
 
 }
+/// <summary>
+/// Removes the entity.
+/// </summary>
+/// <param name="id">The identifier.</param>
+void MinerEntitySystem::RemoveEntity(uint32_t id)
+{
+	std::shared_ptr<Entity> actor = GetEntity(id);
+	if (actor)
+	{
+		m_EntityMap.erase(id);
+		if (actor->GetEntityName().getHashValue() == HashedString("Explosion").getHashValue())
+		{
+			IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_ReleasePosition(std::pair<uint16_t, uint16_t>(actor->GetPosX(), actor->GetPosY()))));
+		}
+	}
+	else
+	{
+		ASSERT_DESCRIPTION(false, _T("UNKNOWN ACTOR") + id);
+	}
+}
+
 void MinerComponentManager::Init()
 {
 	ComponentManager::Init();

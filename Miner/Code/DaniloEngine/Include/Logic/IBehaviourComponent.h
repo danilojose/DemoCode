@@ -9,14 +9,12 @@ namespace AI
 /// IBehaviourComponent base class for implementing AI Behaviours
 /// </summary>
 
-	//TODO: Añadir componentes y hacer que esos componentes hereden de IComponent. Los IComponents van a tener una cadena del tipo parecido a los eventos el entity system te dice si acepta o no ese componente.
-	// Entidad farola puede recibir tres tipos de componentes. y el EntitySystem es capaz de saber para una entidad "Farola" puede recibir componentes del tipo Logica, graficos.
 class IBehaviourComponent:public IComponent
 {
 protected:
 	
-	bool m_Alive;
-	uint16_t m_Points;
+	bool												m_Alive;
+	uint16_t											m_Points;
 public:
 
 	/// <summary>

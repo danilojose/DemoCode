@@ -13,7 +13,7 @@ namespace AI
 	private:
 
 	public:
-		static const std::string COMPONENT_NAME;
+		static const std::string					COMPONENT_NAME;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EmptyBehaviour"/> class.
@@ -46,7 +46,7 @@ namespace AI
 		/// Clones the current Component
 		/// </summary>
 		/// <param name="descriptor">The descriptor.</param>
-		virtual std::shared_ptr<IComponent> Clone() override;
+		virtual std::shared_ptr<IComponent> Clone(Entity *entity) override;
 
 		/// <summary>
 		/// OnEntityEvent: This method is in charge of handling the events that are raised inside the entity domain to communicate one component with another.

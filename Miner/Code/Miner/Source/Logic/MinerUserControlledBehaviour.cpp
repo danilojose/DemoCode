@@ -2,8 +2,9 @@
 #include <System\StdLibraries.h>
 #include <System\Entity.h>
 #include <Logic\MinerUserControlledBehaviour.h>
-#include <Logic\SimBinVadersLogic.h>
+#include <Logic\GameLogic.h>
 #include <System\World.h>
+#include <System\MinerEntityEvents.h>
 
 const int PlayerFireDirection = 1;
 const uint32_t PLAYER_SPEED = 20;
@@ -12,7 +13,7 @@ using namespace AI;
 
 const std::string AI::MinerUserControlledBehaviour::COMPONENT_NAME = "MinerUserControlledBehaviour";
 
-extern SimBinGameLogic * g_pGameLogic;
+extern GameLogic * g_pGameLogic;
 /// <summary>
 /// Initializes a new instance of the <see cref="UserControlledBehaviour"/> class.
 /// </summary>
@@ -39,7 +40,7 @@ void MinerUserControlledBehaviour::OnUpdate(uint32_t deltaMilliseconds)
 		std::shared_ptr<Cell> cell=g_pGameLogic->GetWorld()->GetCellAtWorldPosition(mouseX, mouseY);
 		if (cell!=nullptr&&cell->IsBusy())
 		{
-			std::shared_ptr<Entity> entity = cell->GetUpdatableEntity();
+			Entity* entity = cell->GetUpdatableEntity();
 			if (m_ChosenEntityOne == nullptr)
 			{
 				m_ChosenEntityOne = cell.get();
@@ -54,10 +55,15 @@ void MinerUserControlledBehaviour::OnUpdate(uint32_t deltaMilliseconds)
 				}
 				else
 				{
-					IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_SwapEntitiesRequested(entity->GetID(),m_ChosenEntityOne->GetEntity()->GetID())));
+
+					uint16_t distance = abs(m_ChosenEntityOne->GetPosX() - cell->GetPosX()) + abs(m_ChosenEntityOne->GetPosY() - cell->GetPosY());
+					if (distance == g_pGameLogic->GetWorld()->GetSquareSize())
+					{
+						IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_SwapEntitiesRequested(entity->GetID(), m_ChosenEntityOne->GetEntity()->GetID())));
+					}
+
 					m_ChosenEntityOne->GetUpdatableEntity()->TriggerInternalEvent(IEventDataPtr(GCC_NEW EvtData_OnEntityUnSelected(m_ChosenEntityOne->GetEntity()->GetID())));
 					cell->GetUpdatableEntity()->TriggerInternalEvent(IEventDataPtr(GCC_NEW EvtData_OnEntityUnSelected(cell->GetEntity()->GetID())));
-
 					m_ChosenEntityOne = nullptr;
 				}
 			}
@@ -79,10 +85,12 @@ void MinerUserControlledBehaviour::Build(JSONNode *descriptor)
 /// Clones the current Component
 /// </summary>
 /// <param name="descriptor">The descriptor.</param>
-std::shared_ptr<IComponent> MinerUserControlledBehaviour::Clone()
+std::shared_ptr<IComponent> MinerUserControlledBehaviour::Clone(Entity *entity)
 {
 	std::shared_ptr<MinerUserControlledBehaviour> cloned = std::shared_ptr<MinerUserControlledBehaviour>(GCC_NEW MinerUserControlledBehaviour());
 	cloned->m_SelectedCellSound = this->m_SelectedCellSound;
+	cloned->m_Entity = entity;
+	g_pGameLogic->AddBehaviour(cloned);
 	return cloned;
 }
 

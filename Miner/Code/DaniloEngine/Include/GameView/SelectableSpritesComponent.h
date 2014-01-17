@@ -12,10 +12,10 @@ namespace Graphics
 	class SelectableSpritesComponent :public IGraphicsComponent
 	{
 	protected:
-		std::vector<std::shared_ptr<ImageResource>> m_SpriteList;
-		uint32_t m_IdleSprite;
-		uint32_t m_SelectedSprite;
-		uint32_t m_CurrentSprite;
+		std::vector<std::shared_ptr<ImageResource>>				m_SpriteList;
+		uint32_t												m_IdleSprite;
+		uint32_t												m_SelectedSprite;
+		uint32_t												m_CurrentSprite;
 
 	public:
 
@@ -60,7 +60,7 @@ namespace Graphics
 		/// Clones the current Component
 		/// </summary>
 		/// <param name="descriptor">The descriptor.</param>
-		virtual std::shared_ptr<IComponent> Clone() override;
+		virtual std::shared_ptr<IComponent> Clone(Entity* entity) override;
 
 	public:
 

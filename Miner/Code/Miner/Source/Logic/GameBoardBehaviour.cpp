@@ -1,14 +1,18 @@
 #include <System\Assert.h>
 #include <System\StdLibraries.h>
 #include <System\Entity.h>
+#include <System\EntitySystem.h>
+#include <System\MinerEntityEvents.h>
 #include <Logic\GameBoardBehaviour.h>
-#include <Logic\SimBinVadersLogic.h>
+#include <Logic\StoneBehaviour.h>
+#include <Logic\GameLogic.h>
 #include <System\World.h>
+#include <random>
 
 using namespace AI;
 
-extern SimBinGameLogic * g_pGameLogic;
-
+extern GameLogic * g_pGameLogic;
+extern EntitySystem * g_pEntitySystem;
 const std::string AI::GameBoardBehaviour::COMPONENT_NAME = "GameBoardBehaviour";
 
 /// <summary>
@@ -34,8 +38,228 @@ GameBoardBehaviour::GameBoardBehaviour(Entity *owner): IBehaviourComponent(GameB
 void GameBoardBehaviour::OnUpdate(uint32_t deltaMilliseconds)
 {
 
+	if (m_AIState == AISTATE::INITIALIZING)
+	{
+		InitializeStep(deltaMilliseconds);
+	}
+	else
+	{
+		RunningStep(deltaMilliseconds);
+	}
+}
+/// <summary>
+/// Initializes the step.
+/// </summary>
+/// <param name="deltaMilliseconds">The delta milliseconds.</param>
+void GameBoardBehaviour::InitializeStep(uint32_t deltaMilliseconds)
+{
+	for (int i = 0; i < g_pGameLogic->GetWorld()->GetNumberOfStonesByRow(); ++i)
+	{
+		for (int j = 0; j <g_pGameLogic->GetWorld()->GetNumberOfRows(); ++j)
+		{
+			bool bSpawnStone = false;
+			while (!bSpawnStone)
+			{
+				bSpawnStone = true;
+				std::uniform_int_distribution<uint16_t> dis(0, m_StonesVector.size() - 1);
+				uint16_t chosenStone = dis(g_pGameLogic->GetRandomEngine());
+				HashedString stoneName = HashedString(m_StonesVector[chosenStone].c_str());
+				//vertical check
+				if (j >= 2)
+				{
+					std::shared_ptr<Cell> cellMinusOne = g_pGameLogic->GetWorld()->GetCellAt(i, j - 1);
+					std::shared_ptr<Cell> cellMinusTwo = g_pGameLogic->GetWorld()->GetCellAt(i, j - 2);
+					if (
+						cellMinusOne->GetEntity()->GetEntityName().getHashValue()==cellMinusTwo->GetEntity()->GetEntityName().getHashValue()&&
+						cellMinusOne->GetEntity()->GetEntityName().getHashValue() == stoneName.getHashValue()
+						)
+					{
+						bSpawnStone = false;
+					}
+				}
+
+				if (i >= 2)
+				{
+					std::shared_ptr<Cell> cellMinusOne = g_pGameLogic->GetWorld()->GetCellAt(i-1, j);
+					std::shared_ptr<Cell> cellMinusTwo = g_pGameLogic->GetWorld()->GetCellAt(i-2, j);
+					if (
+						cellMinusOne->GetEntity()->GetEntityName().getHashValue() == cellMinusTwo->GetEntity()->GetEntityName().getHashValue() &&
+						cellMinusOne->GetEntity()->GetEntityName().getHashValue() == stoneName.getHashValue()
+						)
+					{
+						bSpawnStone = false;
+					}
+				}
+				if (bSpawnStone)
+				{
+					std::shared_ptr<Entity> stone = g_pEntitySystem->CreateEntity(m_StonesVector[chosenStone].c_str());
+					g_pGameLogic->GetWorld()->AddEntity(i, j, stone.get());
+
+				}
+
+			}
+		}
+	}
+	m_AIState = AISTATE::RUNNING;
 }
 
+/// <summary>
+/// Initializes the step.
+/// </summary>
+/// <param name="deltaMilliseconds">The delta milliseconds.</param>
+void GameBoardBehaviour::RunningStep(uint32_t deltaMilliseconds)
+{
+	const std::vector<std::shared_ptr<Cell>> cellVector = g_pGameLogic->GetWorld()->GetCellVector();
+
+	for (uint16_t i = 0; i < g_pGameLogic->GetWorld()->GetNumberOfStonesByRow(); ++i)
+	{
+		if (!cellVector[i]->IsBusy())
+		{
+
+			std::uniform_int_distribution<uint16_t> dis(0, m_StonesVector.size() - 1);
+			uint16_t chosenStone = dis(g_pGameLogic->GetRandomEngine());
+
+			std::shared_ptr<Entity> stone = g_pEntitySystem->CreateEntity(m_StonesVector[chosenStone].c_str());
+			g_pGameLogic->GetWorld()->AddEntity(i, 0, stone.get());
+			//we start with the cell locked... in that way the cell is not taken into account until next step
+			g_pGameLogic->GetWorld()->GetCellAt(i, 0)->Lock();
+		}
+	}
+
+
+	uint16_t currentIterator = 0;
+	uint16_t currentEntity = 0;
+	uint16_t vectorSize = cellVector.size();
+
+	while (currentIterator <= vectorSize)
+	{
+		if
+			(
+			(currentIterator % g_pGameLogic->GetWorld()->GetNumberOfStonesByRow()) == 0
+			)
+		{
+			if ((currentIterator - currentEntity)>2)
+			{
+				uint16_t multiplier = (currentIterator - currentEntity) - 2;
+				for (uint16_t i = currentEntity; i < currentIterator; i++)
+				{
+					DestroyCell(cellVector[i].get(), multiplier);
+				}
+			}
+
+			currentEntity = currentIterator;
+			if (currentIterator == vectorSize)
+			{
+				break;
+			}
+
+		}
+
+		if (
+			!(cellVector[currentIterator]->IsBusy())
+			||
+			!(cellVector[currentEntity]->IsBusy())
+			||
+			(cellVector[currentIterator]->IsLocked())
+			||
+			(cellVector[currentEntity]->IsLocked())
+			||
+			(
+			cellVector[currentIterator]->IsBusy() && cellVector[currentEntity]->IsBusy() &&
+			(cellVector[currentIterator]->GetEntity()->GetEntityName().getHashValue() != cellVector[currentEntity]->GetEntity()->GetEntityName().getHashValue())
+
+			)
+			)
+		{
+			if ((currentIterator - currentEntity)>2)
+			{
+				uint16_t multiplier = (currentIterator - currentEntity) - 2;
+				for (uint16_t i = currentEntity; i < currentIterator; i++)
+				{
+					DestroyCell(cellVector[i].get(), multiplier);
+				}
+			}
+			currentEntity = currentIterator;
+		}
+		++currentIterator;
+	}
+
+	const std::vector<std::shared_ptr<Cell>> verticalCellVector = g_pGameLogic->GetWorld()->GetVerticalCellVector();
+
+	currentIterator = 0;
+	currentEntity = 0;
+	vectorSize = verticalCellVector.size();
+
+	while (currentIterator <= vectorSize)
+	{
+		if
+			(
+			(currentIterator % g_pGameLogic->GetWorld()->GetNumberOfRows()) == 0
+			)
+		{
+			if ((currentIterator - currentEntity)>2)
+			{
+				uint16_t multiplier = (currentIterator - currentEntity) - 2;
+				for (uint16_t i = currentEntity; i < currentIterator; i++)
+				{
+					DestroyCell(verticalCellVector[i].get(), multiplier);
+				}
+			}
+
+			currentEntity = currentIterator;
+			if (currentIterator == vectorSize)
+			{
+				break;
+			}
+		}
+
+		if (
+			!(verticalCellVector[currentIterator]->IsBusy())
+			||
+			!(verticalCellVector[currentEntity]->IsBusy())
+			||
+			(verticalCellVector[currentIterator]->IsLocked())
+			||
+			(verticalCellVector[currentEntity]->IsLocked())
+			||
+			(
+			verticalCellVector[currentIterator]->IsBusy() && verticalCellVector[currentEntity]->IsBusy() &&
+			(verticalCellVector[currentIterator]->GetEntity()->GetEntityName().getHashValue() != verticalCellVector[currentEntity]->GetEntity()->GetEntityName().getHashValue())
+
+			)
+			)
+		{
+			if ((currentIterator - currentEntity)>2)
+			{
+				uint16_t multiplier = (currentIterator - currentEntity) - 2;
+				for (uint16_t i = currentEntity; i < currentIterator; i++)
+				{
+					DestroyCell(verticalCellVector[i].get(), multiplier);
+				}
+			}
+			currentEntity = currentIterator;
+		}
+		++currentIterator;
+	}
+
+}
+/// <summary>
+/// DestroyCell
+/// </summary>
+/// <param name="positionX">The position x.</param>
+/// <param name="positionY">The position y.</param>
+/// <param name="multiplier">The Multiplier of the score and points.</param>
+void GameBoardBehaviour::DestroyCell(Cell *cell, uint16_t multiplier)
+{
+	uint32_t points = dynamic_cast<StoneBehaviour*>(cell->GetUpdatableEntity()->GetComponents()[1].get())->GetPoints();
+	g_pGameLogic->AddScore(points*multiplier);
+	IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(cell->GetEntity()->GetID())));
+	std::shared_ptr<Entity> explosion = g_pEntitySystem->CreateEntity("Explosion");
+	cell->SetEntity(explosion.get());
+	cell->Lock();
+
+
+}
 /// <summary>
 /// Builds the specified Component using the specified descriptor.
 /// </summary>
@@ -50,7 +274,7 @@ void GameBoardBehaviour::Build(JSONNode *descriptor)
 	{
 		const char * stoneName = stoneDescriptor->GetString("Name");
 		ASSERT_DESCRIPTION(stoneName && strlen(stoneName)>0, "Empty Stone Name");
-		m_StonesVector.push_back(HashedString(stoneName));
+		m_StonesVector.push_back(stoneName);
 	}
 }
 
@@ -58,13 +282,16 @@ void GameBoardBehaviour::Build(JSONNode *descriptor)
 /// Clones the current Component
 /// </summary>
 /// <param name="descriptor">The descriptor.</param>
-std::shared_ptr<IComponent> GameBoardBehaviour::Clone()
+std::shared_ptr<IComponent> GameBoardBehaviour::Clone(Entity *entity)
 {
 	std::shared_ptr<GameBoardBehaviour> cloned = std::shared_ptr<GameBoardBehaviour>(GCC_NEW GameBoardBehaviour());
 
 	cloned->m_StonesVector = this->m_StonesVector;
 	cloned->m_Alive = this->m_Alive;
 	cloned->m_Points = this->m_Points;
+	cloned->m_Entity = entity;
+	cloned->m_AIState = AISTATE::INITIALIZING;
+	g_pGameLogic->AddBehaviour(cloned);
 	IEventManager::Get()->VAddListener(cloned->m_pEntityListener, EvtData_SwapEntitiesRequested::sk_EventType);
 
 	return cloned;
@@ -93,28 +320,44 @@ void GameBoardBehaviour::SwapCellEntities(const uint32_t &entityOne, const uint3
 	std::pair<uint16_t, uint16_t> positionAtWorldOne = g_pGameLogic->GetWorld()->GetBoardPositionFromCell(cellOne);
 	std::pair<uint16_t, uint16_t> positionAtWorldTwo = g_pGameLogic->GetWorld()->GetBoardPositionFromCell(cellTwo);
 
-	bool bEvaluateHit1 = EvaluateHit(positionAtWorldOne.first, positionAtWorldOne.second, cellTwo->GetEntity()->GetEntityName());
-	bool bEvaluateHit2 = EvaluateHit(positionAtWorldTwo.first, positionAtWorldTwo.second, cellOne->GetEntity()->GetEntityName());
+	bool bEvaluateHit1 = EvaluateHit(positionAtWorldOne.first, positionAtWorldOne.second, cellTwo->GetEntity()->GetEntityName(),cellTwo->GetEntity()->GetID());
+	bool bEvaluateHit2 = EvaluateHit(positionAtWorldTwo.first, positionAtWorldTwo.second, cellOne->GetEntity()->GetEntityName(), cellOne->GetEntity()->GetID());
+
+	std::pair<uint16_t, uint16_t> middlePoint(
+		(cellOne->GetEntity()->GetPosX() + cellTwo->GetEntity()->GetPosX()) / 2,
+		(cellOne->GetEntity()->GetPosY() + cellTwo->GetEntity()->GetPosY()) / 2);
 
 	if (bEvaluateHit1||bEvaluateHit2)
 	{
+		IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(cellOne->GetEntity()->GetID(),
+			std::pair<uint16_t, uint16_t>(cellTwo->GetEntity()->GetPosX(), cellTwo->GetEntity()->GetPosY()), middlePoint)));
 
-		IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(entity->GetID(), m_ChosenEntityOne->GetEntity()->GetID())));
-		IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(entity->GetID(), m_ChosenEntityOne->GetEntity()->GetID())));
+		IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(cellTwo->GetEntity()->GetID(),
+			std::pair<uint16_t, uint16_t>(cellOne->GetEntity()->GetPosX(), cellOne->GetEntity()->GetPosY()), middlePoint)));
+
 	}
 	else
 	{
-		IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(entity->GetID(), m_ChosenEntityOne->GetEntity()->GetID())));
-		IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(entity->GetID(), m_ChosenEntityOne->GetEntity()->GetID())));
+		//IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(cellOne->GetEntity()->GetID(),
+		//	std::pair<uint16_t, uint16_t>(cellTwo->GetEntity()->GetPosX(), cellTwo->GetEntity()->GetPosY()), middlePoint)));
+
+		//IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(cellTwo->GetEntity()->GetID(),
+		//	std::pair<uint16_t, uint16_t>(cellOne->GetEntity()->GetPosX(), cellOne->GetEntity()->GetPosY()), middlePoint)));
+
+		IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(cellOne->GetEntity()->GetID(),
+			std::pair<uint16_t, uint16_t>(cellOne->GetEntity()->GetPosX(), cellOne->GetEntity()->GetPosY()), middlePoint)));
+
+		IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(cellTwo->GetEntity()->GetID(),
+			std::pair<uint16_t, uint16_t>(cellTwo->GetEntity()->GetPosX(), cellTwo->GetEntity()->GetPosY()), middlePoint)));
 	}
 
 
-	std::shared_ptr<Entity> temp = cellTwo->GetEntity();
-	cellTwo->SetEntity(cellOne->GetEntity());
-	cellOne->SetEntity(temp);
+	//std::shared_ptr<Entity> temp = cellTwo->GetEntity();
+	//cellTwo->SetEntity(cellOne->GetEntity());
+	//cellOne->SetEntity(temp);
 
 }
-bool GameBoardBehaviour::EvaluateHit(uint16_t positionX, uint16_t positionY, const HashedString & entityName)
+bool GameBoardBehaviour::EvaluateHit(uint16_t positionX, uint16_t positionY, const HashedString & entityName, const uint32_t &entityId) const
 {
 	//Left hit
 	if (positionX > 1)
@@ -123,6 +366,8 @@ bool GameBoardBehaviour::EvaluateHit(uint16_t positionX, uint16_t positionY, con
 		std::shared_ptr<Cell> cellLeftMinus2 = g_pGameLogic->GetWorld()->GetCellAt(positionX - 2, positionY);
 		if (
 			(cellLeftMinus1->IsBusy()) && (cellLeftMinus2->IsBusy())
+			&&
+			(cellLeftMinus1->GetEntity()->GetID()!=entityId) && (cellLeftMinus2->GetEntity()->GetID()!=entityId)
 			&&
 			(cellLeftMinus1->GetEntity()->GetEntityName() == entityName) && (cellLeftMinus2->GetEntity()->GetEntityName() == entityName)
 			)
@@ -137,6 +382,8 @@ bool GameBoardBehaviour::EvaluateHit(uint16_t positionX, uint16_t positionY, con
 		std::shared_ptr<Cell> cellLeftMinus2 = g_pGameLogic->GetWorld()->GetCellAt(positionX + 2, positionY);
 		if (
 			(cellLeftMinus1->IsBusy()) && (cellLeftMinus2->IsBusy())
+			&&
+			(cellLeftMinus1->GetEntity()->GetID() != entityId) && (cellLeftMinus2->GetEntity()->GetID() != entityId)
 			&&
 			(cellLeftMinus1->GetEntity()->GetEntityName() == entityName) && (cellLeftMinus2->GetEntity()->GetEntityName() == entityName)
 			)
@@ -153,6 +400,8 @@ bool GameBoardBehaviour::EvaluateHit(uint16_t positionX, uint16_t positionY, con
 		if (
 			(cellLeftMinus1->IsBusy()) && (cellLeftMinus2->IsBusy())
 			&&
+			(cellLeftMinus1->GetEntity()->GetID() != entityId) && (cellLeftMinus2->GetEntity()->GetID() != entityId)
+			&&
 			(cellLeftMinus1->GetEntity()->GetEntityName() == entityName) && (cellLeftMinus2->GetEntity()->GetEntityName() == entityName)
 			)
 		{
@@ -166,6 +415,8 @@ bool GameBoardBehaviour::EvaluateHit(uint16_t positionX, uint16_t positionY, con
 		std::shared_ptr<Cell> cellLeftMinus2 = g_pGameLogic->GetWorld()->GetCellAt(positionX, positionY + 2);
 		if (
 			(cellLeftMinus1->IsBusy()) && (cellLeftMinus2->IsBusy())
+			&&
+			(cellLeftMinus1->GetEntity()->GetID() != entityId) && (cellLeftMinus2->GetEntity()->GetID() != entityId)
 			&&
 			(cellLeftMinus1->GetEntity()->GetEntityName() == entityName) && (cellLeftMinus2->GetEntity()->GetEntityName() == entityName)
 			)
@@ -185,6 +436,8 @@ bool GameBoardBehaviour::EvaluateHit(uint16_t positionX, uint16_t positionY, con
 		if (
 			(cellLeftMinus1->IsBusy()) && (cellLeftMinus2->IsBusy())
 			&&
+			(cellLeftMinus1->GetEntity()->GetID() != entityId) && (cellLeftMinus2->GetEntity()->GetID() != entityId)
+			&&
 			(cellLeftMinus1->GetEntity()->GetEntityName() == entityName) && (cellLeftMinus2->GetEntity()->GetEntityName() == entityName)
 			)
 		{
@@ -201,6 +454,8 @@ bool GameBoardBehaviour::EvaluateHit(uint16_t positionX, uint16_t positionY, con
 		std::shared_ptr<Cell> cellLeftMinus2 = g_pGameLogic->GetWorld()->GetCellAt(positionX+1, positionY);
 		if (
 			(cellLeftMinus1->IsBusy()) && (cellLeftMinus2->IsBusy())
+			&&
+			(cellLeftMinus1->GetEntity()->GetID() != entityId) && (cellLeftMinus2->GetEntity()->GetID() != entityId)
 			&&
 			(cellLeftMinus1->GetEntity()->GetEntityName() == entityName) && (cellLeftMinus2->GetEntity()->GetEntityName() == entityName)
 			)

@@ -11,13 +11,13 @@ namespace AI
 class UserControlledBehaviour : public IBehaviourComponent
 {
 private:
-	int m_MovementSpeed;
-	bool m_FirePressed;
-	uint32_t m_FireRate;
-	uint32_t m_LastFire;
-	uint32_t m_Lives;
-	std::shared_ptr<Input> m_InputController;
-	std::string m_Sound;
+	int														m_MovementSpeed;
+	bool													m_FirePressed;
+	uint32_t												m_FireRate;
+	uint32_t												m_LastFire;
+	uint32_t												m_Lives;
+	std::shared_ptr<Input>									m_InputController;
+	std::string												m_Sound;
 
 
 public:
@@ -65,7 +65,7 @@ public:
 	/// Clones the current Component
 	/// </summary>
 	/// <param name="descriptor">The descriptor.</param>
-	virtual std::shared_ptr<IComponent> Clone() override;
+	virtual std::shared_ptr<IComponent> Clone(Entity *entity) override;
 
 	/// <summary>
 	/// OnEntityEvent: This method is in charge of handling the events that are raised inside the entity domain to communicate one component with another.

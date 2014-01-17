@@ -6,16 +6,21 @@
 #include <GameView\RenderSystem.h>
 #include <UI\FontSystem.h>
 #include <UI\UIElements.h>
-#include <System\GameOptions.h>
 
 
 //namespaces
 
+namespace AI
+{
+	class GameLogic;
+}
 using namespace Graphics;
 using namespace UI;
 namespace GameSystem
 {
 
+	typedef std::unordered_map<uint32_t, std::function<std::string(AI::GameLogic*)>> GameLogicBindingsMap;
+		
 	/// <summary>
 	/// Class in charge of displaying the Screen Elements. Currently hardcoded but will implement a more datadriven structure
 	/// </summary>
@@ -24,13 +29,13 @@ namespace GameSystem
 
 	protected:
 
-		std::shared_ptr<RenderSystem> m_pRendersystem;
-		std::shared_ptr<FontSystem> m_pFontSystem;
+		std::shared_ptr<RenderSystem>									m_pRendersystem;
+		std::shared_ptr<FontSystem>										m_pFontSystem;
+		std::vector<std::unique_ptr<UIWidget>>							m_Widgets;
+		std::unique_ptr<UIWidgetFactory>								m_WidgetFactory;
+		uint32_t														m_LastWidgetId;
+		GameLogicBindingsMap											m_GameLogicBindings;
 
-		std::vector<std::unique_ptr<UIWidget>> m_Widgets;
-		std::unique_ptr<UIWidgetFactory> m_WidgetFactory;
-
-		uint32_t m_LastWidgetId;
 		/// <summary>
 		/// Gets the new actor identifier.
 		/// </summary>
@@ -84,19 +89,16 @@ namespace GameSystem
 		/// <summary>
 		/// On Render function
 		/// </summary>
-
 		virtual void OnRender();
-		/// <summary>
-		/// Updates the score.
-		/// </summary>
-		/// <param name="additionalScore">The additional score.</param>
-		virtual void UpdateScore(uint16_t additionalScore);
 
 		/// <summary>
-		/// Updates the remaining lives.
 		/// </summary>
-		/// <param name="lives">The lives.</param>
-		virtual void UpdateRemainingLives(uint16_t lives);
+		virtual void RegisterGameLogicBindings(const HashedString &hashId, std::function<std::string(AI::GameLogic*)> function);
+
+		/// <summary>
+		/// </summary>
+		virtual std::string GetBindingValue(const HashedString &hashId);
+
 	};
 
 
@@ -105,7 +107,7 @@ namespace GameSystem
 	/// </summary>
 	class UISystemListener : public IEventListener
 	{
-		UISystem *m_UISystem;
+		UISystem *														m_UISystem;
 	public:
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UISystemListener"/> class.

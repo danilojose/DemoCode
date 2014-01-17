@@ -13,8 +13,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\3rdParty\Input.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\3rdParty\System.h" />
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Collision\CollisionComponent.h" />
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Collision\PhysicsSystem.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\AnimatedSpritesComponent.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\IGraphicsComponent.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\ImageResource.h" />
@@ -25,8 +23,10 @@
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\EnemyBehaviour.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\FireBehaviour.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\IBehaviourComponent.h" />
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\SimBinVadersLogic.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\GameLogic.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\UserControlledBehaviour.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Physics\CollisionComponent.h" />
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Physics\PhysicsSystem.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Sound\AudioResource.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Sound\SoundSystem.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Application.h" />
@@ -38,7 +38,6 @@
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\EventManager.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Events.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\FileSystemReader.h" />
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\GameOptions.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\HashedString.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\IComponent.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\Resource.h" />
@@ -48,13 +47,11 @@
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\UI\FontSystem.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\UI\UIElements.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\UI\UISystem.h" />
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Source\System\Spawner.h" />
+    <ClInclude Include="Spawner.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\3rdParty\Input.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\3rdParty\System.cpp" />
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Collision\CollisionComponent.cpp" />
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Collision\PhgysicsSystem.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\AnimatedSpritesComponent.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\ImageResource.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\RenderSystem.cpp" />
@@ -63,8 +60,10 @@
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\EmptyBehaviour.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\EnemyBehaviour.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\FireBehaviour.cpp" />
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\SimBinVadersLogic.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\GameLogic.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\UserControlledBehaviour.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Physics\CollisionComponent.cpp" />
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Sound\AudioResource.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Sound\SoundSystem.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Application.cpp" />
@@ -76,7 +75,6 @@
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\EventManager.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Events.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\FileSystemReader.cpp" />
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\GameOptions.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\HashedString.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\Resource.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\World.cpp" />

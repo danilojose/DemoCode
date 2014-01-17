@@ -1,10 +1,9 @@
 #include <UI\UISystem.h>
-#include <System\GameOptions.h>
 
 using namespace GameSystem;
-
+using namespace AI;
 extern RenderSystem* g_pRenderSystem;
-
+extern GameLogic * g_pGameLogic;
 UISystem * g_pUISystem = nullptr;
 
 /// <summary>
@@ -79,27 +78,25 @@ void UISystem::OnRender()
 	}
 
 }
-
-/// <summary>
-/// Updates the score.
-/// </summary>
-/// <param name="additionalScore">The additional score.</param>
-void UISystem::UpdateScore(uint16_t additionalScore)
+void UISystem::RegisterGameLogicBindings(const HashedString &hashId, std::function<std::string(AI::GameLogic*)> function)
 {
-	std::stringstream s;
-	s << additionalScore;
+	ASSERT_DESCRIPTION(m_GameLogicBindings.find(hashId.getHashValue())==m_GameLogicBindings.end(),"Trying to insert an already existing binding");
+	m_GameLogicBindings[hashId.getHashValue()] = function;
+
+	std::string prueba = function(g_pGameLogic);
+
 }
 
 /// <summary>
-/// Updates the remaining lives.
 /// </summary>
-/// <param name="lives">The lives.</param>
-void UISystem::UpdateRemainingLives(uint16_t lives)
+std::string UISystem::GetBindingValue(const HashedString &hashId)
 {
-	std::stringstream s;
-	s << lives;
-
+	ASSERT_DESCRIPTION(m_GameLogicBindings.find(hashId.getHashValue()) != m_GameLogicBindings.end(), "Binding not found");
+	
+	return m_GameLogicBindings[hashId.getHashValue()](g_pGameLogic);
 }
+
+
 /// <summary>
 /// Handles the event that could affect the UISystem
 /// </summary>
@@ -109,19 +106,5 @@ bool UISystemListener::HandleEvent(IEventData const & event) const
 {
 	EventType eventType = event.GetEventType();
 
-	if (eventType == EvtData_PointsObtained::sk_EventType)
-	{
-		EvtData_PointsObtained const & ed = static_cast< const EvtData_PointsObtained & >(event);
-		m_UISystem->UpdateScore(ed.m_Points);
-		return true;
-	}
-
-	if (eventType == EvtData_LivesRemaining::sk_EventType)
-	{
-		EvtData_LivesRemaining const & ed = static_cast< const EvtData_LivesRemaining & >(event);
-		m_UISystem->UpdateRemainingLives(ed.m_Lives);
-		return true;
-	}
-
-	return false;
+	return true;
 }

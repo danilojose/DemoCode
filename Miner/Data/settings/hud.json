@@ -15,8 +15,9 @@
 		"WidgetType":"LabelWidget",
 		"Name":"ScoreLabel",		
 		"Parent":0,	
-		"PosX":850,		
-		"PosY":600,			
+		"PosX":100,		
+		"PosY":200,			
+		"Width":60,							
 		"FontStyle":"MediumFont",
 		"Text":"Score"
 	},
@@ -24,30 +25,33 @@
 		"WidgetType":"LabelWidget",
 		"Name":"LivesLabel",		
 		"Parent":0,	
-		"PosX":850,		
-		"PosY":700,			
+		"PosX":100,		
+		"PosY":250,			
+		"Width":60,					
 		"FontStyle":"MediumFont",
-		"Text":"Lives"
+		"Text":"Time"
 	},
 	{ 
 		"WidgetType":"BindingLabelWidget",
 		"Name":"ScoresValueLabel",		
 		"Parent":0,	
-		"PosX":900,		
-		"PosY":600,			
+		"PosX":200,		
+		"PosY":200,			
+		"Width":40,							
 		"FontStyle":"MediumFont",
 		"Text":"0",		
-		"Binding":"ScoreEvent"
+		"Binding":"GetScore"
 	},
 	{ 
 		"WidgetType":"BindingLabelWidget",
 		"Name":"LivesValueLabel",		
 		"Parent":0,	
-		"PosX":900,		
-		"PosY":700,			
+		"PosX":200,		
+		"PosY":250,			
+		"Width":100,									
 		"FontStyle":"MediumFont",
 		"Text":"0",				
-		"Binding":"LivesEvent"
+		"Binding":"GetTime"
 	}
 ]
 }

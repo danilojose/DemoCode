@@ -14,7 +14,7 @@ namespace Graphics
 class IGraphicsComponent :public IComponent
 {
 protected:
-	RenderSystem *m_pRenderSystem;
+	RenderSystem *					m_pRenderSystem;
 
 public:
 
@@ -56,7 +56,7 @@ public:
 	/// Clones the component
 	/// </summary>
 	/// <param name="descriptor">The descriptor.</param>
-	virtual std::shared_ptr<IComponent> Clone() = 0;
+	virtual std::shared_ptr<IComponent> Clone(Entity *entity) = 0;
 
 	/// <summary>
 	/// OnEntityEvent: This method is in charge of handling the events that are raised inside the entity domain to communicate one component with another.

@@ -5,6 +5,7 @@
 using namespace AI;
 
 const std::string FireBehaviour::COMPONENT_NAME = "FireBehaviour";
+extern GameLogic* g_pGameLogic;
 /// <summary>
 /// Initializes a new instance of the <see cref="FireBehaviour"/> class.
 /// </summary>
@@ -53,11 +54,13 @@ void FireBehaviour::Build(JSONNode *descriptor)
 /// Clones the current Component
 /// </summary>
 /// <param name="descriptor">The descriptor.</param>
-std::shared_ptr<IComponent> FireBehaviour::Clone()
+std::shared_ptr<IComponent> FireBehaviour::Clone(Entity *entity)
 {
 	std::shared_ptr<FireBehaviour> cloned = std::shared_ptr<FireBehaviour>(GCC_NEW FireBehaviour());
 	cloned->m_MovementSpeed = this->m_MovementSpeed;
 	cloned->m_Alive = true;
+	cloned->m_Entity = entity;
+	g_pGameLogic->AddBehaviour(cloned);
 	return cloned;
 }
 

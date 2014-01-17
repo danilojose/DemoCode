@@ -95,14 +95,15 @@ void StaticAnimatedSpritesComponent::Build(JSONNode *descriptor)
 /// Clones the current Component
 /// </summary>
 /// <param name="descriptor">The descriptor.</param>
-std::shared_ptr<IComponent> StaticAnimatedSpritesComponent::Clone()
+std::shared_ptr<IComponent> StaticAnimatedSpritesComponent::Clone(Entity *entity)
 {
 	std::shared_ptr<StaticAnimatedSpritesComponent> cloned = std::shared_ptr<StaticAnimatedSpritesComponent>(GCC_NEW StaticAnimatedSpritesComponent());
 
 	cloned->m_CurrentSprite = this->m_CurrentSprite;
 	cloned->m_IdleSprite = this->m_IdleSprite;
 	cloned->m_SpriteList = this->m_SpriteList;
-
+	cloned->m_Entity = entity;
+	g_pRenderSystem->AddRenderEntity(cloned);
 	return cloned;
 }
 

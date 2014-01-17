@@ -1,11 +1,9 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include <System\GameOptions.h>
 #include <System\FileSystemReader.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-using namespace GameSystem;
 using namespace rapidjson;
 namespace SpaceTestProject
 {		

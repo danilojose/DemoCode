@@ -1,11 +1,13 @@
 #pragma once
 
+#include <Physics\MinerPhysicsSystem.h>
+#include <Logic\MinerGameLogic.h>
 #include <System\StdLibraries.h>
 #include <System\EntitySystem.h>
 #include <System\Application.h>
 
 /// NameSpaces
-using namespace Sound;
+using namespace AI;
 
 namespace GameSystem
 {
@@ -44,6 +46,12 @@ namespace GameSystem
 		/// Finalizes an instance of the <see cref="MinerEngine"/> class.
 		/// </summary>
 		virtual ~MinerEntitySystem(){}
+
+		/// <summary>
+		/// Removes the entity.
+		/// </summary>
+		/// <param name="id">The identifier.</param>
+		virtual void RemoveEntity(uint32_t id) override;
 	};
 
 	/// <summary>
@@ -55,7 +63,10 @@ namespace GameSystem
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MinerEngine"/> class.
 		/// </summary>
-		MinerEngine() :GameCodeApp(std::unique_ptr<EntitySystem> (GCC_NEW MinerEntitySystem())) {}
+		MinerEngine() :GameCodeApp(std::unique_ptr<EntitySystem> (GCC_NEW MinerEntitySystem()),
+			std::shared_ptr<MinerGameLogic>(GCC_NEW MinerGameLogic()),
+			std::unique_ptr<MinerPhysicsSystem>(GCC_NEW MinerPhysicsSystem())
+			){}
 		/// <summary>
 		/// Finalizes an instance of the <see cref="MinerEngine"/> class.
 		/// </summary>

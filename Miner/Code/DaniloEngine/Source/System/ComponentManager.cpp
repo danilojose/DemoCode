@@ -1,6 +1,6 @@
 #include <System\Assert.h>
 #include <System\ComponentManager.h>
-#include <Collision\CollisionComponent.h>
+#include <Physics\CollisionComponent.h>
 #include <Logic\EmptyBehaviour.h>
 #include <Logic\FireBehaviour.h>
 #include <Logic\EnemyBehaviour.h>
@@ -9,7 +9,7 @@
 #include <GameView\StaticAnimatedSpritesComponent.h>
 #include <GameView\SelectableSpritesComponent.h>
 
-using namespace Collision;
+using namespace Physics;
 using namespace AI;
 using namespace Graphics;
 

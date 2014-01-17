@@ -7,7 +7,7 @@
 		"Height": 768,
 		"Font": "font\\arial.ttf",
 		"FontSize": 16,
-		"Lives": 3		
+		"Lives": 120000		
 	},
 	"InGameMap":{
 		"Width":900,

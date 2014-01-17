@@ -8,31 +8,7 @@
 using namespace GameSystem;
 namespace AI
 {
-	class StoneBehaviour;
-	/// <summary>
-	/// Listener to Entity Events
-	/// </summary>
-	class StoneBehaviourListener : public IEventListener
-	{
-		StoneBehaviour *m_Stone;
-	public:
-		/// <summary>
-		/// Initializes a new instance of the <see cref="EntitySystemListener"/> class.
-		/// </summary>
-		/// <param name="gameBoard">The game board.</param>
-		explicit StoneBehaviourListener(StoneBehaviour * stone) : IEventListener() { m_Stone = stone; }
-		/// <summary>
-		/// Gets the name.
-		/// </summary>
-		/// <returns></returns>
-		virtual char const* GetName(void) const override { return "Moving Path Board Listener"; }
-		/// <summary>
-		/// Handles the event. Entity Events right now... By now I am only creating fires, explosions and destroying actors (sic)
-		/// </summary>
-		/// <param name="event">The event.</param>
-		/// <returns></returns>
-		virtual bool HandleEvent(IEventData const & event) const override;
-	};
+
 	/// <summary>
 	/// User controlled behaviour. This is the Behaviour that reacts to user input like Keyboard
 	/// </summary>
@@ -40,11 +16,11 @@ namespace AI
 	{
 		enum class AISTATE : char { IDLE = 1, FALLING = 2, MOVING = 3 };
 	private:
-		EventListenerPtr m_pStoneBehaviourListener;			// Entity event listener
 		AISTATE m_AIState;
 		uint16_t m_TimeBonus;
 		// TODO change to a NodeGraph composed by Node* (sic)
 		std::vector<std::pair<uint16_t, uint16_t>> m_AIPath;
+		std::vector<std::pair<uint16_t, uint16_t>>::iterator m_CurrentNode;
 	public:
 
 		static const std::string COMPONENT_NAME;
@@ -53,8 +29,6 @@ namespace AI
 		/// </summary>
 		StoneBehaviour() :IBehaviourComponent(COMPONENT_NAME), m_AIState(AISTATE::IDLE)
 		{
-
-			m_pStoneBehaviourListener=EventListenerPtr(GCC_NEW StoneBehaviourListener(this));
 		}
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GameBoardBehaviour"/> class.
@@ -63,7 +37,6 @@ namespace AI
 		StoneBehaviour(GameSystem::Entity *owner,uint32_t points,uint16_t timeBonus):IBehaviourComponent(COMPONENT_NAME,owner,points)
 			, m_AIState(AISTATE::IDLE), m_TimeBonus(timeBonus)
 		{
-			m_pStoneBehaviourListener=EventListenerPtr(GCC_NEW StoneBehaviourListener(this));
 		}
 		/// <summary>
 		/// Finalizes an instance of the <see cref="GameBoardBehaviour"/> class.
@@ -87,7 +60,7 @@ namespace AI
 		/// Clones the current Component
 		/// </summary>
 		/// <param name="descriptor">The descriptor.</param>
-		virtual std::shared_ptr<IComponent> Clone() override;
+		virtual std::shared_ptr<IComponent> Clone(Entity *entity) override;
 
 		/// <summary>
 		/// OnEntityEvent: This method is in charge of handling the events that are raised inside the entity domain to communicate one component with another.

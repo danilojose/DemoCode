@@ -3,16 +3,15 @@
 #include <System\StdLibraries.h>
 #include <System\Events.h>
 #include <System\EventManager.h>
-#include <System\GameOptions.h>
-#include <Logic\SimBinVadersLogic.h>
+#include <Logic\GameLogic.h>
 #include <GameView\RenderSystem.h>
-#include <Collision\PhysicsSystem.h>
+#include <Physics\PhysicsSystem.h>
 #include <System\FileSystemReader.h>
 
 //namespaces
 using namespace AI;
 using namespace Graphics;
-using namespace Collision;
+using namespace Physics;
 
 namespace GameSystem
 {
@@ -32,12 +31,12 @@ class EntitySystem
 
 protected:
 
-	EntityMap m_EntityMap;
-	PrototypeMap m_PrototypeMap;
-	EventListenerPtr m_pEntityListener;			// Entity event listener
-	uint32_t m_LastActorId;
-	bool m_RenderDiagnostics;						// Are we rendering diagnostics?
-	std::unique_ptr<ComponentManager> m_ComponentManager;
+	EntityMap												m_EntityMap;
+	PrototypeMap											m_PrototypeMap;
+	EventListenerPtr										m_pEntityListener;			// Entity event listener
+	uint32_t												m_LastActorId;
+	bool													m_RenderDiagnostics;						// Are we rendering diagnostics?
+	std::unique_ptr<ComponentManager>						m_ComponentManager;
 	/// <summary>
 	/// Gets the new actor identifier.
 	/// </summary>
@@ -116,7 +115,7 @@ protected:
 /// </summary>
 class EntitySystemListener : public IEventListener
 {
-	EntitySystem *m_EntitySystem;
+	EntitySystem *										m_EntitySystem;
 public:
 	/// <summary>
 	/// Initializes a new instance of the <see cref="EntitySystemListener"/> class.

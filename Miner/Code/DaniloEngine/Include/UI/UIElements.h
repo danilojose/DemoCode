@@ -140,6 +140,7 @@ class LabelWidget : public UIWidget
 protected:
 	std::string m_FontStyle;
 	std::string m_Text;
+	uint16_t m_Width;
 
 public:
 	/// <summary>
@@ -154,7 +155,7 @@ public:
 	/// <param name="positionX">The position x.</param>
 	/// <param name="positionY">The position y.</param>
 	/// <param name="text">The text.</param>
-	LabelWidget(uint32_t entityId,const std::string &fontStyle, uint32_t positionX, uint32_t positionY, const std::string &text);
+	LabelWidget(uint32_t entityId,const std::string &fontStyle, uint32_t positionX, uint32_t positionY, uint16_t width,const std::string &text);
 
 	/// <summary>
 	/// OnRenders this instance.
@@ -199,7 +200,7 @@ public:
 	/// <param name="binding">The binding.</param>
 	/// <param name="text">The default value of text.</param>
 	/// <param name="bindingText">The text.</param>
-	BindingLabelWidget(uint32_t entityId, const std::string &fontStyle, uint32_t positionX, uint32_t positionY, const std::string &binding, const std::string &text,
+	BindingLabelWidget(uint32_t entityId, const std::string &fontStyle, uint32_t positionX, uint32_t positionY, uint16_t width,const std::string &binding, const std::string &text,
 		const std::string &bindingText);
 
 	/// <summary>

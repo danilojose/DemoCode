@@ -2,14 +2,47 @@
 #include <System\Assert.h>
 
 const std::string StoneBehaviour::COMPONENT_NAME = "StoneBehaviour";
-
+extern GameLogic * g_pGameLogic;
 /// <summary>
 /// Behaves when the specified delta milliseconds have passed. It checks the output from the Input and depending on the fire rate decides if it can fire or not.
 /// </summary>
 /// <param name="deltaMilliseconds">The delta milliseconds.</param>
 void StoneBehaviour::OnUpdate(uint32_t deltaMilliseconds)
 {
-	
+	if (m_AIState==AISTATE::IDLE)
+	{
+		std::shared_ptr<Cell> cell = g_pGameLogic->GetWorld()->GetCellWhereEntityIsFound(m_Entity->GetID());
+		if (cell)
+		{
+			cell->UnLock();
+		}
+	}
+	else
+	{
+		if (!m_AIPath.empty())
+		{
+			if (m_CurrentNode != m_AIPath.end())
+			{
+				m_Entity->SetPosX(m_CurrentNode->first);
+				m_Entity->SetPosY(m_CurrentNode->second);
+				++m_CurrentNode;
+			}
+			else
+			{
+				m_AIPath.clear();
+				m_AIState = AISTATE::IDLE;
+				std::shared_ptr<Cell> oldCell = g_pGameLogic->GetWorld()->GetCellWhereEntityIsFound(m_Entity->GetID());
+				if (oldCell&&oldCell->GetEntity()->GetID() == m_Entity->GetID())
+				{
+					oldCell->Clear();
+				}
+				std::shared_ptr<Cell> newCell = g_pGameLogic->GetWorld()->GetCellAtWorldPosition(m_Entity->GetPosX(), m_Entity->GetPosY());
+				newCell->SetEntity(m_Entity);
+				newCell->UnLock();
+			}
+		}
+
+	}
 }
 
 /// <summary>
@@ -30,14 +63,14 @@ void StoneBehaviour::Build(JSONNode *descriptor)
 /// Clones the current Component
 /// </summary>
 /// <param name="descriptor">The descriptor.</param>
-std::shared_ptr<IComponent> StoneBehaviour::Clone()
+std::shared_ptr<IComponent> StoneBehaviour::Clone(Entity *entity)
 {
 	std::shared_ptr<StoneBehaviour> cloned = std::shared_ptr<StoneBehaviour>(GCC_NEW StoneBehaviour());
 	cloned->m_TimeBonus = this->m_TimeBonus;
 	cloned->m_Alive = this->m_Alive;
 	cloned->m_Points = this->m_Points;
-	IEventManager::Get()->VAddListener(cloned->m_pStoneBehaviourListener, EvtData_StoneMovementRequested::sk_EventType);
-
+	cloned->m_Entity = entity;
+	g_pGameLogic->AddBehaviour(cloned);
 	return cloned;
 }
 
@@ -59,64 +92,49 @@ void StoneBehaviour::CreateAIPath(const std::pair<uint16_t, uint16_t> &targetPos
 {
 	if (m_AIState == AISTATE::IDLE)
 	{
+		std::shared_ptr<Cell> oldCell = g_pGameLogic->GetWorld()->GetCellWhereEntityIsFound(m_Entity->GetID());
+		oldCell->Lock();
 		m_AIPath.clear();
 		std::pair<uint16_t, uint16_t> currentPosition(m_Entity->GetPosX(), m_Entity->GetPosY());
 		if ((middlePosition.first != 0) && (middlePosition.second != 0))
 		{
-			int8_t incX = (middlePosition.first - m_Entity->GetPosX())? 1:-1;
-			int8_t incY = (middlePosition.second - m_Entity->GetPosY())? 1:-1;
+			int8_t incX = ((middlePosition.first - m_Entity->GetPosX())>0)? 1:-1;
+			int8_t incY = ((middlePosition.second - m_Entity->GetPosY())>0)? 1:-1;
 
-			while (currentPosition.first != middlePosition.first&&currentPosition.second != middlePosition.second)
+			while (currentPosition.first != middlePosition.first || currentPosition.second != middlePosition.second)
 			{
 				if (currentPosition.first != middlePosition.first)
 				{
-					currentPosition.first = currentPosition.first + (incX * 10);
+					currentPosition.first = currentPosition.first + (incX * 5);
 				}
 				if (currentPosition.second != middlePosition.second)
 				{
-					currentPosition.second = currentPosition.second + (incY * 10);
+					currentPosition.second = currentPosition.second + (incY * 5);
 				}
 				m_AIPath.push_back(std::pair<uint16_t, uint16_t>(currentPosition.first, currentPosition.second));
 			}
 		}
 
-		int8_t incX = (targetPosition.first - currentPosition.first) ? 1 : -1;
-		int8_t incY = (targetPosition.second - currentPosition.second) ? 1 : -1;
+		int8_t incX = ((targetPosition.first - currentPosition.first)>0) ? 1 : -1;
+		int8_t incY = ((targetPosition.second - currentPosition.second)>0) ? 1 : -1;
 
-		while (currentPosition.first != targetPosition.first&&currentPosition.second != targetPosition.second)
+		while (currentPosition.first != targetPosition.first || currentPosition.second != targetPosition.second)
 		{
 			if (currentPosition.first != targetPosition.first)
 			{
-				currentPosition.first = currentPosition.first + (incX * 10);
+				currentPosition.first = currentPosition.first + (incX * 5);
 			}
 			if (currentPosition.second != targetPosition.second)
 			{
-				currentPosition.second = currentPosition.second + (incY * 10);
+				currentPosition.second = currentPosition.second + (incY * 5);
 			}
 			m_AIPath.push_back(std::pair<uint16_t, uint16_t>(currentPosition.first, currentPosition.second));
 		}
 
+		m_CurrentNode = m_AIPath.begin();
 		m_AIState = AISTATE::MOVING;
 	}
 
 
 }
 
-
-/// <summary>
-/// Handles the event. Entity Events right now... By now I am only creating fires, explosions and destroying actors (sic)
-/// </summary>
-/// <param name="event">The event.</param>
-/// <returns></returns>
-bool StoneBehaviourListener::HandleEvent(IEventData const & event) const
-{
-	EventType eventType = event.GetEventType();
-
-	if (eventType == EvtData_StoneMovementRequested::sk_EventType)
-	{
-		EvtData_StoneMovementRequested const & ed = static_cast< const EvtData_StoneMovementRequested & >(event);
-		m_Stone->CreateAIPath(ed.m_TargetPosition, ed.m_MiddlePosition);
-	}
-
-	return true;
-}

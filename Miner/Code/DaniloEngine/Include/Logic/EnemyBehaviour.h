@@ -12,11 +12,11 @@ namespace AI
 	class EnemyBehaviour : public IBehaviourComponent
 	{
 	private:
-		int m_MovementXSpeed;
-		int m_MovementYSpeed;
-		uint16_t m_FireRate;
-		uint16_t m_LastFire;
-		std::string m_SoundFire;
+		int												m_MovementXSpeed;
+		int												m_MovementYSpeed;
+		uint16_t										m_FireRate;
+		uint16_t										m_LastFire;
+		std::string										m_SoundFire;
 
 	public:
 
@@ -57,7 +57,7 @@ namespace AI
 		/// Clones the current Component
 		/// </summary>
 		/// <param name="descriptor">The descriptor.</param>
-		virtual std::shared_ptr<IComponent> Clone() override;
+		virtual std::shared_ptr<IComponent> Clone(Entity* entity) override;
 
 		/// <summary>
 		/// OnEntityEvent: This method is in charge of handling the events that are raised inside the entity domain to communicate one component with another.

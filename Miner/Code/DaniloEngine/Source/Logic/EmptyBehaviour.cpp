@@ -3,7 +3,7 @@
 using namespace AI;
 
 const std::string EmptyBehaviour::COMPONENT_NAME = "EmptyBehaviour";
-
+extern GameLogic* g_pGameLogic;
 /// <summary>
 /// Builds the specified Component using the specified descriptor.
 /// </summary>
@@ -18,10 +18,11 @@ void EmptyBehaviour::Build(JSONNode *descriptor)
 /// Clones the current Component
 /// </summary>
 /// <param name="descriptor">The descriptor.</param>
-std::shared_ptr<IComponent> EmptyBehaviour::Clone()
+std::shared_ptr<IComponent> EmptyBehaviour::Clone(Entity *entity)
 {
 	std::shared_ptr<EmptyBehaviour> cloned = std::shared_ptr<EmptyBehaviour>(GCC_NEW EmptyBehaviour());
-
+	cloned->m_Entity = entity;
+	g_pGameLogic->AddBehaviour(cloned);
 	return cloned;
 }
 

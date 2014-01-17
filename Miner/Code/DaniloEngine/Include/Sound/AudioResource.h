@@ -47,6 +47,9 @@ public:
 /// </summary>
 class SoundFxResHandle: public ResHandle
 {
+private:
+	enum SoundType									m_SoundType;			// is this an Ogg, WAV, etc.?
+	Mix_Chunk *										m_Phaser = nullptr;
 public:
 	/// <summary>
 	/// Initializes a new instance of the <see cref="SoundFxResHandle"/> class.
@@ -78,9 +81,6 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	virtual void Load() override;
-private:
-	enum SoundType m_SoundType;			// is this an Ogg, WAV, etc.?
-	Mix_Chunk *m_Phaser = nullptr;
 };
 
 

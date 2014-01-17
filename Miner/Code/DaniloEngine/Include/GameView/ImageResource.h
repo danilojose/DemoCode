@@ -33,6 +33,12 @@ namespace Graphics
 	/// </summary>
 	class ImageResHandle : public ResHandle
 	{
+	private:
+		SDL_Texture*								m_Texture;
+		uint32_t									m_Format;
+		int											m_Access;
+		int											m_Width;
+		int											m_Height;
 	public:
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ImageResHandle"/> class.
@@ -70,12 +76,7 @@ namespace Graphics
 		/// <returns></returns>
 		void Load() override;
 
-	private:
-		SDL_Texture *m_Texture = NULL;
-		uint32_t m_Format;
-		int m_Access;
-		int m_Width;
-		int m_Height;
+
 	};
 
 }

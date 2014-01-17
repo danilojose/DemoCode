@@ -30,6 +30,7 @@ ImageResHandle::ImageResHandle(Resource &r, const std::string &filename, ResCach
 {
 
 	ASSERT_DESCRIPTION(!filename.empty(), "Cannot load image without a filename!");
+	m_Texture = nullptr;
 
 }
 /// <summary>

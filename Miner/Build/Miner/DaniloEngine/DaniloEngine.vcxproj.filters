@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Collision">
-      <UniqueIdentifier>{87aa10c3-8338-4088-8403-c7e8e8f2cd76}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\GameView">
       <UniqueIdentifier>{a2f14454-0492-4a57-9243-37b38502dae8}</UniqueIdentifier>
     </Filter>
@@ -30,9 +27,6 @@
     </Filter>
     <Filter Include="Header Files\Sound">
       <UniqueIdentifier>{3ea22f90-e11e-4e52-9f56-85773d758f54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Collision">
-      <UniqueIdentifier>{c3dde36d-78ac-4a2f-aedb-ea629d730142}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\GameView">
       <UniqueIdentifier>{bd21c5ef-b6e6-4e75-ac72-e1dc0a9bd6b8}</UniqueIdentifier>
@@ -55,6 +49,12 @@
     <Filter Include="Source Files\3rdParty">
       <UniqueIdentifier>{cf49ffde-5a3d-432c-85f9-bcadf7bb4296}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{87aa10c3-8338-4088-8403-c7e8e8f2cd76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{c3dde36d-78ac-4a2f-aedb-ea629d730142}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\3rdParty\Input.h">
@@ -62,9 +62,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\3rdParty\System.h">
       <Filter>Header Files\3rdParty</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Collision\CollisionComponent.h">
-      <Filter>Header Files\Collision</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\AnimatedSpritesComponent.h">
       <Filter>Header Files\GameView</Filter>
@@ -91,9 +88,6 @@
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\IBehaviourComponent.h">
-      <Filter>Header Files\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\SimBinVadersLogic.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Sound\AudioResource.h">
@@ -126,9 +120,6 @@
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\FileSystemReader.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\GameOptions.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\HashedString.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
@@ -156,9 +147,6 @@
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\World.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Source\System\Spawner.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\SelectableSpritesComponent.h">
       <Filter>Header Files\GameView</Filter>
     </ClInclude>
@@ -168,8 +156,17 @@
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\UserControlledBehaviour.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Collision\PhysicsSystem.h">
-      <Filter>Header Files\Collision</Filter>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\GameLogic.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Physics\CollisionComponent.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Physics\PhysicsSystem.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>Header Files\Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +175,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\3rdParty\System.cpp">
       <Filter>Source Files\3rdParty</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Collision\CollisionComponent.cpp">
-      <Filter>Source Files\Collision</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\AnimatedSpritesComponent.cpp">
       <Filter>Source Files\GameView</Filter>
@@ -201,9 +195,6 @@
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\FireBehaviour.cpp">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\SimBinVadersLogic.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Sound\SoundSystem.cpp">
@@ -231,9 +222,6 @@
       <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\FileSystemReader.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\GameOptions.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\HashedString.cpp">
@@ -269,8 +257,14 @@
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\UserControlledBehaviour.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Collision\PhgysicsSystem.cpp">
-      <Filter>Source Files\Collision</Filter>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\GameLogic.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Physics\CollisionComponent.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Physics\PhysicsSystem.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,12 +1,15 @@
-﻿Build started 1/15/2014 9:11:27 PM.
+﻿Build started 1/17/2014 2:04:35 AM.
      1>Project "D:\GitHub\DemoCode\Miner\Build\Miner\SpaceTestProject\SpaceTestProject.vcxproj" on node 2 (Build target(s)).
+     1>Project "D:\GitHub\DemoCode\Miner\Build\Miner\SpaceTestProject\SpaceTestProject.vcxproj" (1) is building "D:\GitHub\DemoCode\Miner\Build\Miner\DaniloEngine\DaniloEngine.vcxproj" (2:3) on node 2 (GetResolvedLinkLibs target(s)).
+     2>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(381,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SpaceInvaders.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     2>Done Building Project "D:\GitHub\DemoCode\Miner\Build\Miner\DaniloEngine\DaniloEngine.vcxproj" (GetResolvedLinkLibs target(s)).
      1>Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\GitHub\DemoCode\Miner\Build\Miner\Debug\SpaceTestProject.dll" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\UnitTest\lib" DaniloEngine.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\GitHub\DemoCode\Miner\Build\Miner\Debug\SpaceTestProject.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\GitHub\DemoCode\Miner\Build\Miner\Debug\SpaceTestProject.lib" /MACHINE:X86 /DLL Debug\stdafx.obj
-         Debug\JSONTests.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\GitHub\DemoCode\Miner\Build\Miner\Debug\SpaceTestProject.dll" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\UnitTest\lib" DaniloEngine.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\GitHub\DemoCode\Miner\Build\Miner\Debug\SpaceTestProject.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\GitHub\DemoCode\Miner\Build\Miner\Debug\SpaceTestProject.lib" /MACHINE:X86 /DLL D:\GitHub\DemoCode\Miner\Build\Miner\SpaceTestProject\\Debug\stdafx.obj
+         D:\GitHub\DemoCode\Miner\Build\Miner\SpaceTestProject\\Debug\JSONTests.obj
          D:\GitHub\DemoCode\Miner\Build\Miner\Debug\DaniloEngine.lib
          SpaceTestProject.vcxproj -> D:\GitHub\DemoCode\Miner\Build\Miner\Debug\SpaceTestProject.dll
      1>Done Building Project "D:\GitHub\DemoCode\Miner\Build\Miner\SpaceTestProject\SpaceTestProject.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.11
+Time Elapsed 00:00:00.14

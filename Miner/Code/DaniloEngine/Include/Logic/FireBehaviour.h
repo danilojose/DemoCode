@@ -11,7 +11,7 @@ namespace AI
 	class FireBehaviour : public IBehaviourComponent
 	{
 	private:
-		int m_MovementSpeed;
+		int											m_MovementSpeed;
 
 	public:
 
@@ -50,7 +50,7 @@ namespace AI
 		/// Clones the current Component
 		/// </summary>
 		/// <param name="descriptor">The descriptor.</param>
-		virtual std::shared_ptr<IComponent> Clone() override;
+		virtual std::shared_ptr<IComponent> Clone(Entity* entity) override;
 
 		/// <summary>
 		/// OnEntityEvent: This method is in charge of handling the events that are raised inside the entity domain to communicate one component with another.

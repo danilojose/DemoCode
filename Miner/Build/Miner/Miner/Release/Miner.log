@@ -1,16 +1,6 @@
-﻿Build started 03/02/2014 16:51:54.
-     1>Project "D:\GitHub\DemoCode\Miner\Build\Miner\Miner\Miner.vcxproj" on node 2 (Rebuild target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\..\Code\Miner\Include\System\MinerEngine.cpp ..\..\..\Code\Miner\Include\System\MinerEntityEvents.cpp ..\..\..\Code\Miner\Source\Logic\GameBoardBehaviour.cpp ..\..\..\Code\Miner\Source\Logic\MinerGameLogic.cpp ..\..\..\Code\Miner\Source\Logic\MinerUserControlledBehaviour.cpp ..\..\..\Code\Miner\Source\Logic\StoneBehaviour.cpp ..\..\..\Code\Miner\Source\main.cpp ..\..\..\Code\Miner\Source\Physics\MinerPhysicsSystem.cpp
-         MinerEngine.cpp
-         MinerEntityEvents.cpp
-         GameBoardBehaviour.cpp
-         MinerGameLogic.cpp
-         MinerUserControlledBehaviour.cpp
-         StoneBehaviour.cpp
-         main.cpp
-         MinerPhysicsSystem.cpp
-       Link:
+﻿Build started 05/02/2014 17:45:44.
+     1>Project "D:\GitHub\DemoCode\Miner\Build\Miner\Miner\Miner.vcxproj" on node 2 (Build target(s)).
+     1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\GitHub\DemoCode\Miner\Build\Miner\Release\Miner.exe" /NOLOGO SDL2_ttf.lib SDL2.lib SDL2Main.lib SDL2_image.lib SDL2_mixer.lib DaniloEngine.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\GitHub\DemoCode\Miner\Build\Miner\Release\Miner.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\GitHub\DemoCode\Miner\Build\Miner\Release\Miner.lib" /MACHINE:X86 /SAFESEH Release\MinerEngine.obj
          Release\MinerEntityEvents.obj
          Release\GameBoardBehaviour.obj
@@ -23,8 +13,8 @@
          Generating code
          Finished generating code
          Miner.vcxproj -> D:\GitHub\DemoCode\Miner\Build\Miner\Release\Miner.exe
-     1>Done Building Project "D:\GitHub\DemoCode\Miner\Build\Miner\Miner\Miner.vcxproj" (Rebuild target(s)).
+     1>Done Building Project "D:\GitHub\DemoCode\Miner\Build\Miner\Miner\Miner.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:08.39
+Time Elapsed 00:00:04.12

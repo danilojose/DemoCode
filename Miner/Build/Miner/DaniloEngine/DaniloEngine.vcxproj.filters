@@ -78,15 +78,6 @@
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\StaticAnimatedSpritesComponent.h">
       <Filter>Header Files\GameView</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\EmptyBehaviour.h">
-      <Filter>Header Files\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\EnemyBehaviour.h">
-      <Filter>Header Files\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\FireBehaviour.h">
-      <Filter>Header Files\Logic</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\IBehaviourComponent.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
@@ -153,9 +144,6 @@
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\System\EntityEvents.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\UserControlledBehaviour.h">
-      <Filter>Header Files\Logic</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\GameLogic.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
@@ -187,15 +175,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\StaticAnimatedSpritesComponent.cpp">
       <Filter>Source Files\GameView</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\EmptyBehaviour.cpp">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\EnemyBehaviour.cpp">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\FireBehaviour.cpp">
-      <Filter>Source Files\Logic</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Sound\SoundSystem.cpp">
       <Filter>Source Files\Sound</Filter>
@@ -253,9 +232,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\System\EntityEvents.cpp">
       <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\UserControlledBehaviour.cpp">
-      <Filter>Source Files\Logic</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\GameLogic.cpp">
       <Filter>Source Files\Logic</Filter>

@@ -19,12 +19,8 @@
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\RenderSystem.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\SelectableSpritesComponent.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\GameView\StaticAnimatedSpritesComponent.h" />
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\EmptyBehaviour.h" />
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\EnemyBehaviour.h" />
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\FireBehaviour.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\IBehaviourComponent.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\GameLogic.h" />
-    <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Logic\UserControlledBehaviour.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Physics\CollisionComponent.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Physics\PhysicsSystem.h" />
     <ClInclude Include="..\..\..\Code\DaniloEngine\Include\Sound\AudioResource.h" />
@@ -57,11 +53,7 @@
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\RenderSystem.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\SelectableSpritesComponent.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\GameView\StaticAnimatedSpritesComponent.cpp" />
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\EmptyBehaviour.cpp" />
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\EnemyBehaviour.cpp" />
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\FireBehaviour.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\GameLogic.cpp" />
-    <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Logic\UserControlledBehaviour.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Physics\CollisionComponent.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="..\..\..\Code\DaniloEngine\Source\Sound\AudioResource.cpp" />

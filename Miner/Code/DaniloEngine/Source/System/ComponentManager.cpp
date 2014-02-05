@@ -4,7 +4,6 @@
 #include <Logic\EmptyBehaviour.h>
 #include <Logic\FireBehaviour.h>
 #include <Logic\EnemyBehaviour.h>
-#include <Logic\UserControlledBehaviour.h>
 #include <GameView\AnimatedSpritesComponent.h>
 #include <GameView\StaticAnimatedSpritesComponent.h>
 #include <GameView\SelectableSpritesComponent.h>
@@ -26,8 +25,6 @@ void ComponentManager::Init()
 	REGISTER_COMPONENT(SelectableSpritesComponent);
 	REGISTER_COMPONENT(AnimatedSpritesComponent);
 	REGISTER_COMPONENT(StaticAnimatedSpritesComponent);
-
-	REGISTER_COMPONENT(UserControlledBehaviour);
 
 	//...	
 }

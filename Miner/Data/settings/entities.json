@@ -106,7 +106,7 @@
 			{
 				"Name": "StoneBehaviour",
 				"Points" : 25,
-				"TimeBonus" : 5				
+				"TimeBonus" : 500				
 			}			
 
 		]
@@ -133,7 +133,7 @@
 			{
 				"Name": "StoneBehaviour",
 				"Points" : 50,
-				"TimeBonus" : 10				
+				"TimeBonus" : 1000				
 			}			
 			
 
@@ -160,7 +160,7 @@
 			{
 				"Name": "StoneBehaviour",
 				"Points" : 75,
-				"TimeBonus" : 15				
+				"TimeBonus" : 1500				
 			}			
 
 		]
@@ -186,7 +186,7 @@
 			{
 				"Name": "StoneBehaviour",
 				"Points" : 100,
-				"TimeBonus" : 20				
+				"TimeBonus" : 2000				
 			}			
 
 		]
@@ -212,7 +212,7 @@
 			{
 				"Name": "StoneBehaviour",
 				"Points" : 125,
-				"TimeBonus" : 25				
+				"TimeBonus" : 2500				
 			}			
 
 		]

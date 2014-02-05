@@ -1,0 +1,76 @@
+﻿Build started 03/02/2014 16:51:37.
+     1>Project "D:\GitHub\DemoCode\Miner\Build\Miner\DaniloEngine\DaniloEngine.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\..\Code\DaniloEngine\Source\3rdParty\Input.cpp ..\..\..\Code\DaniloEngine\Source\3rdParty\System.cpp ..\..\..\Code\DaniloEngine\Source\GameView\AnimatedSpritesComponent.cpp ..\..\..\Code\DaniloEngine\Source\GameView\ImageResource.cpp ..\..\..\Code\DaniloEngine\Source\GameView\RenderSystem.cpp ..\..\..\Code\DaniloEngine\Source\GameView\SelectableSpritesComponent.cpp ..\..\..\Code\DaniloEngine\Source\GameView\StaticAnimatedSpritesComponent.cpp ..\..\..\Code\DaniloEngine\Source\Logic\EmptyBehaviour.cpp ..\..\..\Code\DaniloEngine\Source\Logic\EnemyBehaviour.cpp ..\..\..\Code\DaniloEngine\Source\Logic\FireBehaviour.cpp ..\..\..\Code\DaniloEngine\Source\Logic\GameLogic.cpp ..\..\..\Code\DaniloEngine\Source\Logic\UserControlledBehaviour.cpp ..\..\..\Code\DaniloEngine\Source\Physics\CollisionComponent.cpp ..\..\..\Code\DaniloEngine\Source\Physics\PhysicsSystem.cpp ..\..\..\Code\DaniloEngine\Source\Sound\AudioResource.cpp ..\..\..\Code\DaniloEngine\Source\Sound\SoundSystem.cpp ..\..\..\Code\DaniloEngine\Source\System\Application.cpp ..\..\..\Code\DaniloEngine\Source\System\Assert.cpp ..\..\..\Code\DaniloEngine\Source\System\ComponentManager.cpp ..\..\..\Code\DaniloEngine\Source\System\Entity.cpp ..\..\..\Code\DaniloEngine\Source\System\EntityEvents.cpp ..\..\..\Code\DaniloEngine\Source\System\EntitySystem.cpp ..\..\..\Code\DaniloEngine\Source\System\EventManager.cpp ..\..\..\Code\DaniloEngine\Source\System\Events.cpp ..\..\..\Code\DaniloEngine\Source\System\FileSystemReader.cpp ..\..\..\Code\DaniloEngine\Source\System\HashedString.cpp ..\..\..\Code\DaniloEngine\Source\System\Resource.cpp ..\..\..\Code\DaniloEngine\Source\System\World.cpp ..\..\..\Code\DaniloEngine\Source\UI\FontResource.cpp ..\..\..\Code\DaniloEngine\Source\UI\FontSystem.cpp ..\..\..\Code\DaniloEngine\Source\UI\UIElements.cpp ..\..\..\Code\DaniloEngine\Source\UI\UISystem.cpp
+         Input.cpp
+         System.cpp
+         AnimatedSpritesComponent.cpp
+         ImageResource.cpp
+         RenderSystem.cpp
+         SelectableSpritesComponent.cpp
+         StaticAnimatedSpritesComponent.cpp
+         EmptyBehaviour.cpp
+         EnemyBehaviour.cpp
+         FireBehaviour.cpp
+         GameLogic.cpp
+         UserControlledBehaviour.cpp
+         CollisionComponent.cpp
+         PhysicsSystem.cpp
+         AudioResource.cpp
+         SoundSystem.cpp
+         Application.cpp
+         Assert.cpp
+         ComponentManager.cpp
+         Entity.cpp
+         Compiling...
+         EntityEvents.cpp
+         EntitySystem.cpp
+         EventManager.cpp
+         Events.cpp
+         FileSystemReader.cpp
+         HashedString.cpp
+         Resource.cpp
+         World.cpp
+         FontResource.cpp
+         FontSystem.cpp
+         UIElements.cpp
+         UISystem.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"D:\GitHub\DemoCode\Miner\Build\Miner\Release\DaniloEngine.lib" /NOLOGO /LTCG Release\Input.obj
+         Release\System.obj
+         Release\AnimatedSpritesComponent.obj
+         Release\ImageResource.obj
+         Release\RenderSystem.obj
+         Release\SelectableSpritesComponent.obj
+         Release\StaticAnimatedSpritesComponent.obj
+         Release\EmptyBehaviour.obj
+         Release\EnemyBehaviour.obj
+         Release\FireBehaviour.obj
+         Release\GameLogic.obj
+         Release\UserControlledBehaviour.obj
+         Release\CollisionComponent.obj
+         Release\PhysicsSystem.obj
+         Release\AudioResource.obj
+         Release\SoundSystem.obj
+         Release\Application.obj
+         Release\Assert.obj
+         Release\ComponentManager.obj
+         Release\Entity.obj
+         Release\EntityEvents.obj
+         Release\EntitySystem.obj
+         Release\EventManager.obj
+         Release\Events.obj
+         Release\FileSystemReader.obj
+         Release\HashedString.obj
+         Release\Resource.obj
+         Release\World.obj
+         Release\FontResource.obj
+         Release\FontSystem.obj
+         Release\UIElements.obj
+         Release\UISystem.obj
+         DaniloEngine.vcxproj -> D:\GitHub\DemoCode\Miner\Build\Miner\Release\DaniloEngine.lib
+     1>Done Building Project "D:\GitHub\DemoCode\Miner\Build\Miner\DaniloEngine\DaniloEngine.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:16.70

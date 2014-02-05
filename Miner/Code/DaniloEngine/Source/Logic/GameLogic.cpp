@@ -9,7 +9,7 @@ using namespace AI;
 /// Initializes a new instance of the <see cref="GameLogic"/> class.
 /// </summary>
 /// <param name="lives">The lives.</param>
-GameLogic::GameLogic() :m_Score(0), m_Lives(0), m_State(SB_Initializing), m_RenderDiagnostics(false)
+GameLogic::GameLogic() :m_Score(0), m_Lives(0), m_State(SB_Initializing), m_RenderDiagnostics(false), m_ContinueRunning(true)
 {
 	m_pAiEventListener = EventListenerPtr(GCC_NEW AiEventListener(this));
 	g_pGameLogic = this;

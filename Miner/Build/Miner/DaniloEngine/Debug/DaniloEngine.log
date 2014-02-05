@@ -1,7 +1,43 @@
-﻿Build started 1/17/2014 2:03:17 AM.
+﻿Build started 1/17/2014 3:49:04 AM.
      1>Project "D:\GitHub\DemoCode\Miner\Build\Miner\DaniloEngine\DaniloEngine.vcxproj" on node 2 (Build target(s)).
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(381,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SpaceInvaders.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-     1>Lib:
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D ENABLE_ASSERTS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\..\Code\DaniloEngine\Source\3rdParty\Input.cpp ..\..\..\Code\DaniloEngine\Source\3rdParty\System.cpp ..\..\..\Code\DaniloEngine\Source\GameView\AnimatedSpritesComponent.cpp ..\..\..\Code\DaniloEngine\Source\GameView\ImageResource.cpp ..\..\..\Code\DaniloEngine\Source\GameView\RenderSystem.cpp ..\..\..\Code\DaniloEngine\Source\GameView\SelectableSpritesComponent.cpp ..\..\..\Code\DaniloEngine\Source\GameView\StaticAnimatedSpritesComponent.cpp ..\..\..\Code\DaniloEngine\Source\Logic\EmptyBehaviour.cpp ..\..\..\Code\DaniloEngine\Source\Logic\EnemyBehaviour.cpp ..\..\..\Code\DaniloEngine\Source\Logic\FireBehaviour.cpp ..\..\..\Code\DaniloEngine\Source\Logic\GameLogic.cpp ..\..\..\Code\DaniloEngine\Source\Logic\UserControlledBehaviour.cpp ..\..\..\Code\DaniloEngine\Source\Physics\CollisionComponent.cpp ..\..\..\Code\DaniloEngine\Source\Physics\PhysicsSystem.cpp ..\..\..\Code\DaniloEngine\Source\Sound\AudioResource.cpp ..\..\..\Code\DaniloEngine\Source\Sound\SoundSystem.cpp ..\..\..\Code\DaniloEngine\Source\System\Application.cpp ..\..\..\Code\DaniloEngine\Source\System\Assert.cpp ..\..\..\Code\DaniloEngine\Source\System\ComponentManager.cpp ..\..\..\Code\DaniloEngine\Source\System\Entity.cpp ..\..\..\Code\DaniloEngine\Source\System\EntityEvents.cpp ..\..\..\Code\DaniloEngine\Source\System\EntitySystem.cpp ..\..\..\Code\DaniloEngine\Source\System\EventManager.cpp ..\..\..\Code\DaniloEngine\Source\System\Events.cpp ..\..\..\Code\DaniloEngine\Source\System\FileSystemReader.cpp ..\..\..\Code\DaniloEngine\Source\System\HashedString.cpp ..\..\..\Code\DaniloEngine\Source\System\Resource.cpp ..\..\..\Code\DaniloEngine\Source\System\World.cpp ..\..\..\Code\DaniloEngine\Source\UI\FontResource.cpp ..\..\..\Code\DaniloEngine\Source\UI\FontSystem.cpp ..\..\..\Code\DaniloEngine\Source\UI\UIElements.cpp ..\..\..\Code\DaniloEngine\Source\UI\UISystem.cpp
+         UISystem.cpp
+         UIElements.cpp
+         FontSystem.cpp
+         FontResource.cpp
+         World.cpp
+         Resource.cpp
+         HashedString.cpp
+         FileSystemReader.cpp
+         Events.cpp
+         EventManager.cpp
+         EntitySystem.cpp
+         EntityEvents.cpp
+         Entity.cpp
+         ComponentManager.cpp
+         Assert.cpp
+         Application.cpp
+         SoundSystem.cpp
+         AudioResource.cpp
+         PhysicsSystem.cpp
+         CollisionComponent.cpp
+         Generating Code...
+         Compiling...
+         UserControlledBehaviour.cpp
+         GameLogic.cpp
+         FireBehaviour.cpp
+         EnemyBehaviour.cpp
+         EmptyBehaviour.cpp
+         StaticAnimatedSpritesComponent.cpp
+         SelectableSpritesComponent.cpp
+         RenderSystem.cpp
+         ImageResource.cpp
+         AnimatedSpritesComponent.cpp
+         System.cpp
+         Input.cpp
+         Generating Code...
+       Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"D:\GitHub\DemoCode\Miner\Build\Miner\Debug\DaniloEngine.lib" /NOLOGO Debug\Input.obj
          Debug\System.obj
          Debug\AnimatedSpritesComponent.obj
@@ -39,4 +75,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.17
+Time Elapsed 00:00:17.50

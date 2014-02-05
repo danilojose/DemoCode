@@ -141,6 +141,7 @@ void GameBoardBehaviour::RunningStep(uint32_t deltaMilliseconds)
 			if ((currentIterator - currentEntity)>2)
 			{
 				uint16_t multiplier = (currentIterator - currentEntity) - 2;
+				IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_PlaySound("sounds\\explosion.wav")));
 				for (uint16_t i = currentEntity; i < currentIterator; i++)
 				{
 					DestroyCell(cellVector[i].get(), multiplier);
@@ -174,6 +175,7 @@ void GameBoardBehaviour::RunningStep(uint32_t deltaMilliseconds)
 			if ((currentIterator - currentEntity)>2)
 			{
 				uint16_t multiplier = (currentIterator - currentEntity) - 2;
+				IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_PlaySound("sounds\\explosion.wav")));
 				for (uint16_t i = currentEntity; i < currentIterator; i++)
 				{
 					DestroyCell(cellVector[i].get(), multiplier);
@@ -200,6 +202,7 @@ void GameBoardBehaviour::RunningStep(uint32_t deltaMilliseconds)
 			if ((currentIterator - currentEntity)>2)
 			{
 				uint16_t multiplier = (currentIterator - currentEntity) - 2;
+				IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_PlaySound("sounds\\explosion.wav")));
 				for (uint16_t i = currentEntity; i < currentIterator; i++)
 				{
 					DestroyCell(verticalCellVector[i].get(), multiplier);
@@ -232,6 +235,7 @@ void GameBoardBehaviour::RunningStep(uint32_t deltaMilliseconds)
 			if ((currentIterator - currentEntity)>2)
 			{
 				uint16_t multiplier = (currentIterator - currentEntity) - 2;
+				IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_PlaySound("sounds\\explosion.wav")));
 				for (uint16_t i = currentEntity; i < currentIterator; i++)
 				{
 					DestroyCell(verticalCellVector[i].get(), multiplier);
@@ -251,9 +255,21 @@ void GameBoardBehaviour::RunningStep(uint32_t deltaMilliseconds)
 /// <param name="multiplier">The Multiplier of the score and points.</param>
 void GameBoardBehaviour::DestroyCell(Cell *cell, uint16_t multiplier)
 {
-	uint32_t points = dynamic_cast<StoneBehaviour*>(cell->GetUpdatableEntity()->GetComponents()[1].get())->GetPoints();
-	g_pGameLogic->AddScore(points*multiplier);
+	for (auto &iter : cell->GetUpdatableEntity()->GetComponents())
+	{
+		unsigned long HashId = iter->GetHashId();
+		if (HashId == HashedString("StoneBehaviour").getHashValue())
+		{
+			StoneBehaviour * stone = dynamic_cast<StoneBehaviour*>(iter.get());
+
+			uint32_t points = stone->GetPoints();
+			g_pGameLogic->AddScore(points*multiplier);
+			g_pGameLogic->SetCurrentLives(g_pGameLogic->GetCurrentLives() +stone->GetTimeBonus()) ;
+		}
+	}
+
 	IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_DestroyActor(cell->GetEntity()->GetID())));
+
 	std::shared_ptr<Entity> explosion = g_pEntitySystem->CreateEntity("Explosion");
 	cell->SetEntity(explosion.get());
 	cell->Lock();
@@ -338,11 +354,6 @@ void GameBoardBehaviour::SwapCellEntities(const uint32_t &entityOne, const uint3
 	}
 	else
 	{
-		//IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(cellOne->GetEntity()->GetID(),
-		//	std::pair<uint16_t, uint16_t>(cellTwo->GetEntity()->GetPosX(), cellTwo->GetEntity()->GetPosY()), middlePoint)));
-
-		//IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(cellTwo->GetEntity()->GetID(),
-		//	std::pair<uint16_t, uint16_t>(cellOne->GetEntity()->GetPosX(), cellOne->GetEntity()->GetPosY()), middlePoint)));
 
 		IEventManager::Get()->VQueueEvent(IEventDataPtr(GCC_NEW EvtData_StoneMovementRequested(cellOne->GetEntity()->GetID(),
 			std::pair<uint16_t, uint16_t>(cellOne->GetEntity()->GetPosX(), cellOne->GetEntity()->GetPosY()), middlePoint)));

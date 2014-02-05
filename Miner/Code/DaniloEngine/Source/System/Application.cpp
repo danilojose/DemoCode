@@ -66,6 +66,11 @@ bool GameCodeApp::Update(uint32_t deltaTime)
 	bool bEntityUpdate=m_pEntitySystem->OnUpdate(deltaTime);
 	bool bLogicUpdate = m_pGame->OnUpdate(deltaTime);
 	bool bCollisionUpdate=m_pPhysicsSystem->OnUpdate(deltaTime);
+	if ((bEntityUpdate&&bLogicUpdate&&bCollisionUpdate)==false)
+	{
+		printf("prueba");
+	}
+
 	return bEntityUpdate&&bLogicUpdate&&bCollisionUpdate;
 }
 

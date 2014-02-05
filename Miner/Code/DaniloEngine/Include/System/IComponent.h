@@ -22,6 +22,12 @@ namespace GameSystem
 			{
 				return !m_Identifier.getStr().empty();
 			}
+
+			unsigned long GetHashId()
+			{
+				return m_Identifier.getHashValue();
+			}
+
 		
 	};
 	/// <summary>
@@ -46,11 +52,18 @@ namespace GameSystem
 		/// Sets the identifier.
 		/// </summary>
 		/// <param name="id">The identifier.</param>
-		virtual void SetID(const char *id) {
+		virtual inline void SetID(const char *id) {
 
 			m_Id = ComponentId(HashedString(id));
 		}
 
+		/// <summary>
+		/// Sets the identifier.
+		/// </summary>
+		/// <param name="id">The identifier.</param>
+		virtual inline unsigned long GetHashId() {
+			return m_Id.GetHashId();
+		}
 		/// <summary>
 		/// Sets the Entity that is the owner of this component.
 		/// </summary>

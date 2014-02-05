@@ -75,6 +75,8 @@ namespace AI
 		/// <param name="middlePosition">The middle position.</param>
 		void CreateAIPath(const std::pair<uint16_t, uint16_t> &targetPosition, const std::pair<uint16_t, uint16_t> &middlePosition);
 
+		inline uint16_t GetTimeBonus() { return m_TimeBonus; }
+
 
 	private:
 		void SwapCellEntities(const uint32_t &entityOne, const uint32_t &entityTwo);

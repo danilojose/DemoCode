@@ -85,12 +85,12 @@ bool MinerGameLogic::OnUpdate(uint32_t elapsedTime)
 	bool bContinueUpdating=GameLogic::OnUpdate(elapsedTime);
 	if (m_Lives <= elapsedTime)
 	{
-		bContinueUpdating = false;
+		m_ContinueRunning = false;
 	}
 	else
 	{
 		m_Lives -= elapsedTime;
 	}
-	return bContinueUpdating;
+	return bContinueUpdating&&m_ContinueRunning;
 }
 
